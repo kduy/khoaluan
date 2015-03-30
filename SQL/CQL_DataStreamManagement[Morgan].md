@@ -5,15 +5,29 @@
 which is used by the STREAM DSMS, is a powerful language that supports streams, relations, sliding windows, and negative tuples
 
 It contains three types of operators: 
-- relation-to-relation operators that are similar to standard relational operators, sliding windows that convert streams to time-varying relations
+- relation-to-relation operators that are similar to standard relational operators
+
+- stream-to-relation: sliding windows that convert streams to time-varying relations. There classes of sliding window operators in CQL:
+    + time-based
+    + tuple-based
+    + partioned
+    + other types: fixed windows, tumbling windows, value-based windows
 
 - relation-to-stream operators: Istream, Dstream and Rstream
 
-    * The **Istream**  operator compares the current output of the query (represented as a relation) with the output as of the current time minus one and returns only the new results. 
+    * The **Istream** ("insert stream")  operator compares the current output of the query (represented as a relation) with the output as of the current time minus one and returns only the new results. 
 
-    * In contrast, at any time, **Dstream** returns all the results that existed in the answer set at the current time minus one but do not exist at the current time. That is, Dstream returns all the negative tuples required to maintain a materialized view of the result. 
+    * In contrast, at any time, **Dstream** ("delete stream") returns all the results that existed in the answer set at the current time minus one but do not exist at the current time. That is, Dstream returns all the negative tuples required to maintain a materialized view of the result. 
 
-    * **Rstream** streams out the entire result at any given time.
+    * **Rstream** (relation stream) streams out the entire result at any given time.
+
+Note:  [4]
+```sql
+rstream(now) = istream(range unbound) = select all values just arrive now
+dstream(range 30 seconds) = select all values in the previous 30 seconds
+```
+More examples at :
+http://infolab.stanford.edu/stream/sqr/
 
 
 CQL supports sliding windows to convert streams to relations. Time-based windows of length N are specified with the **[RANGE N]** keyword following the reference to a stream. Count-based windows are denoted as **[ROWS N]**and partitioned windows on some attribute attr (recall Section 2.1.2) as **[PARTITION BY attr ROWS N]**. Win- dows containing only those tuples whose timestamps are equal to the current time are denoted as **[NOW]**, and a prefix of a stream up to now can be turned into a relation using **[RANGE UNBOUNDED]** or **[ROWS UNBOUNDED]**.
@@ -86,6 +100,21 @@ SELECT * FROM S SAMPLE(1)
 ![Selected CQL](./Selected_Continous_Query_Languages.png)
 
 For a broader comparison, we refer the interested reader to an article by [6]
+
+### Common Construct [4]
+1. Stream filters
+2. Stream-Relation joins
+3. Sliding-window joins
+4. Streaming aggregations
+
+### Example 
+http://infolab.stanford.edu/stream/sqr/
+
+### REWRITTING [4]
+1. Window Reduction
+2. Filter-window commutativity
+
+[4]: ArasuA,BabuS,WidomJ.The CQL continuous query language: semantic foundations and query execution. Very Large Databases Journal (VLDBJ). 2006;15(2):121–142.
 
 [5]: Lukasz Golab, M. Tamer Özsu. Data Stream Management. Synthesis Lectures on Data Management, Morgan & Claypool Publishers 2010   , page 9
 

@@ -1014,23 +1014,231 @@ body .markdown-body
     page-break-after: avoid;
   }
 }
-</style><title>DataStreamManagement[Morgan]</title></head><body><article class="markdown-body"><h3 id="cql-arasu-et-al-2006"><a name="user-content-cql-arasu-et-al-2006" href="#cql-arasu-et-al-2006" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>CQL [Arasu et al., 2006],</h3>
-<p>which is used by the STREAM DSMS, is a powerful language that supports streams, relations, sliding windows, and negative tuples</p>
-<p>It contains three types of operators: <br />
-- relation-to-relation operators that are similar to standard relational operators, sliding windows that convert streams to time-varying relations</p>
-<ul>
-<li>
-<p>relation-to-stream operators: Istream, Dstream and Rstream</p>
-<ul>
-<li>
-<p>The <strong>Istream</strong>  operator compares the current output of the query (represented as a relation) with the output as of the current time minus one and returns only the new results. </p>
-</li>
-<li>
-<p>In contrast, at any time, <strong>Dstream</strong> returns all the results that existed in the answer set at the current time minus one but do not exist at the current time. That is, Dstream returns all the negative tuples required to maintain a materialized view of the result. </p>
-</li>
-<li>
-<p><strong>Rstream</strong> streams out the entire result at any given time.</p>
-</li>
-</ul>
-</li>
-</ul></article></body></html>
+</style><title>reflect</title></head><body><article class="markdown-body"><h3 id="companion-object"><a name="user-content-companion-object" href="#companion-object" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>companion object</h3>
+<pre><code class="scala">    val tpe = weakTypeOf[T] // t
+    val companion = tpe.typeSymbol.companion
+</code></pre>
+
+<pre><code class="scala">import scala.reflect.runtime.universe._
+case class Person(name: String, age: Int)
+val person = Person(&quot;john&quot;, 24)
+</code></pre>
+
+<h3 id="type-of-object"><a name="user-content-type-of-object" href="#type-of-object" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>type of object</h3>
+<pre><code class="scala">val tpe = weakTypeOf[Person]
+tpe: reflect.runtime.universe.Type = Person
+</code></pre>
+
+<h3 id="list-of-instance-field-names"><a name="user-content-list-of-instance-field-names" href="#list-of-instance-field-names" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>list of instance field names</h3>
+<pre><code class="scala">val fields = tpe.decls.collectFirst {
+     |       case m: MethodSymbol if m.isPrimaryConstructor =&gt; m
+     |     }.get.paramLists.head
+
+val fields = tpe.members.filter(!_.isMethod).toList
+val fields = tpe.members.filter(_.isConstructor).head.asMethod.paramLists
+fields: List[reflect.runtime.universe.Symbol] = List(value name, value age)
+</code></pre>
+
+<h3 id="how-to-get-the-type-for-a-field-using-reflection-api"><a name="user-content-how-to-get-the-type-for-a-field-using-reflection-api" href="#how-to-get-the-type-for-a-field-using-reflection-api" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>how to get the &lsquo;type&rsquo; for a field using reflection api</h3>
+<pre><code class="scala">    scala&gt; typeOf[Account].members.filter(!_.isMethod).foreach(
+    sym =&gt; println(sym + &quot; is a &quot; + sym.typeSignature)
+  )
+variable accountNumber is a String
+variable name is a String
+</code></pre>
+
+<h3 id="type-of-a-given-instance-field"><a name="user-content-type-of-a-given-instance-field" href="#type-of-a-given-instance-field" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Type of a given instance field</h3>
+<p>scala&gt;       val returnType = tpe.decl(name).typeSignature // name: TermName<br />
+returnType: reflect.runtime.universe.Type = =&gt; String<br />
+<pre><code>
+```scala
+val field = fields.head
+field: reflect.runtime.universe.Symbol = value name
+</code></pre></p>
+<h3 id="symbol-has-a-type-converted-using-astermasmethod-termname"><a name="user-content-symbol-has-a-type-converted-using-astermasmethod-termname" href="#symbol-has-a-type-converted-using-astermasmethod-termname" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Symbol has a Type ,converted using asTerm/asMethod/&hellip;, TermName</h3>
+<pre><code class="scala">scala&gt; typeOf[Person].members.filter(!_.isMethod).head
+res152: ru.Symbol = value age
+
+scala&gt; typeOf[Person].members.filter(!_.isMethod).head.typeSignature
+res154: ru.Type = scala.Int
+
+scala&gt; typeOf[Person].members.filter(!_.isMethod).head.asTerm
+res155: ru.TermSymbol = value age
+
+scala&gt; typeOf[Person].members.filter(!_.isMethod).head.asTerm.name
+res156: ru.TermName = age
+</code></pre>
+
+<h3 id="symbol-termname"><a name="user-content-symbol-termname" href="#symbol-termname" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Symbol &mdash;&gt; TermName</h3>
+<pre><code class="scala">scala&gt; val name = field.name.toTermName // Symbol-&gt;NameType-&gt;TermName
+name: reflect.runtime.universe.TermName = name
+
+Scala: field.asTerm.name   // Symbol -&gt; TermSymbol -&gt; TermName
+
+### decode Symbol to String
+scala&gt;       val decoded = name.decodedName.toString  //&quot;k$minusduy -&gt; &quot;k-duy&quot; 
+decoded: String = name
+
+
+
+
+```scala
+val (toMapParams, fromMapParams) = fields.map { field =&gt;
+     |       val name = field.name.toTermName
+     |       val decoded = name.decodedName.toString
+     |       val returnType = tpe.decl(name).typeSignature
+     |
+     |       (q&quot;$decoded -&gt; t.$name&quot;, q&quot;map($decoded).asInstanceOf[$returnType]&quot;)
+     |     }.unzip
+
+// (&quot;name&quot; -&gt; &quot;John&quot;, map(&quot;name&quot;).asIstanceOf[String])
+//$decodeed : String
+//$name : TermName
+//$returnType: Type
+
+toMapParams: List[reflect.runtime.universe.Tree] = List(&quot;name&quot;.$minus$greater(t.name), &quot;age&quot;.$minus$greater(t.age))
+
+fromMapParams: List[reflect.runtime.universe.Tree] = List(map(&quot;name&quot;).asInstanceOf[=&gt; String], map(&quot;age&quot;).asInstanceOf[=&gt; scala.Int])
+</code></pre>
+
+<h3 id="quasiquote"><a name="user-content-quasiquote" href="#quasiquote" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>quasiquote</h3>
+<pre><code class="scala">c.Expr[Mappable[T]] { q&quot;&quot;&quot;
+      new Mappable[$tpe] {
+        def toMap(t: $tpe): Map[String, Any] = Map(..$toMapParams)
+        def fromMap(map: Map[String, Any]): $tpe = $companion(..$fromMapParams)
+      }
+    &quot;&quot;&quot; }
+//val companion = tpe.typeSymbol.companion
+//companion: reflect.runtime.universe.Symbol = object Person
+//$tpe: Type
+//..$toMapParams : List[Tree]
+</code></pre>
+
+<h3 id="context-bound-and-weaktypetag-or-typetag"><a name="user-content-context-bound-and-weaktypetag-or-typetag" href="#context-bound-and-weaktypetag-or-typetag" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>context bound and WeakTypeTag (or TypeTag)</h3>
+<pre><code class="scala">def toType2[T](t: T)(implicit tag: WeakTypeTag[T]): Type = tag.tpe // -&gt; tpe      
+def toType[T : WeakTypeTag](t: T): Type = typeOf[T]   // -&gt; tpe
+</code></pre>
+
+<h3 id="import-universe"><a name="user-content-import-universe" href="#import-universe" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>import universe</h3>
+<pre><code class="scala">val ru = scala.reflect.runtime.universe
+val tpe = ru.typeOf[Int] // -&gt; tpe: ru.Type = Int
+</code></pre>
+
+<h3 id="method-symbol"><a name="user-content-method-symbol" href="#method-symbol" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Method Symbol</h3>
+<pre><code class="scala">val methodX = ru.typeOf[C].declaration(ru.newTermName(&quot;x&quot;)).asMethod // ru -&gt; Type -&gt; Symbol -&gt; MethodSymbol
+methodX: scala.reflect.runtime.universe.MethodSymbol = method x
+</code></pre>
+
+<h3 id="class-symbol"><a name="user-content-class-symbol" href="#class-symbol" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Class Symbol</h3>
+<pre><code class="scala">ru.typeOf[C].typeSymbol.asClass   // -&gt; ru -&gt; Type -&gt; Symbol -&gt; ClassSymbol 
+classC: scala.reflect.runtime.universe.ClassSymbol = class C
+</code></pre>
+
+<h3 id="reify-and-splice"><a name="user-content-reify-and-splice" href="#reify-and-splice" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>reify and splice</h3>
+<pre><code class="scala">scala&gt; var a = reify{&quot;2&quot;}
+a: ru.Expr[String] = Expr[String(&quot;2&quot;)](&quot;2&quot;)
+
+scala&gt; reify{a.splice}  // Expr.slice 
+res191: ru.Expr[String] = Expr[String](&quot;2&quot;)
+
+scala&gt; reify{a.splice}.tree
+res192: ru.Tree = &quot;2&quot;
+
+scala&gt; showRaw(res192)
+res193: String = Literal(Constant(&quot;2&quot;))
+
+</code></pre>
+
+<h3 id="conducting-an-assignment"><a name="user-content-conducting-an-assignment" href="#conducting-an-assignment" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>conducting an assignment</h3>
+<pre><code class="scala">scala&gt; val freshName = TermName(&quot;eval&quot;)
+freshName: ru.TermName = eval
+
+scala&gt; Ident(freshName)
+res189: ru.Ident = eval
+
+scala&gt; val tpe = typeOf[Int]
+tpe: ru.Type = Int
+
+scala&gt; ValDef(Modifiers(), freshName, TypeTree(tpe), reify{&quot;2&quot;}.tree)
+res188: ru.ValDef = val eval: Int = &quot;2&quot;
+// now eval = 2
+</code></pre>
+
+<h3 id="using-splice-in-macro-to-print-value"><a name="user-content-using-splice-in-macro-to-print-value" href="#using-splice-in-macro-to-print-value" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>using splice in macro to print value</h3>
+<pre><code class="scala">scala&gt; reify{val x =2}
+res215: ru.Expr[Unit] =
+Expr[Unit]({
+  val x = 2;
+  ()
+})
+
+scala&gt; reify{println(res215.splice)} // -&gt; Expr[Unit]
+res216: ru.Tree =
+Predef.println({
+  val x = 2;
+  ()
+})
+</code></pre>
+
+<pre><code class="scala">
+</code></pre>
+
+<pre><code class="scala">
+</code></pre>
+
+<pre><code class="scala">
+</code></pre>
+
+<pre><code class="scala">
+</code></pre>
+
+<pre><code class="scala">
+</code></pre>
+
+<pre><code class="scala">
+</code></pre>
+
+<pre><code class="scala">
+</code></pre>
+
+<pre><code class="scala">
+</code></pre>
+
+<pre><code class="scala">
+</code></pre>
+
+<pre><code class="scala">
+</code></pre>
+
+<pre><code class="scala">
+</code></pre>
+
+<pre><code class="scala">
+</code></pre>
+
+<pre><code class="scala">
+</code></pre>
+
+<pre><code class="scala">
+</code></pre>
+
+<pre><code class="scala">
+</code></pre>
+
+<pre><code class="scala">
+</code></pre>
+
+<pre><code class="scala">
+</code></pre>
+
+<pre><code class="scala">
+</code></pre>
+
+<pre><code class="scala">
+</code></pre>
+
+<pre><code class="scala">
+</code></pre>
+
+<pre><code class="scala">
+</code></pre></article></body></html>

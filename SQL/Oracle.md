@@ -1,4 +1,4 @@
-#I. [Key CQL Concept][1]
+#I. [Key Oracle CQL Concept][1]
 
 Oracle offers Oracle Continuous Query Language (Oracle CQL), a query language based on SQL with added constructs that support streaming data. Oracle CQL is designed to be:
 
@@ -27,13 +27,9 @@ The term base relation is used for input relations and derived relation for rela
 ##Operators
 
 There are three classes of operators used with streams and relations in CEP:
-    • Relation-to-Relation – These operators take 1 or more relations as inputs (depending on the specific operator) and produce a relation as output.
-
-    Examples are Join, Select (Filter), and Project etc A CQL stream-to relation operator takes a stream as input and produces a relation as output.
-
-    • Stream-to-Relation – These operators take a stream as input and produce a relation as output. The concept of a window over a stream can be used to define operators belonging to this class. Unlike relational database tables, data streams typically do not end. It is therefore useful to be able to define windows, or subsets of the streams. CQL supports 6 types of windows: Time, Row, Partition, Predicate, Extensible and Landmark.
-
-    • Relation-to-Stream – These operators take a relation as input and produce a stream as output. CQL supports 3 Relation-to-Stream operators: Insert Stream (IStream), Delete Stream (DStream), and Relation Stream (RStream).
+- Relation-to-Relation – These operators take 1 or more relations as inputs (depending on the specific operator) and produce a relation as output.Examples are Join, Select (Filter), and Project etc A CQL stream-to relation operator takes a stream as input and produces a relation as output.
+- Stream-to-Relation – These operators take a stream as input and produce a relation as output. The concept of a window over a stream can be used to define operators belonging to this class. Unlike relational database tables, data streams typically do not end. It is therefore useful to be able to define windows, or subsets of the streams. CQL supports 6 types of windows: Time, Row, Partition, Predicate, Extensible and Landmark.
+- Relation-to-Stream – These operators take a relation as input and produce a stream as output. CQL supports 3 Relation-to-Stream operators: Insert Stream (IStream), Delete Stream (DStream), and Relation Stream (RStream).
 
 ##Functions
 

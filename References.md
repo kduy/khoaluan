@@ -12,3 +12,9 @@
 page 2917 - 2923
 
 [7][Streambase System, StreamSQL online docs](http://streambase.com/developers/docs/latest/streamsql/index)
+
+[8][BNF Grammar for ISO/IEC 9075-2:2003 - Database Language SQL (SQL-2003) SQL/Foundation](http://savage.net.au/SQL/sql-2003-2.bnf.html)
+
+[9][Database SQL Language Reference] (http://docs.oracle.com/cd/B28359_01/server.111/b28286/wnsql.htm#SQLRF000)
+
+[10]http://en.wikibooks.org/wiki/SQL_Dialects_Reference
