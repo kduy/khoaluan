@@ -2,18 +2,59 @@
 
 1. Source
 
-- `socketTextStream(hostname, port)`
-- `readTextStream(filepath)`
-- `generateSequence(from, to)`
-- `fromElements(elements…)`
-- `fromCollection(collection)`
-- `readTextFile(filepath)`
+```sql
+CREATE STREAM OpenAuction( itemID int, price real , start_time timestamp)
+    ORDER BY start_time
+    SOURCE 'port4445'
+```
 
+- `socketTextStream(hostname, port)`
+```sql
+SOURCE HOST ('localhost',4445)
+```
+- `readTextStream(filepath)`
+```sql
+SOURCE FILE ('/temp/file.txt')
+```
+
+- `generateSequence(from, to)`
+```sql
+    SOURCE SEQ (1,1000)
+```
+
+- `fromElements(elements…)`
+`\\TODO`
+- `fromCollection(collection)`:   
+`\\TODO`
+- `readTextFile(filepath)`
+`\\TODO`
+
+
+- deriving a new Data Stream
+```sql
+CREATE STREAM expensiveItem AS 
+    SELECT itemId, price, start_time
+    FROM OpenAuction WHERE price > 1000 
+```
+
+- streambase
+```sql
+CREATE SCHEMA SymbolSchema (ID int, Symbol string, Price double);
+CREATE STREAM Input1 SymbolSchema;
+```
 2. Sink
+```sql
+SELECT * >> '/temp/output.txt'
+FROM OpenAuction
+```
 - `dataStream.writeAsText(parameters)`
 - `dataStream.writeAsCsv(parameters)`
 - `dataStream.print()`
+
 3. Partitioning 
+```sql
+
+```
 - *Forward*(default) :  Usage : `dataStream.forward()`
 - *Shuffle*:            Usage: `dataStream.shuffle()`
 - *Distribute*:         Usage: `dataStream.distributed()`
@@ -22,14 +63,15 @@
 - *Global*:             Usage: `operator.setParallelism(1)`
 
 4. Operations
-- Basic : Map, Flatmap, Reduce, Merge
+- Basic : Map, Flatmap, Reduce, Merge, Filter
 - Grouped operator: `groupBy(key) -> GroupedDataStream`
     + Reduce on GroupedDataStream: `ReduceFunction`
 - Aggregations: `sum`,  `min`, `max`, `minby`, `maxBy`
 - Window/batch operator
+- 
 - Window operator
-    +   `DataStream.window` -> `WindowedDataStream` (Stream2Relation)
-    +   `WindowedDataStream.flatten()` -> `DataStream` (Relation2Stream)
+    +   `DataStream.window` -> `WindowedDataStream`
+    +   `WindowedDataStream.flatten()` -> `DataStream`
     + Policy based
         * TriggerPolicy : `every(...)`
             - delta-based
