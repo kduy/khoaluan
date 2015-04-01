@@ -129,9 +129,39 @@ test_expression [NOT] REGEXP pattern_expression
 WHERE name REGEXP '*Jack*'
 ```
 
+
+
+## Build-in Func
+
+### Aggregate Func
+`sum`, `min`, `max`, `minBy`, `maxBy`, `avg/count?`
+
+```sql
+MAX(expression, expression [, expression [,...])
+```
+```sql
+aggregate_function( [ALL | DISTINCT] expression)
+AVG(price * 2)
+```
+```sql
+SUM([ALL|DISTINCT] expression)
+```
+###Coversion Func
+`cast`
+```sql
+cast(price, double)
+```
+
+### Data & Time Func
+`day`, `month`, `year` ...
+
+### String func
+`substring`
+
 ## Data Definition Language (DDL)
 ### create stream
 ```sql
+// streamBase
 CREATE STREAM OpenAuction( itemID int, price real , start_time timestamp)
     ORDER BY start_time
     SOURCE 'port4445'
@@ -140,6 +170,13 @@ CREATE STREAM OpenAuction( itemID int, price real , start_time timestamp)
 ```sql
 CREATE SCHEMA SymbolSchema (ID int, Symbol string, Price double);
 CREATE STREAM Input1 SymbolSchema;
+```
+
+```sql
+CREATE STREAM source_stream_identifier (field_identifier_1 field_type_1) SOURCE ...;
+CREATE STREAM stream_identifier (field_identifier_2 field_type_1);
+SELECT field_identifier_1 AS field_identifier_2 FROM source_stream_identifier 
+  INTO stream_identifier
 ```
 
 
@@ -176,9 +213,15 @@ JOIN stream_expression ON prop_name = prop_name)* // outer join
 (, stream_expression )* // inner join
 ```
 
+### cross
+
+
+### merge ??????? 
+
+
 ### retain
 ```sql
-RETAIN
+RETAIN // from Oracle EPL
 ( ALL [EVENTS] ) |
 ( [BATCH OF]
     ( integer (EVENT|EVENTS) ) | ( time_interval (BASED ON prop_name)* ) ( WITH [n] (LARGEST | SMALLEST | UNIQUE) prop_name )*
@@ -205,23 +248,94 @@ HAVING expression
 ORDER BY expression [ASC | DESC] [, expression [ASC | DESC] [,...]]
 ```
 ## Windowing
+Note that a tumbling window is simply a hopping window whose ‘hop’ is equal to its ‘size’
+
+### Windowed DataStream(Stream to Relation)
+
+- Policy based
+        * TriggerPolicy : `every(...)`
+            - delta-based
+            - punctuation-based
+            - count-based (tubple-based)
+            - time-based
+        * EvictionPolicy: `window(...)`
+```sql
+// oracle EPL
+FROM StockTick RETAIN 100 EVENTS
+FROM StockTick RETAIN 1 MINUTE
+RETAIN BATCH OF 100 EVENTS
+RETAIN 1 MINUTE BASED ON timestamp //delta-based
+```
+
+
+```sql
+//CQL
+FROM stream_name [Range 1 minute
+                    Slide 1 minute]
+FROM stream_name [Rows 100
+                    Slide 1 minute]
+```
+
+```sql
+//stream mill: SQL 2003
+SELECT itemId, sum(price)
+    OVER (PARTITION BY itemID
+        ROWS 49 PRECEDING SLICE 10)
+FROM bid
+```
+
+```SQL
+//ATLAS
+FROM bid  b [PARTITION BY b.customerID
+            ROWS 10 
+            PRECEDING WHERE b.type = 'Long Distance' ] // could apply for delta-based
+```
+
+```sql
+//EsperTech
+￼select * from Withdrawal.win:time(4 sec)
+ select * from StockTickEvent.win:length(10)
+```
+- Partition:
+    + *Forward*(default) :  Usage : `dataStream.forward()`
+    + *Shuffle*:            Usage: `dataStream.shuffle()`
+    + *Distribute*:         Usage: `dataStream.distributed()`
+    + *Field/key*:          this partitions is applied when using the `groupBy` operators. 
+    ```scala
+    dataStream.groupBy(groupingField).window(Count.of(100)).every(…).max(field)
+    ```
+    + *Broadcast*:          Usage: `dataStream:broadcast()`
+    + *Global*:             Usage: `operator.setParallelism(1)`
+
+
+```sql
+// oracle EPL
+RETAIN 3 EVENTS PARTITION BY stockSymbol
+```
+
+- Operation
+    + Reduce/aggregate
+    + Map
+    + GroupBy
+    + Global/local
 
 
 
-## Build-in Func
+### Connected DataStream
+- Map
+- Flat
+- WindowReduce
+- Reduce
 
-### Aggregate Func
-`sum`, `min`, `max`, `minBy`, `maxBy`
 
-###Coversion Func
-`cast`
-
-### Data & Time Func
-`day`, `month`, `year` ...
-
-### String func
-`substring`
-
+## appendix
+```sql
+time_interval: [day-part][hour-part][minute-part][seconds-part][milliseconds-part]
+day-part: number ("days" | "day") hour-part: number ("hours" | "hour" | "hr")
+minute-part: number ("minutes" | "minute" | "min")
+seconds-part: number ("seconds" | "second" | "sec")
+milliseconds-part: number ("milliseconds" | "millisecond" | "msec" | "ms")
+```
 
 
 
@@ -234,3 +348,4 @@ ORDER BY expression [ASC | DESC] [, expression [ASC | DESC] [,...]]
 [2]: [Oracle BEA. EPL Reference Guide. Oracle; 2011](http://docs.oracle.com/cd/E13157_01/wlevs/docs30/epl_guide/index.html) epl_guide.pdf
 
 [b]: [scala type] (http://www.tutorialspoint.com/scala/scala_data_types.htm)
+[c]: [java<->jdbc type]http://www.cis.upenn.edu/~bcpierce/courses/629/jdkdocs/guide/jdbc/getstart/mapping.doc.html
