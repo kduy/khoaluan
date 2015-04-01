@@ -216,7 +216,12 @@ JOIN stream_expression ON prop_name = prop_name)* // outer join
 ### cross
 
 
-### merge ??????? 
+### merge  
+
+```sql
+\\EsperTech
+    insert into MergedStream select * from OrderEvent
+```
 
 
 ### retain
@@ -246,6 +251,16 @@ HAVING expression
 ### OrderBy
 ```sql
 ORDER BY expression [ASC | DESC] [, expression [ASC | DESC] [,...]]
+```
+
+
+### spliting
+```sql
+// EsperTech
+on OrderEvent
+  insert into LargeOrders select orderId, customer where orderQty >= 100
+  insert into MediumOrders select orderId, customer where orderQty between 20 and 100
+  insert into SmallOrders select orderId, customer where orderQty > 0
 ```
 ## Windowing
 Note that a tumbling window is simply a hopping window whose ‘hop’ is equal to its ‘size’
@@ -304,6 +319,10 @@ FROM bid  b [PARTITION BY b.customerID
     ```scala
     dataStream.groupBy(groupingField).window(Count.of(100)).every(…).max(field)
     ```
+    ```sql
+    \\EsperTech
+    ￼select symbol, sum(price) from StockTickEvent.win:time(30 sec) group by symbol
+    ```
     + *Broadcast*:          Usage: `dataStream:broadcast()`
     + *Global*:             Usage: `operator.setParallelism(1)`
 
@@ -326,6 +345,8 @@ RETAIN 3 EVENTS PARTITION BY stockSymbol
 - Flat
 - WindowReduce
 - Reduce
+
+
 
 
 ## appendix
