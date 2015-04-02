@@ -370,3 +370,4 @@ milliseconds-part: number ("milliseconds" | "millisecond" | "msec" | "ms")
 
 [b]: [scala type] (http://www.tutorialspoint.com/scala/scala_data_types.htm)
 [c]: [java<->jdbc type]http://www.cis.upenn.edu/~bcpierce/courses/629/jdkdocs/guide/jdbc/getstart/mapping.doc.html
+[d]: [scala operators](http://www.tutorialspoint.com/scala/scala_operators.htm)

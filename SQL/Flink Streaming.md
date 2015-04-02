@@ -198,7 +198,7 @@ Currently _join_ and _cross_ operation are supported on _time windows_
         .where(key_in_first)
         .equalTo(key_in_second)
 ```
-- *Cross* : combines two DataStreams into one DataStream.  it builds a temporal Cartesian product.
+- * * : combines two DataStreams into one DataStream.  it builds a temporal Cartesian product.
 ```scala
 dataStream1 cross dataStream2 onWindow (windowing_params)
 ```
