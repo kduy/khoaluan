@@ -1,5 +1,33 @@
 
+<!-- MarkdownTOC -->
 
+- I. implicit argument
+  - 1. Implicit argument with values val/var
+  - 2. implicit function argument
+  - 3. Using  `implicitly`
+- II. Scenarios for implicit Argument
+  - 1. Execution Contexts
+  - 2. Capacibilities
+  - 3. Constraining Allowed Instances
+  - 4. Implicit Evidence
+  - 5. Working Around Erasure
+  - 6. Improving Error Messages
+  - 7. Phantom Types
+  - 8. Rules for Implicits Arguments
+- II. Lookup Implicit
+- IV. Implicit Conversion
+  - 1. implicit function
+  - 2. Implicit class
+  - 3. View bound / upper bound / lower bound
+- V. Type class Pattern
+- VI. Technical issues with Implicits
+- VII. Implicit Resolution Rules
+- VIII. Scala's built-in implicit
+- IX. Best Practices
+  - implicitly and context bound
+  - macro
+
+<!-- /MarkdownTOC -->
 
 ## I. implicit argument
 
@@ -93,9 +121,19 @@ list sortBy2 (i => -i) //List(5, 4, 3, 2, 1)
 
 ```
 
-### II. Scenarios for implicit Argument
 
-#### 1. Execution Contexts
+Context bounds are more useful when you just need to pass them to other methods that use them. For example, the method sorted on Seq needs an implicit Ordering. To create a method reverseSort, one could write:
+```scala
+def reverseSort[T : Ordering](seq: Seq[T]) = seq.reverse.sorted
+```
+```scala
+def reverseSort[T](seq: `package`.Seq[T])(implicit evidence$1: `package`.Ordering[T]) = seq.reverse.sorted(evidence$1);
+```
+Because Ordering[T] was implicitly passed to reverseSort and the method sorted takes an implicit Ordering,  it can then pass it implicitly to sorted
+
+## II. Scenarios for implicit Argument
+
+### 1. Execution Contexts
 
 Passing context:
 ```scala
@@ -109,7 +147,7 @@ apply[T](body: => T)(implicit executor: ExecutionContext): Future[T]
 
 Other example contexts : transactions, database connections, thread pools, and user sessions
 
-#### 2. Capacibilities
+### 2. Capacibilities
 **Case**: an implicit user session arg may contain Authorization Tokens that control whether or not a certain API can be called for that user
 
 ```scala
@@ -121,7 +159,7 @@ def createMenu(implicit session: Session): Menu = { // implicit user session
 }
 ```
 
-#### 3. Constraining Allowed Instances
+### 3. Constraining Allowed Instances
 
 we can use an implicit argument to limit the allowed types
 
@@ -184,7 +222,7 @@ Example:
     }
 ```
 
-#### 4. Implicit Evidence
+### 4. Implicit Evidence
 **Why**To constrains the allowed types, but doesn’t require them to conform to a common super‐type.
 
 _“evidence” only has to exist to enforce a type constraint_
@@ -216,7 +254,7 @@ l1.toMap
 ```
 **Note**: With implicit evidence, we didn’t use the implicit object in the computation. Rather, we only used its existence as confirmation that certain type constraints were satisfied.
 
-#### Working Around Erasure
+### 5. Working Around Erasure
 Another example where the implicit object _only provides evidence is a technique for working around limitations due to type erasure._
 **Why**: the JVM “forgets” the type arguments for parameterized types. For example, consider the following definitions for an overloaded method
 -> make the compiler confused
@@ -244,7 +282,7 @@ m(List("one", "two", "three"))
 
 Note the type, `IntMarker.type`. This is how to reference the type of a singleton object
 
-#### Improving Error Messages
+### 6. Improving Error Messages
 ```scala
   //when it can’t find an implicit value for an implicit argument
   @implicitNotFound(msg =
@@ -252,7 +290,7 @@ Note the type, `IntMarker.type`. This is how to reference the type of a singleto
   trait CanBuildFrom[-From, -Elem, +To] {...}
 ```
 
-#### Phantom Types
+### 7. Phantom Types
 Phantom types are very useful for defining work flows that must proceed in a particular order. 
 
 When such types are defined that have no instances at all, they are called phantom types. we only care that the type exists. _It functions as a “marker.” _We won’t actually use any instances of it.
@@ -295,7 +333,7 @@ Pipeline
 
 ```
 
-#### Rules for Implicits Arguments
+### 8. Rules for Implicits Arguments
 
 1. Only the last argument list,including the only list for a single-list method, can have implicit arguments.
 
@@ -313,7 +351,7 @@ scala> class Good2 {
 ```
 
 
-## Lookup Implicit
+##III. Lookup Implicit
 
 Here is a summary of the lookup rules used by the compiler to find and apply conver‐ sions methods:
 
@@ -360,10 +398,10 @@ Here is a summary of the lookup rules used by the compiler to find and apply con
 
 5. No conversion is attempted if more than one possible conversion method could be applied. There must be one and only one, unambiguous possibility.
 
-## Implicit Conversion
+## IV. Implicit Conversion
 _The idea is to be able to extend an existing class with new methods in a type safe manner_. 
 
-### implicit function
+### 1. implicit function
 
 Essentially what happens is a developer defines an implicit method (or imports an implicit method) which converts one object from one type to another type. Once the implicit method is within scope all methods are available from both types.
 
@@ -381,7 +419,7 @@ Essentially what happens is a developer defines an implicit method (or imports a
 
 
 
-### Implicit class
+### 2. Implicit class
 
 http://docs.scala-lang.org/sips/completed/implicit-classes.html
 
@@ -402,7 +440,6 @@ implicit final def RichInt(n: Int): RichInt = new RichInt(n)
 ```
 
 Now can call `2.min`
------------
 
 **Example** : using an implicit conversion in the usual way to “extend” `StringContext` with new methods.
 
@@ -442,22 +479,93 @@ StringContext.apply("{name: ", ", book: ", "}").s($read.name, $read.book)
 ```
 
 
+### 3. View bound / upper bound / lower bound
+
+There’s one situation where an implicit is both an implicit conversion and an implicit parameter. For example:
+```scala
+def getIndex[T, CC](seq: CC, value: T)(implicit conv: CC => Seq[T]) = 
+    seq.indexOf(value)  //conv(seq).indexOf(value)
+getIndex("abc", 'a')
+```
+is equivalent to 
+```scala
+// view bounds
+def getIndex[T, CC <% Seq[T]](seq: CC, value: T) = seq.indexOf(value)
+```
+
+This syntactic sugar is described as a view bound, akin to an upper bound (CC <: Seq[Int]) or a lower bound (T >: Null).
+
+## V. Type class Pattern 
+The Type Class Pattern is ideal for situations where certain clients will benefit from the “illusion” that a set of classes provide a particular behavior that isn’t useful for the majority of clients. 
+
+Used wisely, it helps balance the needs of various clients while main‐ taining the Single Responsibility Principle.
+
+ This pattern enables the provision of common interfaces to classes which did not declare them. It can both serve as a _bridge pattern_ – gaining separation of concerns – and as an _adapter pattern_.
+
+```scala
+
+trait ToJSON {
+  def toJSON(level: Int = 0): String
+}
+
+// first 
+implicit class AddressToJSON(address: Address) extends ToJSON { 
+  def toJSON(level: Int = 0): String = {..}
+}
+
+// second
+implicit class PersonToJSON(person: Person) extends ToJSON { 
+  def toJSON(level: Int = 0): String = { ... }
+}
+
+```
+
+```scala
+//test
+val a = Address("1 Scala Lane", "Anytown") 
+val p = Person("Buck Trends", a)
+println(a.toJSON())
+println(p.toJSON())
+```
 
 
+## VI. Technical issues with Implicits
 
-## Type class Pattern
+## VII. Implicit Resolution Rules
 
-## Technical issues with Implicits
+I’ll just use the term “value” in the following discussion, although methods, values, or classes can be used, depending on the implicit scenario:
+- Any type-compatible implicit value that doesn’t require a prefix path. In other words, it is defined in the same scope, such as :
+  + within the same block of code, 
+  + within the same type, 
+  + within its companion object (if any), and 
+  + within a parent type.
+- An implicit value that was imported into the currents cope.(It also doesn’t require a prefix path to use it.)
 
+Check more here:
+http://docs.scala-lang.org/tutorials/FAQ/finding-implicits.html
+http://docs.scala-lang.org/tutorials/FAQ/chaining-implicits.html
 
-## Scala's built-in implicit
+- First look in current scope
+  + Implicits defined in current scope
+  + Explicit imports
+  + wildcard imports
+  + Same scope in other files
+  
+- Now look at associated types in
+  + Companion objects of a type
+  + Implicit scope of an argument’s type (2.9.1)
+  + Implicit scope of type arguments (2.8.0)
+  + Outer objects for nested types
+  + Other dimensions
+
+## VIII. Scala's built-in implicit
 ```scala
     object Int { ...
       implicit def int2long(x: Int): Long = x.toLong
     ... }
 ```
 
-## Best Practices
+## IX. Best Practices
 
 -  putting implicit values in a special package named implicits or an object named Implicits. 
 
@@ -466,6 +574,8 @@ That way, readers of code see the word “implicit” in the imports and know to
 - Fortunately, IDEs can now show when implicits are being invoked, too.
 https://confluence.jetbrains.com/display/IntelliJIDEA/Working+with+Scala+Implicit+Conversions
 
+- Always specify the return type of an implicit conversion method. Allowing type infer‐ ence to determine the return type sometimes yields unexpected results.
+- Also, the compiler does a few “convenient” conversions for you that are now considered more troublesome than beneficial (future releases of Scala will probably change these behaviors).
 
 
 
