@@ -25,3 +25,13 @@ Function(
 					), 
 					List(
 						AssignOrNamedArg(Ident(TermName("street")), Apply(Select(Select(Select(Ident(TermName("p1")), TermName("address")), TermName("street")), TermName("copy")), List(AssignOrNamedArg(Ident(TermName("name")), Apply(Ident(TermName("fresh$macro$1")), List(Select(Select(Select(Ident(TermName("p1")), TermName("address")), TermName("street")), TermName("name"))))))))))))))
+
+
+// function tree
+Apply(
+	Select(Ident (...), TermName (...))
+	List(
+		Literal(Constant("1"))
+		,...
+	)
+)
