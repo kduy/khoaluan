@@ -11,9 +11,11 @@ object DQC{
 
       def append(t1: Tree, t2: Tree) = Apply(Select(t1, newTermName("+").encoded), List(t2))
 
-      val Expr(Apply(_, List(Apply(_, parts)))) = c.prefix
+      //val Expr(Apply(_, List(Apply(_, parts)))) = c.prefix
+      val (Apply(_, List(Apply(_, parts)))) = c.prefix.tree
 
-      val select = parts.head
+
+      val select = parts.head // tree
       val sqlExpr = exprs.zip(parts.tail).foldLeft(select) { 
         case (acc, (Expr(expr), part)) => append(acc, append(expr, part)) 
       }
@@ -24,6 +26,8 @@ object DQC{
       }
 
       //reify{c.Expr[String](c.prefix.tree).splice}
+      //reify{c.Expr[String](select).splice}
+      //
       c.literal(showRaw(c.prefix.tree))
     }
 }
@@ -36,10 +40,10 @@ object DQC{
 
 
 Apply(
-  Select(Select(Select DQC), TermName("DynSQLContext")),
+  Select(Select(Select..... DQC), TermName("DynSQLContext")), //DQC.DynSQLContext(
   List(Apply(
           Select(Select(Ident(scala), scala.StringContext), TermName("apply")), 
-          List(Literal(Constant("select agen from person p where ")), Literal(Constant(" = ?")))
+          List(Literal(Constant("select agen from person p where ")), Literal(Constant(" = ?"))) // part
       )
   )
 )

@@ -180,15 +180,46 @@ Predef.println({
 })
 ```
 
+### mirror a append function `t1+t2`
 
 ```scala
-
+def append(t1: Tree, t2: Tree) = Apply(Select(t1, newTermName("+").encoded), List(t2))
 ```
 
 
-```scala
+### print String inside macro
 
+```scala
+// x = 2
+// debug (x) // should print "x = 2"
+def debug(param: Any): Unit = macro debug_impl
+ 
+def debug_impl(c: Context)(param: c.Expr[Any]): c.Expr[Unit] = {
+  import c.universe._
+  val paramRep = show(param.tree) // show(tree) : string
+  val paramRepTree = Literal(Constant(paramRep))  //string -> tree 
+  val paramRepExpr = c.Expr[String](paramRepTree)// tree -> Expr
+  // c.literal(paramRep: String)  // Expr[String]
+  reify { println(paramRepExpr.splice + " = " + param.splice) } // splice value
+}
 ```
+- First,  turn the parameter’s tree into a String. The built-in method show does exactly that
+- Second , create a tree (by hand this time) representing a constant `String`
+- Finally, we turn that simple tree into an expression of type String, and splice it inside the println. 
+
+
+## Appendix
+#### reify 
+ (reify is also a macro – a macro used when compiling macros :) ), which turns the given code into an Expr[T] (expressions wrap an AST and its type). As println has type unit, the reified expression has type Expr[Unit], and we can just return it.
+
+#### splice
+ It is a special method of `Expr`, which can only be used inside a `reify` call, and does kind of the opposite of reify: it embeds the given expression into the code that is being reified. Here, we have `param` which is an `Expr` (that is, tree + type), and we want to put that tree as a child of `println`; we want the value that is represented by `param` to be passed to `println`, not the AST. 
+ `splice` called on an Expr[T] returns a T, so the reified code type-checks.
+
+#### c.prefix
+
+    c.literal(showRaw(c.prefix.tree)) : Expr[String]
+    c.prefix : Expr[Any]
 
 
 ```scala

@@ -2,8 +2,6 @@
 
 [9][Database SQL Language Reference] (http://docs.oracle.com/cd/B28359_01/server.111/b28286/wnsql.htm#SQLRF000)
 
-
-
 [10]http://en.wikibooks.org/wiki/SQL_Dialects_Reference
 
 
@@ -14,11 +12,15 @@ http://en.wikibooks.org/wiki/Structured_Query_Language/Standard_Track_Print
 [paper]Generating Highly Customizable SQL Parsers
 BNF spec
 
+http://ns.inria.fr/ast/sql/index.html
+
 [thesis] Continous Query over Data Stream [BNF]
 http://archiv.ub.uni-marburg.de/diss/z2007/0671/pdf/djk.pdf
 
 Rewritting Query:
 http://www.dpriver.com/blog/list-of-demos-illustrate-how-to-use-general-sql-parser/oracle-sql-query-rewrite/
+
+
 
 ------------------
 

@@ -26,7 +26,7 @@
         // call unroll.foreach (f(i)) // f ~ println
 ```
 
-### for - yeild 
+#### for - yeild 
 1) This
 ```scala
 for(x <- c1; y <- c2; z <-c3) {...}
@@ -84,3 +84,20 @@ for{
   if el > 0
 } yield el.toString.length
 ```
+
+
+
+### Code snippet
+- 
+```scala
+def apply[R <: { def close():Unit }, T] (....)
+```
+Note: The type parameter R must be a subtype of any type with the `close():Unit` method.
+
+- 
+```scala
+implicit final class ArrowAssoc[A](val self: A) { ..}
+```
+the final keyword prevents subclasses of ArrowAssoc from being declared
+
+- 

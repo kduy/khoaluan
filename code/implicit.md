@@ -495,6 +495,8 @@ def getIndex[T, CC <% Seq[T]](seq: CC, value: T) = seq.indexOf(value)
 
 This syntactic sugar is described as a view bound, akin to an upper bound (CC <: Seq[Int]) or a lower bound (T >: Null).
 
+An upper type bound T <: A declares that type variable T refers to a subtype of type A
+
 ## V. Type class Pattern 
 The Type Class Pattern is ideal for situations where certain clients will benefit from the “illusion” that a set of classes provide a particular behavior that isn’t useful for the majority of clients. 
 
@@ -622,3 +624,14 @@ def mapify[T: Mappable](t: T) = implicitly[Mappable[T]].toMap(t)
 
 ```
 
+
+
+implicit class jsonForStringContext(val sc: StringContext) { 
+def json(values: Any*): JSONObject = { 
+  val keyRE = """^[\s{,]*(\S+):\s*""".r 
+  val keys = sc.parts map { 
+    case keyRE(key) => key
+    case str => str }
+    val kvs = keys zip values 
+JSONObject(kvs.toMap)  
+}}

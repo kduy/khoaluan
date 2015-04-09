@@ -42,6 +42,7 @@ CREATE STREAM expensiveItem AS
 CREATE SCHEMA SymbolSchema (ID int, Symbol string, Price double);
 CREATE STREAM Input1 SymbolSchema;
 ```
+
 2. Sink
 ```sql
 SELECT * >> '/temp/output.txt'
