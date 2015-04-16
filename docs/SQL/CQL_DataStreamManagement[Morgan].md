@@ -1,3 +1,14 @@
+<!-- MarkdownTOC -->
+
+- [QL][Arasu et al., 2006]
+    - Streams, Relations and Windows
+    - User-defined Func
+    - Sampling
+        - [Common Construct][4]
+        - Example
+        - [REWRITTING][4]
+
+<!-- /MarkdownTOC -->
 
 #CQL [Arasu et al., 2006],
 
