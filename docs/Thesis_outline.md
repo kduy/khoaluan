@@ -30,6 +30,9 @@ Window may be classified accourding the following criteria:
     + Frequency of movement: jumping window, mixed jumping window, tumbling window
 
 ## Continuous Query Semantics and Operators
+**Query** : [14] Model and issues in Data Stream System
+**Blocking Operators** [14]
+
 ### Semantics and algebra
 Two types of continuous query algebras have been proposed in the literature, both based on relational algebra
 - Stream-to-stream algebra:

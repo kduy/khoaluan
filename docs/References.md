@@ -18,3 +18,13 @@ page 2917 - 2923
 [9][Database SQL Language Reference] (http://docs.oracle.com/cd/B28359_01/server.111/b28286/wnsql.htm#SQLRF000)
 
 [10]http://en.wikibooks.org/wiki/SQL_Dialects_Reference
+
+[11] Supporting views in data stream management systems
+[12] Semantics and implementation of continous sliding window queries over data stream
+[13] Unifying the Processing of XML streams and Relational data streams
+
+
+
+--------
+
+[13] "ESL adopts the window constructs specifics in SQL:2003 OLAP function"

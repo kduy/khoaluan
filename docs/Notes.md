@@ -26,3 +26,8 @@ http://www.slideshare.net/hemapani/siddhi-a-second-look-at-complex-event-process
 http://www.slideshare.net/hemapani/scalable-realtime-analytics-with-declarative-sql-like-complex-event-processing-scripts?ref=http://srinathsview.blogspot.hu/2015/02/why-we-need-sql-like-query-language-for.html
 
 [paper] Siddhi_ A Second Look at Complex Event Processing Architectures[BNF]
+
+
+
+
+###
