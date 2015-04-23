@@ -22,9 +22,12 @@ page 2917 - 2923
 [11] Supporting views in data stream management systems
 [12] Semantics and implementation of continous sliding window queries over data stream
 [13] Unifying the Processing of XML streams and Relational data streams
+[14] Model and issues in Data Stream System
+
 
 
 
 --------
 
 [13] "ESL adopts the window constructs specifics in SQL:2003 OLAP function"
+[14] Query 

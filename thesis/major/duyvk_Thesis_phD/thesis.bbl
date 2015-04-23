@@ -1,0 +1,122 @@
+\begin{thebibliography}{10}
+
+\bibitem{bow79}
+{\sc B.~L.;~O'Connell Bowerman}.
+\newblock {\em Time Series and Forecasting}.
+\newblock Duxbury Press, North Scituate, Massachusetts., 1st edition, 1979.
+
+\bibitem{box94}
+{\sc Box G.;Jenkins G.M.;~Reinsel G.}
+\newblock {\em Time series analysis: Forecasting and control}.
+\newblock Prentice Hall, 3rd edition, 1994.
+
+\bibitem{ross}
+{\sc Ross Ihaka}.
+\newblock {\bf Time Series Analysis}.
+\newblock 2005.
+
+\bibitem{cits}
+{\sc Ajoy K. Palit;~Dobrivoje Popovic}.
+\newblock {\em Computational Intelligence in Time Series Forecasting: Theory
+  and Engineering Applications}.
+\newblock Springer, Berlin, 1st edition, 2005.
+
+\bibitem{afts3}
+{\sc Ruey~S. Tsay}.
+\newblock {\em Analysis of Financial Time Series}.
+\newblock Wiley, 3rd edition, 2010.
+
+\bibitem{tsa3}
+{\sc Robert H. Shumway; David~S. Stoffer}.
+\newblock {\em Time Series Analysis and Its Applications: With R Examples}.
+\newblock Springer, Berlin, 3rd edition, 2010.
+
+\bibitem{df79}
+{\sc D.A.; W.A.~Fuller Dickey}.
+\newblock {\bf Distribution of the Estimators for Autoregressive Time Series
+  with a Unit Root}.
+\newblock {\em Journal of the American Statistical Association}, {\bf
+  74}:427--431, 1979.
+
+\bibitem{ell96}
+{\sc T.~J.; J. H.~Stock Elliott, G.;~Rothenberg}.
+\newblock {\bf Efficient Tests for an Autoregressive Unit Root}.
+\newblock {\em Econometrica}, {\bf 64}:813–836, 1996.
+
+\bibitem{ff88}
+{\sc P.C.B; P.~Perron Phillips}.
+\newblock {\bf Testing for a Unit Root in Time Series Regression}.
+\newblock {\em Biometrika}, {\bf 75}:335–346, 1988.
+
+\bibitem{efin}
+{\bf Liên quan tới khái niệm về dự báo}.
+\newblock {\em eFinance}, {\bf 21}, 2005.
+
+\bibitem{tiao}
+{\sc G.~C. Tsay, R. S.;~Tiao}.
+\newblock {\em Consistent estimates of autoregressive parameters and extended
+  sample autocorrelation function for stationary and nonstationary ARMA
+  models.}
+\newblock J. Am. Stat. Assoc, 1984.
+
+\bibitem{bc64}
+{\sc D.~R Box, George E. P.;~Cox}.
+\newblock {\bf An analysis of transformations}.
+\newblock {\em Journal of the Royal Statistical Society}, pages 211--252, 1964.
+
+\bibitem{aka73}
+{\sc H.~Akaike}.
+\newblock {\bf Maximum likelihood identification of Gaussian auto-regressive
+  moving-average models}.
+\newblock {\em Biometrika}, pages 255--266, 1973.
+
+\bibitem{sw65}
+{\sc M.~B. Shapiro, S. S.;~Wilk}.
+\newblock {\bf An analysis of variance test for normality (complete samples)}.
+\newblock {\em Biometrika}, page 591–611, 1965.
+
+\bibitem{lb78}
+{\sc G.~M. Ljung; G. E.~P. Box}.
+\newblock {\bf On a Measure of a Lack of Fit in Time Series Models}.
+\newblock {\em Biometrika}, {\bf 2}:297–303, 1978.
+
+\bibitem{wid60}
+{\sc Widrow B ;~Hoff ME}.
+\newblock {\bf Adaptive Switching Circuits}.
+\newblock {\em Anderson J and Rosenfeld E. (eds.) Neurocomputing}, pages
+  126--134, 1960.
+
+\bibitem{hec87}
+{\sc Hecht-Nielsen R}.
+\newblock {\bf Kolmogorov’s Mapping Neural Network Existence Theorem}.
+\newblock ~{\bf III}, pages 11--14, San Diego, CA, 1987.
+
+\bibitem{lip87}
+{\sc Lippmann R.P.}
+\newblock {\bf An introduction to computing with neural nets}.
+\newblock {\em IEEE ASSP Magazine}, page 4–22, 1987.
+
+\bibitem{cyb88}
+{\sc Cybenko G.}
+\newblock {\bf Continuous valued neural networks with two hidden layers are
+  sufficient}.
+\newblock Technical report, Taft University, 1988.
+
+\bibitem{rum86}
+{\sc Rumelhart D.~E; McClelland}.
+\newblock {\em Parallel Distributed Processing: Explorations in the
+  Microstructure of Cognition}.
+\newblock MIT Press, Cambridge, MA, 1986.
+
+\bibitem{Zhang05}
+{\sc G.Peter Zhang and Min Qi}.
+\newblock {\bf Neural network forecasting for seasonal and trend time series}.
+\newblock {\em European Journal of Operational Research}, {\bf 160}(2):501 --
+  514, 2005.
+
+\bibitem{flo95}
+{\sc J.E. Flood}.
+\newblock {\em Telecommunication Switching Traffic and Networks}.
+\newblock Prentice Hall, 1995.
+
+\end{thebibliography}

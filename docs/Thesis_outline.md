@@ -2,7 +2,7 @@
 # I. Introduction
 
 
-# II. Data Stream
+# II. Data Stream Model
 - Time
 - Tuple
 - Data Stream
@@ -29,8 +29,9 @@ Window may be classified accourding the following criteria:
     + Definition of contents: time-based, count-based/tuple-based, partitioned windows, predicate window
     + Frequency of movement: jumping window, mixed jumping window, tumbling window
 
-## Continuous Query Semantics and Operators
+#II Continuous Query Semantics and Operators
 **Query** : [14] Model and issues in Data Stream System
+
 **Blocking Operators** [14]
 
 ### Semantics and algebra
@@ -47,7 +48,6 @@ incrementally produce new results over time
 ### Continous Queries as Views
 the DSMS itself usually does not materialize the views. Continuous queries produce streams of updates over time, but it is up to the user or application to maintain the final result.
 ### Semantics of Relations in Continous Queries
-
 
 # III. Continous Query Language
 ## Data Type
@@ -67,6 +67,9 @@ It contains three types of operators:
 
 ### Processing tuples
 - Smart Vortex
+- Evaluation of the Stream Query Language CQL
+- toward 
+- SECRET: time-driven, batch-driven, tuple-driven
 
 ## Built-in Function
 
@@ -82,6 +85,11 @@ The Linear Road Benchmark
 
 
 
+# Figure
+[esper_reference_5.2.pdf
+
+# type checking : rule
+cc14/lec16.pdf (compiler EPFL)
 
 
 - deep vs shallow DSL

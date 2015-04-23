@@ -1,0 +1,236 @@
+\documentclass[twoside,12pt]{Latex/Classes/PhDthesisPSnPDF}
+
+\usepackage{vntex}
+\usepackage{amsmath}
+\usepackage{amssymb,latexsym}
+\usepackage{graphicx}
+\newtheorem{defi}{Định Nghĩa}[chapter]
+\newcommand{\newln}{\\&\quad\quad{}}
+
+\include{Latex/Macros/MacroFile1}
+
+
+
+%: ----------------------------------------------------------------------
+%:                  TITLE PAGE: name, degree,..
+% ----------------------------------------------------------------------
+% below is to generate the title page with crest and author name
+
+%if output to PDF then put the following in PDF header
+\ifpdf  
+    \pdfinfo { /Title  (PhD and MPhil Thesis Classes)
+               /Creator (TeX)
+               /Producer (pdfTeX)
+               /Author (YourName your@email.net)
+               /CreationDate (D:YYYYMMDDhhmmss)  %format D:YYYYMMDDhhmmss
+               /ModDate (D:YYYYMMDDhhmm)
+               /Subject (xyz)
+               /Keywords (add, your, keywords, here) }
+    \pdfcatalog { /PageMode (/UseOutlines)
+                  /OpenAction (fitbh)  }
+\fi
+
+
+\title{FlinkSQL}
+
+
+% ----------------------------------------------------------------------
+% The section below defines www links/email for author and institutions
+% They will appear on the title page of the PDF and can be clicked
+\ifpdf
+  \author{\href{mailto:duyvkvn@gmail.com}{Khuong Duy Vu}}
+%  \cityofbirth{born in XYZ} % uncomment this if your university requires this
+%  % If city of birth is required, also uncomment 2 sections in PhDthesisPSnPDF
+%  % Just search for the "city" and you'll find them.
+  \collegeordept{\href{http://www.something.net}{Department of Informatics}}
+  \university{\href{http://www.something.net}{Eötvös Loránd University}}
+
+  % The crest is a graphics file of the logo of your research institution.
+  % Place it in ./0_frontmatter/figures and specify the width
+ % \crest{\includegraphics[width=4cm]{logo}}
+  
+% If you are not creating a PDF then use the following. The default is PDF.
+\else
+  \author{Khuong Duy Vu}
+%  \cityofbirth{born in XYZ}
+  \collegeordept{Department of Informatics}
+  \university{Eötvös Loránd University}
+ % \crest{\includegraphics[width=4cm]{logo}}
+\fi
+
+%\renewcommand{\submittedtext}{change the default text here if needed}
+%\degree{Philosophi\ae Doctor (PhD), DPhil,..}
+\degreedate{05/2012}
+
+
+% ----------------------------------------------------------------------
+       
+% turn of those nasty overfull and underfull hboxes
+\hbadness=10000
+\hfuzz=50pt
+
+%: --------------------------------------------------------------
+%:                  FRONT MATTER: dedications, abstract,..
+% --------------------------------------------------------------
+
+\begin{document}
+
+%\language{english}
+
+% sets line spacing
+\renewcommand\baselinestretch{1.2}
+\renewcommand*\listfigurename{Danh sách hình vẽ}
+\renewcommand*\listtablename{Danh sách bảng}
+\renewcommand*\figurename{Hình}
+\renewcommand*\contentsname{Mục lục}
+\renewcommand*\tablename{Bảng}
+\baselineskip=18pt plus1pt
+%\newtheorem{defi}{Định Nghĩa}[chapter]
+
+
+%: ----------------------- generate cover page ------------------------
+
+\maketitle  % command to print the title page with above variables
+
+
+%: ----------------------- cover page back side ------------------------
+% Your research institution may require reviewer names, etc.
+% This cover back side is required by Dresden Med Fac; uncomment if needed.
+
+%\newpage
+%\vspace{10mm}
+%1. Reviewer: Name
+
+%\vspace{10mm}
+%2. Reviewer: 
+
+%\vspace{20mm}
+%Day of the defense:
+
+%\vspace{20mm}
+%\hspace{70mm}Signature from head of PhD committee:
+
+
+
+%: ----------------------- abstract ------------------------
+
+% Your institution may have specific regulations if you need an abstract and where it is to be placed in the document. The default here is just after title.
+
+
+
+% The original template provides and abstractseparate environment, if your institution requires them to be separate. I think it's easier to print the abstract from the complete thesis by restricting printing to the relevant page.
+% \begin{abstractseparate}
+%   \input{Abstract/abstract}
+% \end{abstractseparate}
+
+
+%: ----------------------- tie in front matter ------------------------
+
+%\frontmatter
+%\include{0_frontmatter/dedication}
+\include{0_frontmatter/acknowledgement}
+\include{0_frontmatter/abstractvn}
+\include{0_frontmatter/abstracten}
+\include{9_backmatter/declaration}
+
+%: ----------------------- contents ------------------------
+
+\setcounter{secnumdepth}{3} % organisational level that receives a numbers
+\setcounter{tocdepth}{3}    % print table of contents for level 3
+\tableofcontents            % print the table of contents
+% levels are: 0 - chapter, 1 - section, 2 - subsection, 3 - subsection
+
+%: ----------------------- list of figures/tables ------------------------
+
+\listoffigures	% print list of figures
+\listoftables  % print list of tables
+%: ----------------------- glossary ------------------------
+
+
+%%%%%%%%%%glossary%%%%
+%\include{0_frontmatter/glossary} 
+%\begin{multicols}{2} 
+%\begin{footnotesize} 
+%\printnomenclature[1.5cm]
+%\label{nom}
+%\end{footnotesize}
+%\end{multicols}
+%%%%%%%%%%%%%%%%%%%%%%
+
+
+%: --------------------------------------------------------------
+%:                  MAIN DOCUMENT SECTION
+% --------------------------------------------------------------
+
+% the main text starts here with the introduction, 1st chapter,...
+\mainmatter
+\renewcommand{\chaptername}{} % uncomment to print only "1" not "Chapter 1"
+
+
+%: ----------------------- subdocuments ------------------------
+
+% Parts of the thesis are included below. Rename the files as required.
+% But take care that the paths match. You can also change the order of appearance by moving the include commands.
+
+\include{1_timeseries/timeseries}	% background information
+\include{2_ARIMA/ARIMA}						% aims of the project
+
+\include{3_experiment/experiment}			
+\include{4_conclusion/conclusion}	
+
+
+
+
+% --------------------------------------------------------------
+%:                  BACK MATTER: appendices, refs,..
+% --------------------------------------------------------------
+
+% the back matter: appendix and references close the thesis
+
+
+%: ----------------------- bibliography ------------------------
+
+% The section below defines how references are listed and formatted
+% The default below is 2 columns, small font, complete author names.
+% Entries are also linked back to the page number in the text and to external URL if provided in the BibTex file.
+
+% PhDbiblio-url2 = names small caps, title bold & hyperlinked, link to page 
+%\begin{multicols}{2} % \begin{multicols}{ # columns}[ header text][ space]
+%\begin{tiny} % tiny(5) < scriptsize(7) < footnotesize(8) < small (9)
+
+\bibliographystyle{Latex/Classes/PhDbiblio-url2} % Title is link if provided
+\renewcommand{\bibname}{Tham khảo} % changes the header; default: Bibliography
+
+\bibliography{9_backmatter/references} % adjust this to fit your BibTex file
+%\bibliography{9_backmatter/referencesen}
+%\end{tiny}
+%\end{multicols}
+
+% --------------------------------------------------------------
+% Various bibliography styles exit. Replace above style as desired.
+
+% in-text refs: (1) (1; 2)
+% ref list: alphabetical; author(s) in small caps; initials last name; page(s)
+%\bibliographystyle{Latex/Classes/PhDbiblio-case} % title forced lower case
+%\bibliographystyle{Latex/Classes/PhDbiblio-bold} % title as in bibtex but bold
+%\bibliographystyle{Latex/Classes/PhDbiblio-url} % bold + www link if provided
+
+%\bibliographystyle{Latex/Classes/jmb} % calls style file jmb.bst
+% in-text refs: author (year) without brackets
+% ref list: alphabetical; author(s) in normal font; last name, initials; page(s)
+
+%\bibliographystyle{plainnat} % calls style file plainnat.bst
+% in-text refs: author (year) without brackets
+% (this works with package natbib)
+
+
+% --------------------------------------------------------------
+
+% according to Dresden med fac summary has to be at the end
+%\include{0_frontmatter/abstract}
+
+%: Declaration of originality
+
+
+
+\end{document}

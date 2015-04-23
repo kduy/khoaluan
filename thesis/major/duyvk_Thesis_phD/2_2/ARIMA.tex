@@ -1,0 +1,731 @@
+% this file is called up by thesis.tex
+% content in this file will be fed into the main document
+\documentclass[twoside,12pt]{Latex/Classes/PhDthesisPSnPDF}
+\usepackage{vntex}
+\usepackage{amsmath}
+%\theoremstyle{definition}
+\newtheorem{defi}{Định Nghĩa}[chapter]
+\newcommand{\newln}{\\&\quad\quad{}}
+\include{Latex/Macros/MacroFile1}
+%: ----------------------- introduction file header -----------------------
+\begin{document} %
+\renewcommand\baselinestretch{1.2}
+\renewcommand*\listfigurename{Danh sách hình vẽ}
+\renewcommand*\listtablename{Danh sách bảng}
+\renewcommand*\figurename{Hình}
+\renewcommand*\contentsname{Mục lục}
+\renewcommand*\tablename{Bảng}
+
+
+\mainmatter
+
+\renewcommand{\chaptername}{}
+
+
+% the code below specifies where the figures are stored
+%\ifpdf
+%    \graphicspath{{1_introduction/figures/PNG/}
+%{1_introduction/figures/PDF/}
+%{1_introduction/figures/}}
+%\else
+%    \graphicspath{{1_introduction/figures/EPS/}%{1_introduction/figures/}}
+%\fi
+
+\graphicspath{{figures/}}
+
+% ----------------------------------------------------------------------
+%: ----------------------- introduction content ----------------------- 
+% ----------------------------------------------------------------------
+\chapter{Tính chất của chuỗi thời gian}
+\section{Chuỗi thời gian}
+Mục tiêu của việc phân tích kinh tế chỉ ra cơ chế kiểm soát và đưa ra quyết sách. Vì vậy ta đòi hỏi có một số lượng lớn các quan sát cho các đại lượng thích hợp để nghiên cứu các mối quan hệ giữa các đại lượng này. Các quan sát này có thể được tiến hành đều đặn qua các thời kỳ chẳng hạn theo từng ngày, từng tuần, từng tháng, từng quý hoặc từng năm. Dãy các quan sát này gọi là chuỗi thời gian. Như vậy chuỗi thời gian là tập hợp các quan sát được ghi nhận tại thời điểm t với $t \in T$ . Chuỗi thời gian được gọi là rời rạc nếu T là tập các điểm rời rạc (Thí dụ các quan sát được thực hiện cách nhau một khoảng thời gian đều đặn như doanh thu cước phí điện thoại hàng tháng của một trạm bưu điện từ tháng 1 năm 1990 đến tháng 12 năm 2000). Ngược lại nếu T là một khoảng thì chuỗi thời gian là liên tục. Biểu đồ ghi nhịp tim của một bệnh nhân trong 3 giờ là một ví dụ minh họa cho chuỗi thời gian liên tục với T =  [0,3].
+
+Hầu hết các thủ tục thống kê đều dùng những số liệu xuất phát từ một loạt các quan sát độc lập, được gọi là các số liệu của một mẫu quan sát và ký hiệu là $X =\{x_1,x_2,...,x_n\}$(ứng với $n$ quan sát). Trong phân tích thống kê cổ điển người ta không quan tâm tới thứ tự thời gian quan sát diễn ra trong mẫu. Tuy nhiên với mẫu quan sát dưới dạng chuỗi thời gian thì tình hình lại không như thế nữa.
+
+Để có thể mô tả tính chất tuần tự dữ liệu chuỗi thời gian, giúp tạo điều kiện lựa chọn và đánh giá áp dụng các mô hình phân tích chính xác hơn, chúng ta coi một chuỗi thời gian là một tập hợp các biến ngẫu nhiên được đánh chỉ số theo thứ tự thời gian. Hay nói cách khác, một \textbf{chuỗi thời gian}\cite{ross} là một dãy các giá trị quan sát $X =\{x_1,x_2,...,x_n\}$ được xếp thứ tự theo diễn biến thời gian, $x_1$ là giá trị quan sát tại thời điểm đầu tiên, $x_2$ là giá trị tại thời điểm quan sát thứ hai, … và $x_n$  là giá trị tại thời điểm quan sát thứ n (cũng là thời điểm cuối cùng).Chuỗi thời gian sẽ được biểu diễn bởi một quá trình thông kê ngẫu nhiên $\{x_t\}$ với $t$ là thứ tự rời rạc nguyên $t = 0, \pm1,\pm2,...$ hoặc đơn giản là một tập các số nguyên. Trên thưc tếm, mức tiêu thụ điện theo từng tháng của một hộ gia đình, lượng hành khách hàng ngày trên chuyến tàu Bắc Nam...tất cả đều là thể hiện cụ thể của các chuỗi thời gian. Trong các thí dụ trên, thứ tự thời gian quan sát thực sự đóng vai trò quan trọng, vì thế hầu hết các kỹ thuật thống kê cổ điển ít có tác dụng và do đó cần phải đề xuất những kỹ thuật tính toán mới để bộc lộ được các nét đặc thù của chuỗi thời gian. 
+
+Vậy chuỗi thời gian là một chuỗi các giá trị ngẫu nhiên của một đại lượng nào đó được ghi nhận tuần tự theo thời gian.
+
+Tất cả các kỹ thuật dự báo theo chuỗi thời gian dựa trên giả định là có một mẫu hình cơ bản tiềm ẩn trong các số liệu nghiên cứu cùng với các yếu tố ngẫu nhiên ảnh hưởng lên hệ thống đang xét. Công việc của phân tích chuỗi thời gian là nghiên cứu kỹ thuật để tách mẫu hình cơ bản này và sử dụng nó như là cơ sở để sản sinh ra dữ liệu dự báo cho tương lai.
+
+\section{Tính chất đặc trưng của chuỗi thời gian}
+Các tính chất đặc trưng chính \citep{cits} của chuỗi thời gian là \textbf{tính dừng, tính tuyến tính, tính xu hướng và tính chu kì mùa vụ}. Mặc dù, một chuỗi thời gian có thể mang một hoặc nhiều các đặc trưng trên nhưng khi biểu diễn, phân tích hay dự báo giá trị thì mỗi đặc trưng đều có phương pháp riêng và xử lý riêng rẽ nhau. 
+
+\subsection{Tính dừng}
+Trong khái niệm xác suất thì một chuỗi có tính chất dừng khi nó được mô tả bởi một quá trình ngẫu nhiên mà quá trình này nằm trong trạng thái cân bằng xác suất(statistical equilibrium) tức là phân phối xác suất chung của $x(t)$ và $x(t+h)$ chỉ phụ thuộc vào $h$ nhưng không phụ thuộc vào $t$~\cite{cits}. Do đó, hoàn toàn có thể xây dựng mô hình ngẫu nhiên có tính chất dừng cho một chuỗi thời gian luôn giữ trạng thái cân bằng quanh giá trị xấp xỉ trung bình.
+
+Phần~\ref{sec:sta} sẽ thảo luận rõ hơn về tính dừng của một chuỗi thời gian vì nó là một trong những tính chất quan trọng được quan tâm trong hầu hết các phương pháp thống kê về chuỗi thời gian. Nhưng có thể quan sát đánh giá một cách tương đối tính dừng của một của một chuỗi thời gian. Một chuỗi dừng thường có đồ thị nhìn khá phẳng, không có xu hướng hay chu kì(Hình~\ref{1_Stationarycomparison2}).
+\figuremacroW{1_Stationarycomparison2}{Chuỗi dừng và không có tính chất dừng}{}{0.5}
+
+\subsection{Tính tuyến tính}
+\begin{defi}
+	Một chuỗi thời gian được gọi là tuyến tính\cite{afts3} nếu nó có thể được biểu diễn bởi công thức:
+	\begin{equation}
+		X_t = \mu+\sum\limits_{i = -\infty}^{\infty}\psi_iZ_{t-i}
+	\end{equation}
+	với $\mu$ là xấp xỉ trung bình của $\{x_t\}$, $\{ \psi_i\}$ là tập tham số thỏa mãn $\sum\limits_{i = -\infty}^{\infty}|\psi_i| < \infty$. Và $|Z_t|$ là chuỗi ngẫu nhiên có xấp xỉ trung bình bằng $0$ và phương sai $\sigma^2$
+\end{defi}
+Do đó, nếu một chuỗi thời gian là tuyến tính thì nó có thể được biểu diễn bởi một hàm phụ thuộc tuyến tính các giá trị hiện tại và quá khứ.
+
+\subsection{Tính xu hướng} 
+Tính xu hướng của chuỗi dữ liệu thể hiện qua hiện tượng tăng hoặc giảm xấp xỉ trung bình của các đoạn con một cách liên tục trong phạm vi cục bộ hoặc cả chuỗi. Để xác định những thành phần có tính xu hướng trong chuỗi thời gian, dữ liệu quan sát được thường được xấp xỉ ước lượng vào trong các mô hình hồi quy. Một số mô hình thông thường hay được sử dụng như :
+\begin{align}
+	x_t &= \alpha{t}+ \beta + \varepsilon_t \\
+	x_t &= exp(\alpha{t}+ \beta + \varepsilon_t) \\
+	x_t &= \alpha{t} + \beta{t}^{2} + \gamma + \varepsilon_t
+\end{align}
+\figuremacroW{1_trend}{Xu hướng giảm dần}{}{0.5}
+\subsection{Tính chu kỳ thời vụ(seasonality)}
+Một số chuỗi thời gian xuất hiện các yếu tố dao động theo chu kỳ.Đó chính là đặc trưng mang tính thời vụ rất hay thường gặp trong dữ liệu quan sát thực tế, nhất là trong các dữ liệu về tài chính, kinh tế. Nó thường xuất hiện các đoạn dao động lặp lại giống nhau theo từng giờ, từng ngày, từng tháng, từng quý...Ví dụ như lượng dòng chảy đến hồ chứa Trị An từ năm 1959 đến 1985 (Hình~\ref{1_sea})
+\figuremacroW{1_sea}{Lượng dòng chảy đến hồ chứa Trị An từ năm 1959 đến 1985}{}{1}
+
+\section{Phân loại chuỗi thời gian}
+Phụ thuộc vào tính chất của dữ liệu mà chuỗi thời gian có thể chia theo một số tiêu chí\cite{cits} sau:
+\begin{itemize}
+	\item có tính chất dừng và không có tính chất dừng
+	\item có tính chu kỳ thời vụ và không có tính chu kỳ thời vụ
+	\item tuyến tính và không tuyến tính
+	\item đơn chiều và đa chiều
+	\item hỗn loạn
+\end{itemize}
+Chuỗi thời gian \textbf{đơn chiều} là chuỗi chỉ ghi lại  kết quả quan sát theo thời gian của một dạng dữ liệu. Ví dụ như trong một phiên chứng khoán, có rất nhiều giá trị được quan sát như khối lượng giao dịch, giá đóng, giá mở... nhưng chuỗi thời gian đơn chiều chỉ quan tâm đến một trọng những giá trị đó. \textit{Khóa luận sẽ tập trung vào phân tích xử lý đối với chuỗi dữ liệu dạng này}. 
+Ngược lại, chuỗi thời gian đa chiều ghi lại kết quả quan sát của hai hay nhiều quá trình đồng thời.Ví dụ, ta có thể ghi lại đồng thời tất cả các giá trị trong phiên chứng khoán ở ví dụ trên. Trong chuỗi đa chiều, dữ liệu của một chuỗi đơn không chỉ phụ thuộc lẫn nhau trong nội bộ chuỗi mà còn phụ thuộc hai chiều với dữ liệu của các chuỗi đơn khác. 
+
+\section{Đo độ phụ thuộc: Tự tương quan và tương quan chéo}
+Trong trường hợp $x_t$ là biến ngẫu nhiên liên tục có hàm xác suất $F_t(x)=P(x_t\leq x)$ thì hàm mật độ xác suất được tính theo công thức:
+	\begin{equation}
+		f_t(x)  = \frac{\partial F_t(x)}{\partial x}
+	\end{equation}
+	\begin{defi} Hàm tính xấp xỉ trung bình
+		\begin{equation}
+			\mu_{xt} = E(x_t) = \int_{-\infty}^\infty \! xf_x(x) \, dx
+		\end{equation}
+	\end{defi}
+	
+	\begin{defi}
+		Hàm \textbf{tự hiệp phương sai} được xác định bởi công thức:
+		\begin{equation}
+			\gamma_x(s,t) = cov(x_s,x_t) = E[(x_s-\mu_s)(x_t-\mu_t)]
+		\end{equation}	
+		với mọi thời điểm $s$, $t$
+	\end{defi}
+	Ta luôn có $\gamma_x(s,t) = \gamma_x(t,s)$ với mọi $s,t$. Hàm tự hiệp phương sai đo độ phụ thuộc tuyến tính giữa hai thời điểm khác nhau trong chuỗi thời gian thực.Trong trường hợp $s=t$ thì ta có giá trị hàm tự hiệp phương sai chính bằng phương sai của $x_s$ hay $\gamma(s,s) = E[(x_s-\mu_s)^2] = var(t)$ 
+
+\begin{defi}
+	Hàm tự tương quan (ACF)\cite{tsa3} được xác định bởi:
+	\begin{equation}
+		\rho(s,t) = \frac{\gamma(s,t)}{\sqrt{\gamma(s,s)\gamma(t,t)}}
+	\end{equation}
+\end{defi}
+Hàm ACF cho biết khả năng dự đoán giá trị $x_t$ mà chỉ dựa vào giá trị của $x_s$. Dựa vào bất đẳng thức Cosi\footnote{Bất đẳng thức Cosi: $|\gamma(s,t)|^{2} \leq \gamma(s,s)\gamma(t,t)$}, ta dễ dàng có được $-1\leq \rho(s,t)\leq 1$. Nếu ta có thể dự đoán giá trị $x_{s}$ hoàn toàn chỉ dựa vào $x_t$ thông qua hàm tuyến tính $x_t = \beta_0 + \beta_1x_s$ thì sự tương quan sẽ là $+1$ nếu $\beta_1 > 0$ và là $-1$ nếu $\beta_1<0$. Vậy ta có một công thức đơn giản để đánh giá khả năng dự báo giá trị tại thời điểm $t$ dựa vào giá trị tại thời điểm $s$ trong chuỗi thời gian.
+
+Ngoài ra, chúng ta cũng muốn đo khả năng có thể dự đoán chuỗi $y_t$ từ chuỗi $x_t$. Giả sử cả hai chuỗi đều có phương sai xác định, ta có các khái niệm sau:
+\begin{defi}
+Hàm \textbf{tự hiệp phương sai chéo} của hai chuỗi $x_t$ và $y_t$ được cho bởi công thức
+\begin{equation}
+		\gamma_{xy}(s,t) = cov(x_s,y_t) = E[(x_s - \mu_{xs})(y_t - \mu_{yt} )]
+\end{equation}
+\end{defi}
+\begin{defi}
+\textbf{Hàm tự tương quan chéo(CCF)}\cite{tsa3} được cho bởi:
+	\begin{equation}
+		\rho_{xy}(s,t) = \frac{\gamma_{xy}(s,t)}{\sqrt{(\gamma_s(s,s))(\gamma_y(t,t))}}
+	\end{equation}
+\end{defi}
+
+\section{Chuỗi dừng} \label{sec:sta}
+Chuỗi dừng và không dừng là một trong những khái niệm quan trọng cốt lõi trong việc phân tích chuỗi thời gian.
+\subsection{Chuỗi dừng và tính chất}
+\begin{defi}
+	Chuỗi $x_t$ được gọi là dừng theo nghĩa chặt\cite{tsa3} nếu như tại mọi thời điểm $t_1,t_2,\dots,t_k$ thì ta luôn có $(x_{t_1},x_{t_2},\dots,x_{t_k})$ có cùng phân phối xác suất với $(x_{t_1+h},x_{t_2+h},\dots,x_{t_k+h})$ hay
+	\begin{equation}
+		P(x_{t_1} \leq c_1,x_{t_2} \leq c_2,\dots,x_{t_k} \leq c_k) = P(x_{t_1+h} \leq c_1,x_{t_2+h} \leq c_2,\dots,x_{t_k+h} \leq c_k)
+	\end{equation}
+	với $k > 0 , h > 0$ và mọi số $c_k \geq 0$
+\end{defi}
+Khái niệm chuỗi dừng theo nghĩa chặt khá nghiêm ngặt cho hầu hết các chuỗi dữ liệu. Nó yêu cầu các phân phối đồng thời của $x_t$ bất biến qua phép biến đổi dịch chuyển thời gian. Ví dụ với $k=2$ ta có 
+\begin{equation}
+ P(x_s \leq c_1,x_t \leq c_2) = P(x_{s+h} \leq c_1,x_{t+h} \leq c_2)
+\end{equation} với $s,t,h$ bất kì.Khi đó nếu hệ số phương sai tồn tại thì hàm tự hiệp phương sai của $x_t$ thỏa mãn 
+\begin{equation}
+	\gamma(s,t) = \gamma(s+h,t+h)
+\end{equation}
+Khi đó hàm tự hiệp phương sai chỉ còn phụ thuộc vào khoảng thời gian bước nhảu $h$ chứ không phải phụ thuộc vào thời điểm $s$ hoặc $t$. Do đó, đôi khi người ta chỉ đòi hỏi một vài điều kiện lỏng hơn trên một trong hai momment của chuỗi. 
+ \begin{defi}
+  Chuỗi $x_t$, có phương sai xác định, được gọi là dừng theo nghĩa rộng \cite{tsa3} nếu
+  \begin{enumerate}
+  \item Hàm xấp xỉ trung bình $\mu_t$ là hằng số và không phụ thuộc vào thời gian $t$
+  \item Hàm hiệp tự phương sai, $\gamma(s,t)$, phụ thuộc vào s và t chỉ thông qua hiệu $|s-t|$ 
+  \end{enumerate}
+ \end{defi}
+ Đặt $s=t+h$ với $h$ là khoảng cách thời gian thì theo tiêu chí thứ 2 ở trên, ta có
+ \begin{equation}
+ \gamma(t+h,t) = cov(x_{t+h},x_t) = cov(x_h,x_0) = \gamma(h,0)
+ \end{equation}
+ Khi đó hàm tự hiệp phương sai sẽ không còn phụ thuộc vào $t$
+ Trong giới hạn khóa luận, ta dùng thuật ngữ \textbf{chuỗi dừng} để ám chỉ định nghĩa \textbf{"chuỗi dừng theo nghĩa rộng"}
+
+Áp dụng một số hàm số cho chuỗi dừng
+
+\begin{defi}
+Hàm tự hiệp phương sai cho chuỗi dừng:
+	\begin{equation}
+		\gamma(h) = cov(x_{t+h}) = E[(x_{t+h}-\mu)(x_t-\mu)]
+	\end{equation}
+\end{defi}
+
+\begin{defi}
+Hàm tự tương quan ACF cho chuỗi dừng:
+\begin{equation}
+	\rho(h) = \frac{\gamma(t+h,t)}{\sqrt{\gamma(t+h,t+h)\gamma(t,t)}}=\frac{\gamma(h)}{\gamma(0)}
+\end{equation}
+\end{defi}
+Dựa vào bất đẳng thức Cosi ta cũng có $|\rho(h)| \leq 1$. Do đó, có thể so sánh giá trị với $-1$ và $1$ để đánh giá mối quan hệ của hai thời điểm trong hàm tự tương quan.
+
+Một số tính chất của hàm ACF cho chuỗi dừng:
+\begin{enumerate}
+	\item Với $h=0$ ta có $\gamma(0) = E[(x_t-\mu)^2] = var(x_t)$ 
+	\item $\gamma(h)=\gamma(-h)$
+\end{enumerate}
+\subsection{Kiểm tra chuỗi dừng}\label{1.2.2}
+Trong một số nghiên cứu, một số dữ liệu như tỉ lệ lợi tức, tỉ giá tiền đổi hay giá cả thị trường... có thể là dữ liệu không có tính chất dừng. Chúng ta gọi chúng là những chuỗi không dừng unit-root.
+Dựa vào khái niệm thì một chuỗi dừng sẽ thỏa mãn 2 điều kiện là hàm xấp xỉ trung bình cho luôn giá trị hằng số duy nhất và hàm tự hiệp phương sai, $\gamma(s,t)$ chỉ phụ thuộc vào $h=|s-t|$. Do đó ta có một số phương pháp để kiểm tra một chuỗi có phải là chuỗi dừng không?
+\subsubsection{Mô hình hóa xấp xỉ trung bình và ACF}
+Khi mô hình hóa chuỗi thời gian, ta nhận thấy chuỗi có xu hướng tăng dần, giảm dần hoặc xấp xỉ trung bình biến đổi thì chuỗi đó chắc chắn không phải là chuỗi dừng theo tính chất thứ nhất trong định nghĩa.
+Ngoài ra, khi quan sát mô hình trực quan hàm tự tương quan ACF, nếu giá trị đạt cao nhất ở thời điểm đầu tiên, sau đó giảm chậm dần thì đó là một chuỗi không có tính dừng.According to (Bowerman and O'Connell 1979) and Box, 1976 24, that if a time series is nonstationary, then the sample auto-correlation function will neither cut off nor die down quickly, but rather will die down extremely slowly.
+Bowerman, B. L., and O'Connell, R. T. (1979). Time Series and Forecasting, Duxbury Press, North Scituate, Massachusetts.
+
+\subsubsection{Kiểm tra nghiệm đơn vị (unit-root)}
+\begin{defi}[Nghiệm đơn vị]\label{unit_root}
+Giả sử một quá trình ngẫu nhiên có thể được viết dưới dạng:
+\begin{equation}
+	y_t = a_1y_{t-1}+a_2y_{t-2}+...+a_py_{t-p}+\epsilon_t
+\end{equation}
+	với $a_1,a_2,\dots$ là các tham số; $\epsilon_t$ là quá trình ngẫu nhiên có xấp xỉ bình phương bằng 0 và phương sai không đổi bằng $\sigma^{2}$. Không mất tính tổng quát coi $y_0 = 0$.
+	Khi đó nếu $m=1$ là nghiệm của phương trình 
+	\begin{equation}
+		m^p - m^{p-1}a_1 - m^{p-2}a_2 - ... - a_p = 0 
+	\end{equation}
+	thì quá trình ngẫu nhiên này có một nghiệm đơn vị $m$
+\end{defi}
+Khi xảy ra nghiệm đơn vị thì đây sẽ không phải là chuỗi dừng nữa vì mô hình sẽ có thể có xu hướng, xấp xỉ trung bình sẽ biến đổi hay phương sai phụ thuộc thời gian nên không thỏa mãn điều kiện chuỗi dừng. Ví dụ, giả sử đối với một chuỗi $x_t$ đơn giản
+\begin{equation}
+	x_t = \phi_1x_{t-1}+w_1
+\end{equation}
+với tham số $\phi_1$ và thành phần nhiễu $w_1$. Trong trường hợp này, nghiệm đơn vị sẽ xảy ra khi $\phi_1=1$.
+Khi đó ta sẽ có 
+	\begin{align}
+		x_t&= x_{t_1}+w_1 \\
+		x_t&=x_0+\sum\limits_{j=1}^{t}w_j\\
+		var(x_t) &= \sum\limits_{j=1}^{t}\sigma^2 = t\sigma^2
+	\end{align}
+	Phương sai phụ thuộc vào thời gian $t$. Do đó, hàm tự hiệp phương sai cũng phụ thuộc vào $t$. Đây sẽ không phải là chuỗi dừng.
+Một số phương pháp kiểm tra nghiệm đơn vị như Dickey–Fuller áp dụng cho mô hình tự hồi quy, mở rộng Augmented Dickey–Fuller cho mô hình ARMA hay phương pháp Phillips–Perron sẽ được nhắc đến sau.
+Một trong những phương pháp phổ biến để chuyển một chuỗi có tính chất dừng thành chuỗi dừng là phương pháp sai phân
+\begin{equation}
+	c_t = x_{t} - x_{t-1}
+\end{equation}
+
+\section{Bài toán dự báo chuỗi thời gian}
+\subsection{Bài toán dự báo}
+Trong nền kinh tế thị trường, công tác dự báo là vô cùng quan trọng bởi lẽ nó cung cấp các thông tin cần thiết nhằm phát hiện và bố trí sử dụng các nguồn lực trong tương lai một cách có căn cứ thực tế.Trong môi trường phong phú và có tính trạnh canh cao, thông tin là vô cùng quan trọng.Người nắm được thông tin trước là người đi đầu, chớp được thời cơ. Đó là một phần cực kì quan trọng ảnh hướng đến lợi nhuận, đường lối phát triển của doanh nghiệp. Với những thông tin mà dự báo đưa ra cho phép các nhà hoạch định chính sách có những quyết định về đầu tư, các quyết định về sản xuất, về tiết kiệm và tiêu dùng, các chính sách tài chính, chính sách kinh tế vĩ mô. Dự báo không chỉ tạo cơ sở khoa học cho việc hoạch định chính sách, cho việc xây dựng chiến lược phát triển, cho các quy hoạch tổng thể mà còn cho phép xem xét khả năng thực hiện kế hoạch và hiệu chỉnh kế hoạch.
+
+Trong quản lý vi mô, dự báo là hoạt động gắn liền với công tác hoạch định và chỉ đạo thực hiện chiến lược kinh doanh của doanh nghiệp. Các doanh nghiệp không thể không tổ chức thực hiện tốt công tác dự báo nếu họ muốn đứng vững trong kinh doanh.
+
+Chức năng đầu tiên của  quản lý trong doanh nghiệp là xác định mục tiêu của doanh nghiêp trong dài hạn và ngắn hạn. Doanh nghiệp phải lập kế hoạch để thực hiện những mục tiêu đó, tổ chức tốt các nguồn nhân lực và vật tư để thực hiện kế hoạch, điều chỉnh kế hoạch cũng như kiểm soát các hoạt động để tin chắc rằng tất cả diễn ra theo đúng kế hoạch. Phân tích kinh tế và dự báo được tiến hành trong tất cả các bước của quản lý doan nghiệp, nhưng trước hết là trong việc xác định mục tiêu và hoạch định các kế hoạch dài hạn và ngắn hạn.
+
+Trong việc xác định mục tiêu, mỗi doanh nghiệp phải quyết định hàng hóa và dịch vụ nào sẽ được sản xuất và bán ra, mức giá sản phẩm và dịch vụ, vùng tiêu thụ, thị trường tiềm năng về sản phẩm đó. Thị phần mà doanh nghiệp thực tế có thể hi vọng chiếm được, hiệu suất vốn doanh nghiệp có thể kỳ vọng… những mục tiêu như vậy chỉ có thể trở thành hiện thực nếu doanh nghiệp đã phân tích các xu thế của nền kinh tế, đã dự báo về nhu cầu sản phẩm của mình cả trong dài hạn và ngắn hạn, chi phí các nhân tố sản xuất…như vậy các dự báo về thị trường, giá cả, tiến bộ khoa học và công nghệ, nguồn nhân lực, sự thay đổi của các nguồn đầu tư vào, đối thủ cạnh tranh,… có tầm quan trọng sống còn đối với doanh nghiệp. Ngoài ra dự báo cung cấp những thông tin cho phép phối hợp hành động giữa các bộ phận trong doanh nghiệp.
+
+Hiện nay có rất nhiều phương pháp dự báo khác nhau về nguồn thông tin được sử dụng, về cơ chế xây dựng dự báo, về độ tin cậy độ xác thực của dự báo. Tuy nhiên, có một số mô hình thông dụng hay được sử dụng \cite{efin} như:
+\begin{description}
+\item[Mô hình kinh tế lượng:] Là phương pháp dựa trên lý thuyết kinh tế lượng để lượng hoá các quá trình kinh tế xã hội thông qua phương pháp thống kê. ý tưởng chính của phương pháp là mô tả mối quan hệ giữa các đại lượng kinh tế bằng một phương trình hoặc hệ phương trình đồng thời. Với các số liệu quá khứ, tham số của mô hình này được ước lượng bằng phương pháp thông kê. Sử dụng mô hình đã ước lượng này để dự báo bằng kỹ thuật ngoại suy hoặc mô phỏng.
+\item [Mô hình I/O:] Mô hình I/O là mô hình dựa trên ý tưởng là mối liên hệ liên ngành trong bản đầu vào - đầu ra(Input – Output table) diễn tả mối quan hệ của quá trình sản xuất giữa các yếu tố đầu vào, chi phí trung gian và đầu ra của sản xuất.
+\item[Mô hình tôi ưu hoá:] Điển hình của mô hình này là bài toán quy hoạch tối ưu, bố trí một nguồn lực nhằn tối ưu hoá một mục tiêu nào đó.
+\item[Mô hình chuỗi thời gian:] Phương pháp dự báo này được tiến hành trên cơ sở giả định rằng quy luật đã phát hiện trong quá khứ và hiện tại được duy trì sang tương lai trong phạm vi tâm xa dự báo. Các quy luật này được xác định nhờ phân tích chuỗi thời gian và được sử dụng để suy diễn tương lai.
+\item [Mô hình nhân tố:] Phân tích tương quan giữa các chỉ tiêu(nhân tố) với nhâu và lượng hoá các mối quan hệ này. Việc lượng hoá được thực hiện nhờ phương pháp phân tích hồi quy và dự báo chỉ tiêu kết quả trên cơ sở sự thay đổi của các chỉ tiêu nguyên nhân hay các chỉ tiều giải thích.
+\end{description}
+Khóa luận sẽ tập trung nghiên cứu về việc sử dụng mô hình chuỗi thời gian cho bài toán dự báo nhu cầu đang cực kì cấp thiết hiện nay.
+\subsection{Bài toán phân tích chuỗi thời gian và dự báo}
+\subsubsection{Mô hình thống kê truyền thống}
+Tất cả các kỹ thuật truyền thống dự báo theo chuỗi thời gian dựa trên giả định là có một mẫu hình cơ bản tiềm ẩn trong các số liệu nghiên cứu cùng với các yếu tố ngẫu nhiên ảnh hưởng lên hệ thống đang xét. Công việc của phân tích chuỗi thời gian là nghiên cứu kỹ thuật để tách mẫu hình cơ bản này và sử dụng nó như là cơ sở để sản sinh ra dữ liệu dự báo cho tương lai.
+
+Để làm được điều đó, trước hết ta giả thiết có một mô hình xác suất để biểu diễn dãy số liệu. Sau cùng hy vọng chọn ra một mô hình gần với dãy số liệu, chúng ta tiến hành ước lượng các tham số của mô hình, kiểm tra lại xem mô hình được sử dụng có phù hợp không.
+
+Dự báo dựa trên mô hình chuỗi thời gian là ước lượng các giá trị tương lai $x_{t+h}$  của một biến ngẫu nhiên dựa trên các giá trị quan sát trong quá khứ của nó $x_1,x_2,...,x_t$ . Giá trị dự báo của   thường được ký hiệu là $\hat{x_t}(h)$.
+
+
+Có 2 hướng tiếp cận chính \citep{cits} khi phân tích chuỗi dữ liệu theo phương pháp truyền thống:
+\begin{description}
+  \item[Miền thời gian] chủ yếu dựa vào việc sử dụng hàm hiệp phương sai của chuỗi thời gian
+  \item[Miền tần số] dựa vào phân tích hàm mật độ phổ và Fourier
+\end{description}
+Cả hai hướng tiếp cận đều có rất nhiều ứng dụng. Một trong các phương pháp phổ biến theo hướng tiếp cận miền thời gian do George Box và Gwin Jenkins (1970)\cite{ross}đề xuất có tên là \textbf{Quá trình tự hồi quy trung bình trượt ARMA}(ARMA là AutoRegressive Moving Average. Nó là một quy trình lặp xử lý mô hình chuỗi dừng tuyến tính. Tuy nhiên, nó cũng có thể được mở rộng thành quy trình ARIMA( quy trình tự hồi quy trung bình trượt tích hợp)để xử lý với chuỗi không dừng. Trong quy trình ARIMA, dữ liệu đầu tiên sẽ được sai phân đến khi chuỗi mới biến đổi có tính dừng. Sau đó, ta áp dụng ARMA cho chuỗi mới biến đổi đó.
+
+\subsubsection{Kỹ thuật khái phá dữ liệu mới}
+......\\
+.......\\
+........\\
+
+Chất lượng của dự báo phụ thuộc vào nhiều yếu tố. Trước hết nó phụ thuộc vào xu hướng phát triển của chuỗi thời gian. Nếu chuỗi thời gian là hàm “đều đặn” theo thời gian thì càng dễ xác định giá trị dự báo. Thí dụ nếu tiến trình phát triển kinh tế không có những biến động đặc biệt thì càng dễ dàng đánh giá tổng sản phẩm quốc nội (GDP) cho những năm tiếp theo. Cho đến nay, các phương pháp dự báo dựa trên chuỗi thời gian chưa cho phép đánh giá ước lượng được các giá trị đột biến. Chất lượng của dự báo dựa vào chuỗi thời gian còn phụ thuộc vào độ xa gần của thời gian. Các giá trị dự báo càng gần hiện tại thì độ chính xác càng cao. Như vậy việc ước lượng GDP cho năm sẽ chính xác hơn việc ước lượng GDP cho 10 năm sau.
+
+\chapter{Mô hình ARIMA và một số mô hình dự báo khác}
+\section{Mô hình tuyến tính ARIMA}
+
+The time domain, or
+regression, methods of this chapter are appropriate when we are dealing with
+possibly nonstationary, shorter time series; these series are the rule rather
+than the exception in many applications. In addition, if the emphasis is on
+forecasting future values, then the problem is easily treated as a regression
+problem. This chapter develops a number of regression techniques for time se-
+ries that are all related to classical ordinary and weighted or correlated least
+squares.
+\subsection{Hàm tương quan và tự tương quan}
+
+	
+\subsection{Nhiễu trắng}
+Một chuỗi thời gian $x_t$ được gọi là \textbf{nhiễu trắng} nếu $x_t$ là một chuỗi các biến ngẫu nhiên phân phối độc lập với xấp xỉ trung bình và phương sai xác định hữu hạn. Trong trường hợp đặc biệt, nếu $x_t$ có xấp xỉ trung bình bằng $0$ và phương sai $\sigma^2$ thì gọi là nhiễu trắng Gaussian. Với nhiễu trắng thì tất cả các giá trị hàm ACF đều bằng $0$. Do đó, trong thực tế, nếu tất cả các giá trị ACF tiến gần tới $0$ thì coi như chuỗi đó là nhiễu trắng
+
+
+\subsection{Quá trình tự hồi quy AR}
+	Ý tưởng của mô hình tự hồi quy AR là tính giá trị hiện tại $x_t$ trong chuỗi dựa vào hàm hồi quy của $p$ giá trị, $x_{t-1},x_{t-2},\dots,x_{t-p},$ xảy ra ngay trước nó trong quá khứ. Giá trị $p$ xác định số bước nhảy lùi quá khứ để dự đoán giá trị hiện tại. 
+	\begin{defi} Một \textbf{mô hình tự hồi quy} cấp p, viết tắt là $\textbf{AR}(p)$ được xác định bởi công thức 
+			\begin{equation}\label{AR}			
+			x_t = \phi_1x_{t-1} + \phi_2x_{t-2} + \dots + \phi_px_{t-p} + w_t
+			\end{equation}
+			với $x_t$ có tính dừng, và $\phi_1, \phi_2,\dots,\phi_p$ là các hằng số $(\phi_p)\neq 0$ mô tả mối quan hệ giữa giá trị hiện tại với các giá trị trước nó. Trong công thức này ta coi $w_t$ là chuỗi nhiễu trắng Gaussian có xấp xỉ trung bình bằng $0$ và phương sai $\sigma^2_w$. Nếu xấp xỉ trung bình của $x_t$ là $\mu \neq 0$ thì ta sẽ thay $x_t$ bằng $x_t - \mu$ trong công thức~\ref{AR}. Ta được công thức sau:
+			\begin{equation}\label{AR}			
+			x_t-\mu = \phi_1(x_{t-1}-\mu) + \phi_2(x_{t-2}-\mu) + \dots + \phi_p(x_{t-p}-\mu) + w_t 
+			\end {equation}
+			hoặc
+			\begin{equation}
+			x_t = \phi_1x_{t-1} + \phi_2x_{t-2} + \dots + \phi_px_{t-p} + w_t 
+			\end{equation}
+			\text {với} $ \alpha = \mu (1-\phi_1 - \phi_2-\dots- \phi_p)	$
+	\end{defi}
+
+Để dễ dàng biểu diễn mô hình thông qua công thức, ta cần sử dụng thêm khái niệm \textit{toán tử dịch chuyển $B$}.
+\begin{defi}
+	Toán tử dịch chuyển B được xác định bởi
+	\begin{equation}
+		Bx_t = x_{t-1}
+	\end{equation}
+	thực hiện quá trình đệ quy $x_{t-k}=Bx_{t-k+1}=...=B^kx_t$ hay
+	\begin{equation}
+		x_{t} = B^kx_{t-k}
+	\end{equation}
+\end{defi}
+Quay lại với mô hình AR, ta có thể biểu diễn nó dưới dạng
+\begin{equation}
+	(1-\phi_1B-\phi_2B^{2}-...-\phi_pB^{p})x_t = w_t, 
+	\phi(B)x_t=w_t
+\end{equation}
+hay
+\begin{equation} 
+	\phi(B)x_t=w_t
+\end{equation}
+$\phi B$ ở trên được gọi là toán tử tự hồi quy
+
+Như đã nói ở trên, hàm tự hiệp phương sai có thể đo mức độ phụ thuộc tuyến tính giữa hai thời điểm trong chuỗi thời gian. Nó là sự phụ thuộc chuỗi toàn phần, có nghĩa là $x_t$ phụ thuộc vào $x_{t-2}$ thông qua $x_{t-1}$ rồi $x_{t-1}$ phụ thuộc $x_{t-3}$ thông qua $x_{t-2}$. Ví dụ như mô hình đơn giản $AR(1)$ được cho bởi $x_t = \phi x_{t-1}+w_t$, ta có
+\begin{align}
+	\gamma_x^2 = cov(x_t,x_{t-2}) &= cov(\phi x_{t-1}+w_t,x_{t-2})\\
+	&= cov(\phi^2x_{t-2}+\phi w_{t-1}+w_t,x_{t-2}) \\
+	&= \phi^2\gamma_x(0)
+\end{align} 
+Do giá trị $\gamma_x(2) \neq 0$, nên có thể khẳng định tồn tại tương quan giữa $x_t$ và $x_{t-2}$. Nhưng nếu trong trường hợp ta bỏ đi giá trị $x_{t-1}$ để bẻ gãy chuỗi liên kết liên tục này, mối quan hệ giữa $x_t$ và $x_{t-2}$ sẽ được đo bởi giá trị hàm tự hiệp phương sai giữa $(x_t-\phi x_{t-1})$ và $(x_{t-2}-\phi x_{t-1}$ do thành phần $x_{t-1}$ bị mất đi.
+\begin{equation}
+	cov(x_t-\phi x_{t-1},(x_{t-2}-\phi x_{t-1}) = cov (w_t,x_{t-2}-\phi x_{t-1}) = 0
+\end{equation}
+Do đó, ta cần một hàm tự tương quan từng phần(PACF) có thể đo được mối quan hệ giữa $x_s$ và $x_t$ trong trường hợp trung gian không được tính đến.
+
+\begin{defi}
+	Hàm \textbf{tự tương quan từng phần~(PACF)} của một chuỗi dừng $x_t$, viết tắt là $\phi_{hh}$ với $h=1,2,\dots$ được xác định :
+	\begin{equation}
+		\phi_{11} = corr(x_{t+1},x_t) = \rho(1)	
+	\end{equation}
+	 và
+	 \begin{equation}
+	 	\phi_{hh} = corr(x_{t+h}-\hat{x}_{t+h},x_{t}-\hat{x}_{t}),\quad h \geq 2
+	 \end{equation}
+\end{defi}
+với 
+\begin{align}
+	\hat{x}_{t+h} &= \beta_{1}x_{t+h-1}+\beta_{3}x_{t+h-2}+\dots+\beta_{h-1}x_{t+1}\\
+	\hat{x}_{t} &= \beta_{1}x_{t+1}+\beta_{3}x_{t+2}+\dots+\beta_{h-1}x_{t+h-1}	\label{hatx}
+\end{align}
+
+Mô hình AR(p) có thể được cho bởi công thức 
+\begin{equation}
+	x_{t+h} = \sum\limits_{j=1}^{p}\phi_{j}x_{t+h-j}+w_{t+h}
+\end{equation}
+Khi $h > p$ thì \textbf{theo tài liệu APP trang 160} ta tính được 
+\begin{equation}
+	\hat{x}_{t+h} = \sum\limits_{j=1}^{p}\phi_{j}x_{t+h-j}
+\end{equation} 
+Theo đó, khi h > p
+\begin{equation}
+\phi_{hh} = corr(x_{t+h}-\hat{x}_{t+h},x_{t}-\hat{x}_{t}) = corr (w_{t+h},x_t-\hat{x}_t) = 0
+\end{equation}
+Theo công thuwsc~\ref{hatx} thì $x_{t}-\hat{x}_{t}$ sẽ chỉ phụ thuộc vào $w_i$ với $i=t+h-1,t+h-2,...$ nên chúng sẽ độc lập với $w_{h+t}$. Khi đó, $\phi_{hh} = 0$ như trên. Cũng theo .... thì khi $h<q$ thì $\phi_{hh}\neq 0$. Do đó, trong mô hình $AR(p)$, PACF sẽ bị triệt tiêu sau khi $h$ vượt ngưỡng $q$.Dựa vào kết quả này, ta có thể dự đoán giá trị $q$ và xây dựng mô hình $AR(q)$ từ chuỗi thời gian thực.
+
+\subsection{Quá trình trung bình trượt MA}
+\begin{defi} 
+	Mô hình \textbf{trung bình trượt} cấp $q$ ,viết tắt là mô hình $\textbf{MA}(q)$ được xác định bởi công thức:
+	\begin{equation}\label{MA}
+		x_t = w_t + \theta_1w_{t-1} + \theta_2w_{t-2} +\dots+\theta_qw_{t-q}
+	\end{equation}
+	với $q$ là cấp của mô hình trung bình trượt, và $\theta_1, \theta_2,\dots,\theta_q$ là các tham số xác định mối quan hệ phụ thuộc giữa giá trị hiện tại $x_t$ và các giá trị nhiễu sai số trước đó. $w_t$ là chuỗi nhiễu trắng Gaussian có xấp xỉ trung bình bằng $0$ và phương sai $\sigma^2_w$
+\end{defi}
+Phương trình~\ref{MA} cũng có dạng tuyến tính như phương trình~\ref{AR} nhưng $x_t$ sẽ được tính thông qua các giá trị nhiễu sai số $w_t, w_{t-1},\dots,w_{t-p}$ trong quá khứ thay vì bằng các giá trị $x_{t-1},x_{t-2},\dots,x_{t-p}$
+Tương tự, ta cũng có thể biểu diễn~\ref{MA} dưới dạng
+\begin{equation}
+	x_t = \theta(B)w_t
+\end{equation}
+với toán tử trung bình trượt $\theta(B) = 1+ \theta_1B+\theta_2B^2+...+\theta_qB^q$
+
+\subsubsection{Xác định cấp $q$ trong $MA(q)$}
+Vì $x_t$ được tính tuyến tính thông qua các nhiễu trắng với mô hinhf~\ref{MA}, chuỗi này hiển nhiên là chuỗi dừng với xấp xỉ trung bình và hàm tự hiệp phương sai như sau:
+\begin{equation}
+	E(x_t) = \sum\limits_{j=0}^{q}\theta_{j}E(w_{t-j})=0
+\end{equation}
+\begin{align}
+	\gamma(h)=cov(x_{t+h},x_t)&= cov(\sum\limits_{j=0}^{q}\theta_jw_{t+h-j},\sum\limits_{k=0}^{q}\theta_kw_{t-k})\\
+	&= \begin{cases}
+			\sigma_{w}^{2}\sum\limits_{j=0}^{q-h}\theta_j\theta_{j+h}, \qquad 0 \leq h \leq q \\
+			0 \qquad\qquad\qquad h > q
+		\end{cases}
+\end{align}
+Khi đó,ta cũng có 
+\begin{equation}
+	\rho(h) = \frac{\gamma(h)}{\gamma(0)}=
+	\begin{cases}
+		\frac{\sum\limits_{j=0}^{q-h}\theta_j\theta_{j+h}}{1+\theta_{1}^{2}+...+\theta_{q}^{2}} , \qquad 1 \leq h \leq q \\
+		   \\
+		0 \qquad\qquad\qquad h >q
+	\end{cases}
+\end{equation}
+Ta có thể nhận thấy với mô hình $MA(q)$ thì giá trị của $\rho(h)$ sẽ bị triệt tiêu ngay sau cấp $q$. Đây chính là điểm mấu chốt để xác định $q$ và xây dựng mô hình $MA(q)$ dựa vào việc quan sát đồ thị trực quan của hàm tự tương quan.
+
+Trong thực tế, công thức hàm tự tương quan 
+\begin{equation}
+	\rho(h) = \frac{\gamma(h)}{\gamma(0)}
+\end{equation}
+được gọi là hàm tự tương quan lý thuyết bởi vì nó phụ thuộc vào các tham số thực của $x_t$. Nhưng trong dữ liệu thực tế, không thể biết được chính xác các tham số này, do đó chúng ta sẽ không thể tính toán chính xác được $\rho(h)$. Tuy nhiên, chúng ta có thể tính toán gần đúng nó dựa vào \textbf{hàm tự tương quan mẫu} với độ trễ $h$ được cho bởi công thức
+\begin{equation}
+	\hat{p}_h = \frac{\sum\limits_{t=h+1}^{n}(x_t-\bar{x})(x_{t-h}-\bar{x})}{\sum\limits_{t=1}^{n}(x_t-\bar{x})^{2}}
+\end{equation}
+với $\bar{x}$ là xấp xỉ trung bình mẫu của $x_i$
+Lúc này tao hoàn toàn có thể tính được ước lượng của $\rho(h)$
+
+ 
+%---------------------------------ARMA----------------------
+\subsection{Quá trình ARMA}
+\begin{defi}
+Một chuỗi thời gian thực \{$x_t; t=0,\pm1,\pm2,\dots$\} là một mô hình tự hồi quy - trung bình trượt ARMA(p,q) nếu nó là một chuỗi dừng và được cho bởi công thức
+\begin{equation}\label{equa:arma}
+	x_t = \phi_1x_{t-1}+\dots+\phi_px_{t-p}+w_t+\theta_1w_{t-1}+\dots+\theta_qw_{t-q}
+\end{equation}
+với $\phi_p \neq 0$, $\theta_q \neq 0$ và $\sigma_{w}^{2} > 0$. Tham số $p$ và $q$ lần lượt được gọi là cấp tự hồi quy và cấp trung bình trượt. Nếu $x_t$ có xấp xỉ trung bình $\mu \neq 0$ thì có thể đặt $\alpha = \mu(1-\phi_1-\dots-\phi_p)$ và mô hình có thể được viết dưới dạng
+\begin{equation}
+  x_t = \alpha + \phi_1x_{t-1}+\dots+\phi_px_{t-p}+w_t+\theta_1w_{t-1}+\dots+\theta_qw_{t-q}
+\end{equation}
+Ta vẫn lấy $w_t$ là chuỗi nhiễu trắng Gaussian có xấp xỉ trung bình bằng 0 và phương sai $\sigma_{w}^{2}$
+\end{defi}
+Nếu $q = 0$, ta thu được mô hình tự hồi quy cấp $p$, $AR(p)$, và khi $p = 0$ thì ta lại thu được mô hình trung bình trượt cấp $q$, $MA(q)$
+
+\subsubsection{Xác định mô hình ARMA}
+Hàm tự tương quan ACF có thể giúp xác định cấp $q$ của mô hình $MA(q)$. Ngoài ra, hàm tự tương quan từng phần PACF cũng giúp đưa ra dự đoán cấp $p$ nếu nó là mô hình $AR(p)$. Nhưng với mô hình tự hồi quy-trung bình trượt ARMA thì cả ACF và PACF đều không thể giúp xác định bộ $(p,q)$. Do đó, một hàm mở rộng mới được để xuất để khắc phục điều này. Nó có tên là \textbf{hàm tự tương quan mở rộng(EACF)}.
+Tư tưởng chính của EACF gồm 2 bước:
+\begin{enumerate}
+\item Tìm các ước lượng của các tham số tự hồi quy $\phi_i$ để chuyển $x_t$ sang quá trình trượt trung bình
+\item Dựa vào hàm ACF xác định cấp $q$ cho mô hình vừa được biến đổi.
+\end{enumerate}
+Mô tả quá trình xử lý ước lượng mô hình \label{EACFlabel}
+\begin{enumerate}
+\item Đồng nhất mô hình cần xác định với mô hình tự hồi quy
+	\begin{equation}
+		x_t = \phi_1x_{t-1}+\phi_2x_{t-2}+...+\phi_px_{t-p}+w_t
+	\end{equation}
+Ta sử dụng ước lượng bình phương tối thiểu để tìm các ước lượng tham số $\hat{\phi_i}^{(0)}$ với $i=1,2,..,p$.Nếu mô hình cần xác định là một mô hình $ARMA(p,q)$ thì các ước lượng tham số trên chưa chính xác nhưng ta có thể thu ước lượng cho nhiễu trắng
+\begin{equation}
+	\hat{w_t}^{(0)} = x_t - \hat{\phi_1}^{(0)}x_{t-1}-\hat{\phi_2}^{(0)}x_{t-2}-...-\hat{\phi_p}^{(0)}x_{t-p}
+	\end{equation}
+	\item Do $\hat{w_t}^{(0)}$ phụ thuộc liên quan đến $p$ theo như công thức trên, ta lại ước lượng mô hình với 
+	\begin{equation}
+		x_t = \phi_1x_{t-1}^{(1)}+\phi_2x_{t-2}^{(1)}+...+\phi_px_{t-p}+w_t^{(1)}+\theta_{1}^{(1)}{\hat{w}_{t-1}}^{(0)}
+	\end{equation}
+Trong mô hình này ta vừa thêm một nhiễu ${\hat{w}_{t-1}}^{(0)}$ để ước lượng
+	\begin{itemize}
+		\item Nếu mô hình cần xác định là mô hình $ARMA(p,q)$ có $q=1$ thì bộ tham số $\phi_i$ và $\theta_1$ kia là bộ cần tìm.
+		\item Nếu giá trị thực sự $q>1$ thì bộ tham số kia vẫn chưa chính xác. Ta chuyển xuống bước 3
+	\end{itemize}
+\item Trong trường hợp $q>1$, ta tiếp tục ước lượng với mô hình 
+	\begin{equation}
+		x_t = \phi_1x_{t-1}^{(2)}+\phi_2x_{t-2}^{(2)}+...+\phi_px_{t-p}+w_t^{(2)}+\theta_{1}^{(2)}{\hat{w}_{t-1}}^{(1)} + \theta_{2}^{(2)}{\hat{w}_{t-2}}^{(0)}
+	\end{equation}
+	Ta mới thêm nhiễu ${\hat{w}_{t-2}}^{(0)}$ để ước lượng mô hình. Nếu $q=2$ thì bộ tham số này là bộ cần tìm. Trường hợp ngược lại, ta tiếp tục thực hiện lặp lại thêm nhiễu và ước lượng đến khi tìm được bộ thỏa mãn.
+\end{enumerate}
+
+Đầu ra của EACF là một bảng 2 chiều với chỉ số của dòng tương ứng với cấp $p$ của AR và chỉ số của cột tương ứng với cấp $q$ của MA.Giá trị tại hàng $m$, cột $j$ là giá trị \textbf{hàm tự tương quan mở rộng mẫu(SEACF)}, viết tắt là \textbf{$\hat{p}_j^{(m)}$}. Đó cũng chính là giá trị ước lượng của hàm tự tương quan mẫu SACF cho mô hình $AR(m)$với ước lượng nhiễu
+\begin{equation}
+	\hat{w_t}^{(j)} = x_t - \hat{\phi_1}^{(j)}x_{t-1}-\hat{\phi_2}^{(j)}x_{t-2}-...-\hat{\phi_p}^{(j)}x_{t-m}
+\end{equation}
+Ở đây, $j$ là số vòng lặp trong quá trình xấp xỉ mô hình ở trong quá trình ước lượng mô hình~\ref{EACFlabel} ở trên 
+\figuremacroW{SEACF}{Bảng giá trị Hàm tự tương quan mở rộng mẫu}{}{0.5}\label{SEACFfig}
+
+Theo Tiao và Tsay thì trong mô hình ARMA(p,1) thì 
+\[
+	\hat{p}_j^{(m)} \longrightarrow \begin{cases}
+										c,\qquad j = q+m-p \\
+										0,\qquad j > q+m-p
+										\end{cases}
+\]\label{SEACFequa} với $|c|<1$
+
+Công thức ~\ref{SEACFequa} trên giúp xác định mô hình ARMA(p,q) trong thực tế. Bảng giá trị hàm SEACF (Hình~\ref{SEACFfig}) có chỉ số của hàng biểu diễn cho cấp $p$ của $AR(p)$ còn chỉ số của cột biểu diễn cho cấp $q$ của $MA(q)$. %Ta sẽ tìm trong bảng SEACF một tam giác chỉ gồm các giá trị $0$ và có tiệm cận $m=c_1 >0$ và $j-m=c_2>0$. Khi đó, mô hình dự kiến sẽ có $p=c_1$ và $q=c_2$.
+ Trong dữ liệu mẫu thực tế, khó để $\hat{p}_j^{(m)}$ đạt giá trị 0 một cách chính xác mà ta phải xấp xỉ rồi biểu diễn. Trong mô hình, "0" biểu diễn cho giới hạn 0 của $\hat{p}_j^{(m)}$, "x" biểu diễn giá trị $\hat{p}_j^{(m)} \neq 0$ hay đúng hơn là có giá trị lớn hơn 2 lần giá trị của ước lượng sai số tiêu chuẩn. Ta tìm kiếm 2 đường tiệm cận 0 trong bảng, điểm giao nhau chính là giá trị của $(p,q)$. Như trong Hình~\ref{SEACFwedge}, ta tìm được điểm giao là $(2,2)$ , do đó, mô hình dự kiến sẽ là ARMA(2,2)
+\figuremacroW{SEACF_wedge}{Bảng giá trị SEACF ví dụ cho mô hình ARMA(2,2)}{}{0.5}\label{SEACFwedge}
+\subsection{Phương trình sai phân, khử xu hướng}
+\subsection{Mô hình ARIMA cho chuỗi không có tính dừng}
+\figuremacroW{arima}{Định nghĩa ARIMA}{}{0.5}\label{arima}
+\section{Box-jenkins}
+\figuremacroW{BJ}{Quy trình Box-Jenkins}{}{1}\label{bj}
+\subsection{Xác định mô hình}
+Xác định mô hình gồm 2 bước chính:
+\begin{itemize}
+\item \textbf{Chuẩn bị dữ liệu:} trước tiên ta cần xác định xem chuỗi dữ liệu có phải chuỗi dừng không(quan sát đồ thị hoặc qua hàm kiểm tra nghiệm đơn vị) và có tồn tại yếu tố mùa vụ nào trong mô hình không. Ta cần sử dụng sai phân và sai phân mùa vụ để khử các yếu tố này. Ngoài ra,  với từng loại dữ liệu cụ thể chúng ta cần thực hiện chuyển đổi dữ liệu (ví dụ: logarit...) nếu dữ liệu xuất hiện xu hướng, giá trị tăng theo cấp số mũ, phương sai thay đổi...Việc này cần thực hiện trước các hàm sai phân.
+
+\item \textbf{Lựa chọn mô hình:}Dữ liệu sau khi được chuyển đổi và sai phân, ta dựa vào đồ thị hàm SACF, SPACF và SEACF để xác định ước lượng cấp $p$ và $q$
+\end{itemize}
+
+\subsubsection{Chuẩn bị dữ liệu}
+Tất cả các mô hình chúng ta nhắc tới $MA$, $AR$, $ARMA$ đều ngầm định rằng dữ liệu chuỗi đầu vào là chuỗi dừng. Một chuỗi dừng thì phải có tính chất cấu trúc đồ thị hàm xấp xỉ trung bình, phương sai và tự tương quan khá ổn định, không thay đổi theo thời gian. \href{http://www.itl.nist.gov/div898/handbook/pmc/section4/pmc442.htm} 
+{link}{}. Dựa vào đồ thị, chuỗi dừng nhìn phẳng,không có xu hướng, giá trị phương sai và tự tương quan ổn định, không thay đổi theo thời gian và cũng không có yếu tố chu kì, mùa vụ (Hình~\ref{Stationarycomparison})
+\figuremacroW{Stationarycomparison}{Mô hình chuỗi dừng và không có tính chất dừng}{}{0.5}
+
+Ta thường gặp một số dữ liệu mà càng về sau thì độ biến thiên của dữ liệu quanh xấp xỉ trung bình càng lớn (hoặc càng nhỏ). Những dữ liệu như thế thì phương sai của chúng sẽ thay đổi theo thời gian. Vì vậy, nó không phải là chuỗi dừng. Ví dụ như biểu đồ lượng điện sử dụng hàng tháng của Mỹ từ tháng 1/1973 đến 12/2005 trong Hình~\ref{originElec}.Từ đồ thị chúng ta có thể thấy rằng phương sai tăng dần theo thời gian, càng về cuối thì biên độ giao động càng lớn. Trước tiên chúng ta cần phải biến đổi để chuyển dữ liệu thành dữ liệu mới có phương sai ổn định.
+\figuremacroW{originElec}{Lượng điện sử dụng hàng tháng của Mỹ}{}{0.5}
+Chúng ta có thể sử dụng \textbf{phép biến đổi mũ} được giới thiệu bởi Box và Cox (1964). Nếu gọi $T(x_t)$ là hàm ổn định phương sai. Chuỗi sau biến đổi $T(x_t)$ có phương sai không đổi. 
+\begin{align}
+	T(x_t) = \begin{cases}
+				\frac{x_t^{\lambda}-1}{\lambda},\quad \lambda \neq 0 \\
+				\ln(x_t),\qquad \lambda = 0
+			\end{cases}
+\end{align}
+
+Tham số $\lambda$ được cho bởi bảng
+
+\begin{table}[htdp]
+\centering
+\begin{tabular}{ccc} % ccc means 3 columns, all centered; alternatives are l, r
+\hline
+{\bf $\lambda$} & {\bf $T(x_t)$}  \\ 
+% & denotes the end of a cell/column, \\ changes to next table row
+\hline % draws a line under the column headers
+
+-2.0 & ${1}/{x_t^2}$  \\
+-1.0 & ${1}/{x_t}$  \\
+-0.5 & ${1}/{\sqrt{x_t}}$  \\
+0.0  & $\ln(x_t)$  \\
+0.5 & $\sqrt{x_t}$  \\
+1.0 &  $x_t$ \\
+2.0 &  $x_t^2$ \\
+\end{tabular}
+\caption[title of table]{\textbf{Bảng tham số $\lambda$}}
+% You only need to write the title twice if you don't want it to appear in bold in the list of tables.
+\label{lambda} % label for cross-links with \ref{latexin_genes}
+\end{table}
+
+Tham số $\lambda$ có thể được ước lượng thông qua các giá trị hợp lý loga(log-likehood) dựa vào các hàm ước lượng hợp lý cực đại(MLE). Với độ tin tưởng 95$\%$, ta có đồ thị giá trị hợp lý loga như Hình~\ref{BoxCoxE}.Ta thấy có thể chọn được giá trị $\lambda = 0$ , sử dụng biến đổi logarit để biến đổi dữ liệu. Ta có thể quan sát thấy mô hình dữ liệu mới(Hình~\ref{logE}) đã có độ ổn định phương sai
+
+\figuremacroW{BoxCoxE}{Hàm ước lượng hợp lý log dựa vào $\lambda$}{}{0.7}
+
+\figuremacroW{logE}{log(Electricity)}{}{0.7}
+
+Sau khi khử đi sự biến thiên mạnh của phương sai, chúng ta kiểm tra lần cuối tính dừng của chuỗi. Như đã mô tả trong Phần~\ref{1.2.2}, ta có thể quan sát biểu đồ hàm tự tương quan mẫu SACF để dự đoán tính dừng của chuỗi. Nếu nó đạt giá trị ban đầu lớn nhưng giảm từ từ thì chuỗi đó là chuỗi không có tính chất dừng. Ví dụ như . 
+
+Ngoài ra, một số chuỗi dữ liệu không có tính chất dừng nhưng biểu đồ SACF không có tính chất trên. Ta nên sử dụng phương pháp một phương pháp thông kê khác kiểm tra một lần nữa. Cũng ở trong Phần~\ref{1.2.2}, ta chỉ ra rằng nếu một mô hình có nghiệm đơn vị thì nó không phải là chuỗi dừng. Một trong những phương pháp phổ biến kiểm tra mô hình ARIMA là phương pháp Augmented Dickey–Fuller(ADF) (c2 trang 13) do Dickey và Fuller (1979 và 1981) tạo ra. Họ nghiên cứu 3 hàm hồi quy khác nhau để kiểm tra nghiệm đơn vị cho $x_t$
+\begin{align}
+\Delta{x_t} &= ax_{t-1} + \sum\limits^{J}_{j=1}\varphi_{j}\Delta{x_{t-1}}+ \beta{t} + w_t, \qquad t = 1,2,...,T \\
+\Delta{x_t} &= ax_{t-1} + \sum\limits^{J}_{j=1}\varphi_{j}\Delta{x_{t-1}}+ \mu + w_t , \qquad t = 1,2,...,T\\
+\Delta{x_t} &= ax_{t-1} + \sum\limits^{J}_{j=1}\varphi_{j}\Delta{x_{t-1}} + w_t, \qquad t = 1,2,...,T
+\end{align}
+với $\Delta{x_0}$ cố định. Biến phụ thuộc là $\Delta{x_t}$ Họ đã chứng minh rằng $x_t$ có nghiệm đơn vị nếu $a=0$. ADF sẽ kiểm tra giả thiết xuôi $H_0: a = 0$ (không có tính chất dừng) và giả thiết ngược $H_1: a < 0$(có tính chất dừng)
+Chúng ta sẽ kiểm tra bằng cách hồi quy $\Delta{x_t}$ trên $x_{t-1}$, $\Delta{x_{t-1}}$, $\Delta{x_{t-2}}$,...,$\Delta{x_{t-k}}$. Ta ước lượng $a$ bằng phương pháp bình phương tối thiểu. Nếu giá trị ước lượng $a$ nhỏ hơn $0$ đáng kể thì kết luận được đây là chuỗi dừng còn ngược lại thì nó là chuỗi không có tính chất dừng. Vậy thế nào là "đáng kể"?. Ta sẽ dựa vào giá trị xác suất \textbf{p-value}. Nếu giá trị này nhỏ hơn ngưỡng $0.1$ thì giá trị ước lượng được chấp nhận còn ngược lại thì kết quả chưa tin tưởng được. Ví dụ như với dữ liệu nhiệt độ trái đất (không khí và nước) hàng năm tính từ giữa thế kỉ 20, ta thu được kết quả kiểm tra ADF như sau: $(a ~ -0.245 , p-value = 0.1)$. Do $p-value > 0.1$ nên dù $a<0$ thì vẫn không tin tưởng được vào ước lượng. Nhưng nếu giả sử $p-value = 0.01 < 0.1$ thì do $a<0$ nên ta có thể kết luận chuỗi này có tính chất dừng.
+
+Sau khi đã xác định được rằng chuỗi dữ liệu không có tính chất dừng, ta cần làm thực hiện sai phân $d$ lần cho đến khi thu được chuỗi mới có tính chất dừng. Thông thường trong thực tế, chỉ cần thực hiện tối đa 2 lần là thu được chuỗi dừng. Trong ví dụ về mức tiêu thụ điện ở trên, sau khi sai phân chuỗi $log(electricity)$ ta thu được chuỗi mới có đồ thị(Hình~\ref{difflogE}) 
+\figuremacroW{difflogE}{Đồ thị giá trị chuỗi sai phân bậc 1 của $log(electricity)$ }{}{0.7}
+
+\subsubsection{Lựa chọn mô hình:}
+Sau khi xác định được tham số $d$ trong mô hình ARIMA, ta cần ước lượng 2 tham số $p$ và $d$ còn lại. Phương pháp chính để ước lượng dự đoán 2 tham số này là sử dụng đồ thị của hàm tự tương quan của mẫu(SACF), hàm tự tương quan từng phần của mẫu(SPACF) và hàm tự tương quan mở rộng của mẫu (
+(SEACF)
+Theo như Phần 2.1.3 thì giá trị hàm tự tương quan từng phần của mô hình $AR(p)$ có giá trị xấp xỉ bằng $0$ từ trễ $p+1$ trở đi.Do đó, ta sẽ quan sát đồ thị SPACF giá trị $p$ mà sau giá trị đó đồ thị tiến sát giá trị $0$. Thông thường, trong đồ thị SPACF có 2 đường giới hạn giá trị sai số là $y = \pm2/\sqrt{N}$ với $N$ là cỡ của mẫu dữ liệu. Nếu quan sát được giá trị $p$ phù hợp như vậy thì một ước lượng của mô hình ta cần tìm là $ARIMA(p,d,0)$ hay $AR(p)$(sau khi sai phân $d$ lần)
+
+Tương tự, theo Phần 2.1.4, giá trị hàm tự tương quan của mô hình $MA(q)$ sẽ giảm xuống $0$ từ giá trị $p+1$ trở đi. Mô hình SACF cũng có 2 đường giới hạn sai số $\pm2/\sqrt{N}$ với $N$ là cỡ của dữ liệu mẫu. Nếu quan sát được giá trị $q$ mà sau nó, đồ thị giao động nhẹ quanh giá trị 0 thì có thể kết luận rằng một trong những ước lượng mô hình phù hợp là $ARIMA(0,d,q)$ hày $MA(q)$(sau khi sai phân $d$ lần).
+
+Dưới đây là một số dự đoán mô hình dựa vào đồ thị SACF:
+\begin{table}[htdp]
+\centering
+\begin{tabular}{|l|l|l|} % ccc means 3 columns, all centered; alternatives are l, r
+\hline
+{\bf Hình dạng} & {\bf Mô hình ước lượng}  \\ 
+% & denotes the end of a cell/column, \\ changes to next table row
+\hline % draws a line under the column headers
+
+Giá trị lớn, triệt tiêu dần & Mô hình RA \\
+$\qquad$&(dùng thêm đồ thị SACF để xác định)  \\ \hline
+Cả giá trị âm và dương, &Mô hình RA\\ 
+triệt tiêu dần & $\qquad$  \\\hline
+Một hoặc một số đỉnh trội , & Mô hình MA,\\
+còn lại xấp xỉ 0& tìm điểm $q$ mà đồ thị bắt đầu về 0 \\ \hline
+Giảm dần, tăng sau một số  & Mô hình ARMA \\
+khoảng trễ& $\qquad$ \\ \hline
+Tất cả bằng hoặc xấp xỉ gần $0$ & dữ liệu ngẫu nhiên \\ \hline
+Cao tại một số điểm nhất định & chứa yếu tố chu kì \\ \hline
+Không giảm tới 0 & không phải chuỗi dừng \\ \hline
+\end{tabular}
+\caption[title of table]{\textbf{Bảng dự đoán mô hình dựa vào đồ thị SACF}}
+% You only need to write the title twice if you don't want it to appear in bold in the list of tables.
+\label{fcpq} % label for cross-links with \ref{latexin_genes}
+\end{table}
+
+Nếu không thể dự đoán được bằng đồ thị SACF và SPACF, đó có thể là mô hình trộn ARMA. Theo phần 2.1.5, ta cần sử dụng hàm tự tương quan mở rộng để ước lượng tham số $p$ và $q$
+
+\subsection{Ước lượng tham số}
+Sau khi xác định $p,d,q$ ta thu được mô hình 
+\subsubsection{Ước lượng bình phương tối thiểu}
+Theo công thức~\ref{equa:arma}, mô hình được cho bởi công thức:
+\begin{equation}
+x_t = \sum\limits_{j=1}^{p}\phi_jx_{t-j}+w_t+\sum\limits_{j=1}^{q}\theta_jw_{t-j}
+\end{equation}
+Ta có,\begin{equation}\label{cls_wt}
+	w_t = x_t - \sum\limits_{j=1}^{p}\phi_jx_{t-j}- \sum\limits_{j=1}^{q}\theta_jw_{t-j}
+\end{equation}
+Giả sử chỉ có $n$ mẫu $x_1,x_2,...,x_n$ được quan sát. Khi đó ta chỉ cần tính toán từ $t=2$ đến $t=n$. Gọi hàm $S_c(\phi,\theta)$ là hàm tổng bình phương có điều kiện, được cho bởi
+\begin{align}
+	S_c(\phi,\theta) &= \sum\limits_{t=2}^{n}w_t^{2} \\
+					&=	\sum\limits_{t=2}^{n}[x_t - \sum\limits_{j=1}^{p}\phi_jx_{t-j}- \sum\limits_{j=1}^{q}\theta_jw_{t-j}]^{2}
+					\end{align}
+Mục tiêu là ước lượng các giá trị $\phi$, $\theta$ sao cho giá trị hàm $S_c(\phi,\theta)$ đạt giá trị cực tiểu.
+Giá trị nhiễu trắng $w_t$ sẽ được ước lượng với sai số phương sai
+\begin{description}
+\item[AR(p):]\qquad\qquad $\hat{\sigma}_w^{2} = (1-\sum\limits^{p}_{j=1}\hat{\phi_j}\hat{\rho_j})$
+
+\item [MA(q):]\qquad\qquad $\hat{\sigma}_w^{2} =\frac{S^2}{1+\hat{\theta_1^2}+\hat{\theta_2^2}+\dots+\hat{\theta_q^2}}$
+\item[ARMA(1,1)]\qquad $\hat{\sigma}_w^{2} = S^2.\frac{1-\hat{\phi^2}}{1-2\hat{\phi}\hat{\theta}+\hat{\theta^2}}$
+\end{description}
+Ví dụ(trang 200 f11notes)
+\subsubsection{Ước lượng hợp lý cực đại}
+Đây là phương pháp hay được sử dụng nhất để ước lượng các tham số chưa biết.
+Gọi hàm mật độ xác suất của nhiễu $w_t$ là $f(w_t)$. Hàm xác suất đồng thời của $w_2,w_3,...,w_n$ được xác định bởi:
+\begin{equation}
+	f(w_2,w_3,...,w_n) = \prod^{n}_{t=2} f(w_t)
+\end{equation}
+Giá trị $x_1$ cố định.\textbf{Hàm hợp lý} sẽ được cho bởi công thức:
+\begin{equation}
+	L= L(\phi,\theta,\sigma^{2}_{w}|x) = f(x_2,x_3,...,x_n|x_1) f(x_1)
+\end{equation}
+Khi đó, ước lượng hợp lý cực đại của $\phi,\theta,\sigma^{2}_{w}$ sẽ là những giá trị mà làm cho $L(\phi,\theta,\sigma^{2}_{w}|x)$ đạt giá trị cực đại.
+
+
+\subsection{Kiểm định mô hình}
+Bước cuối cùng để xác định hoàn toàn công thức của mô hình là kiểm định lại các giá trị đã được ước lượng trong phần trước.
+\subsubsection{Phân tích sai số thặng dư}
+\textbf{Sai số thặng dư(residuals)} là lượng chênh lệch giữa mẫu quan sát và giá trị của hàm ước lượng cho tập mẫu ấy tại một thời điểm xác định. Nó được xác định bởi công thức:
+\begin{align}
+	\text{Sai số thặng dư tại $t$ = (giá trị thực tế của mẫu $x_t$) - (giá trị của mô hình ước lượng $x_t$)}
+\end{align}
+Nếu mô hình được ước lượng tốt thì chuỗi sai số thặng dư của nó thường sẽ có một số tính chất gần giống như tính chất của nhiễu trắng Gassian. Nó gần giống như một chuỗi các biến ngẫu nhiên chuẩn, độc lập và có cùng phân phối xác suất. Ngoài ra, nó có xấp xỉ trung bình $\mu_w = 0$ và có độ lệch tiêu chuẩn ổn định. 
+Về cơ bản, sai số thặng dư được tính bởi công thức $\hat{e}_t = x_t - \hat{x_t}$ nhưng chúng ta thường xử lý trên \textbf{sai số thặng dư chuẩn hóa} 
+\begin{equation}
+	\hat{e_t}^* = \frac{\hat{e_t}}{\hat{\sigma_e}}
+\end{equation}
+với $\hat{\sigma^2_e}$ là ước lượng của phương sai nhiễu trắng $\sigma_w^2$
+Ta cần kiểm tra mức độ chuẩn tắc và độc lập của chuỗi sai số thặng dư chuẩn hóa. 
+Biểu đồ và đồ thị qq của sai số thặng dư có thể dùng để đánh giá trực quan về tính chuẩn tắc của nó. Đồ thị chuỗi của sai số thặng dư có thể giúp phát hiện các mẫu mà vi phạm đến tính độc lập của các sai số thặng dư. Ngoài ra chúng ta áp dụng kiểm tra giả thuyết về chuẩn tắc của Shapiro-Wilk và tính độc lập (runs test) đối với sai số thặng dư chuẩn hóa.
+\textbf{??????}Từ phân phối chuẩn chuẩn hóa, ta biết rằng hầu hết các giá trị $\hat{e_t^*}$ nằm trong khoảng -3 đến 3 theo tiêu chuẩn  Bon-ferroni outlier với $\alpha = 5\%$ và $n = $ \textbf{(xem trang 187  quyển time series app )}
+\begin{itemize}
+\item Phương pháp \textbf{Shapiro-Wilk} kiểm tra 2 giải thuyết:\\
+	 $H_0$: chuỗi sai số thặng dư chuẩn hóa có phân phối chuẩn.\\
+	$H_1$: chuỗi sai số thặng dư chuẩn hóa không có phân phối chuẩn
+	\item Phương pháp \textbf{runs test} kiểm tra 2 giải thuyết:\\
+	$H_0$: chuỗi sai số thặng dư chuẩn hóa có tính độc lập.\\
+	$H_1$: chuỗi sai số thặng dư chuẩn hóa không có tính độc lập.
+	\item Trong cả 2 phương pháp, nếu giá trị xác suất $p-value$ quá nhỏ thì giải thuyết $H_0$ sẽ bị loại bỏ.
+\end{itemize}
+Ví dụ trang 217 f11notes
+
+Ngoài ra, Ljung và Box (1978) đã phát triển một hàm kiểm tra dựa vào sự tương tương quan mẫu của sai số thặng dư để kiểm tra liệu một mô hình $ARMA(p,q)$ có phù hợp hay không. 
+Thật vậy, công thức biến đổi $Ljung-Box$ được cho bởi công thực:
+\begin{equation}
+Q_* = n(n+2)\sum\limits^{K}_{k=1}\frac{\hat{r_k^2}}{n-k}
+\end{equation}
+với $\hat{r_k}$ là các giá trị tự tương quan mẫu của sai số thặng dư được tính dựa vào mô hình ARMA(p,q).
+được sử dụng để kiểm tra giả thuyết xuôi $H_0$(mô hình ARMA phù hợp) và giả thiết ngược $H_1$(mô hình ARMA không phù hợp)
+Với $K$ xác định cho trước, chọn một mức $\alpha$ để quyết định giả thuyết nào đúng. Nếu giá trị của $Q_*$ vượt quá phân phối $\chi$ với điểm sai phân $\alpha$ và độ tự do $K-p-q$ hay nói cách khác nếu \quad
+	$Q_{*} > \chi^2_{K-p-q} \quad\text{thì mô hình $ARMA(p,q)$ này không phù hợp.}$
+\textbf{ ví dụ trang 226 f11}
+\subsubsection{overfitting}
+
+\subsection{Dự báo}
+
+Từ dữ liệu mẫu có sẵn $x_1,x_2,...,x_t$, chúng ta cần dự đoán các kết quả tương lai $x_{t+1},x_{t+2},....$.Giá trị dự đoán tại thời điểm $t+l$, kí hiệu là $\hat{x}_t(l)$, chính là giá trị kì vọng của $x_{t+l}$ với điều kiện đã có $t$ phần tử mẫu quan sát $x_1,x_2,...,x_t$. Ta gọi nó là $Hàm dự đoán MMSE$(minimum mean squared error forecast) được cho bởi công thức sau:
+\begin{equation}
+	\hat{x}_t(l) = E(x_{t+l}|x_1,x_2,...,x_t)
+\end{equation}
+Một số tính chất của kỳ vọng có điều kiện:
+\begin{itemize}
+\item $E(c|x_1,x_2,...,x_t) = c $ với $c$ là hằng số
+\item $E(\phi_i{x_i}|x_1,x_2,...,x_t) = \phi_i x_i$ với $i = 1,2,...,t$
+\item $E(w_{t+1}|x_1,x_2,...,x_t) = E(w_{t+1}) = 0$ với ${w_t}$ là nhiễu trắng, bởi vì $w_{t+1}$ độc lập với $x_1,x_2,...,x_t$
+\end{itemize}
+
+Nếu mô hình ước lượng là ARMA(p,q) được cho bởi công thức
+\begin{equation}
+	x_t = \phi_1x_{t-1}+\dots+\phi_px_{t-p}+w_t+\theta_1w_{t-1}+\dots+\theta_qw_{t-q}
+\end{equation}
+
+Ta tính được giá trị tương lai tại $t+l$ là 
+\begin{equation}
+	 \hat{x}_t(l) = \sum\limits_{j=1}^p\phi_j\hat{x_t}(l-j) + w_t + \sum\limits_{j=1}^p\phi_jE(w_{t+l-j}|x_1,x_2,...,x_t)
+\end{equation}   
+Trong đó,
+\begin{align}
+E(w_{t+l-j}|x_1,x_2,...,x_t) &= \begin{cases}
+									0, \qquad l-j > 0\\
+									w_{t+l-j}, \quad l-k \leq 0
+								\end {cases}\\
+\hat{x_t}(l-j) &= E(x_{t+l-j}|x_1,x_2,...,x_t)\qquad j = 1,2,..,p
+\end{align}
+ Ta thực hiện đệ quy nhiều vòng để tính được công thức chung cho $\hat{x}_t(l)$
+Ví dụ với mô hình $ARMA(1,1)$ được cho bởi
+\begin{equation}
+	x_t = \phi{x_{t-1}}+w_t + \theta{w_{t-1}}
+\end{equation}
+
+Sử dụng một số tính chất kỳ vọng có điều kiện và tính toán đệ quy, ta thu được công thức
+\begin{align}
+	\hat{x}_t(1) &= \phi{x_t} - \theta{w_t} \\
+	\hat{x}_t(l) &= \phi\hat{x}_t(l-1)
+\end{align}
+\section{Một số mô hình và phương pháp khác}
+\subsection{Phương pháp k-người láng giềng gần nhất}
+\subsection{Markov Chains}
+\subsection{Mạng nơ-ron nhân tạo}
+\subsection{SVM}
+
+\cite{m85}
+\cite{tsa2}
+%: ----------------------- HELP: www links
+% You can also see above how, www links are placed
+% \href{http://www.something.net}{link text}
+
+ %----------------------------------------------------------------------
+
+\bibliographystyle{Latex/Classes/PhDbiblio-url2} % Title is link if provided
+\renewcommand{\bibname}{Tham khảo} % changes the header; default: Bibliography
+
+\bibliography{../9_backmatter/references} % adjust this to fit your BibTex file
+
+
+
+\end{document}
+

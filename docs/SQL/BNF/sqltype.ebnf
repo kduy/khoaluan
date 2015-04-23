@@ -1,0 +1,169 @@
+stat ::= setStmt | selectStmt | updateStmt | deleteStmt
+
+// setStmt
+
+	setStmt ::= selectStmt | "(" selectStmt ")" 
+				setOperator
+				"all"?
+				selectStmt | "(" selectStmt ")" 
+				(orderBy)?
+				(limit)?
+
+	setOperator ::= "union" | "except" | "intersect"
+
+
+// selectStmt
+	
+	selectStmt ::=  //todo
+		select
+		from 
+		(where)?
+		(groupBy)?
+		(orderBy)?
+		(limit)?
+
+	select 	::=  "select" (("all")? named) (","("all")? named)*
+	from 	::= "from" tableReference ("," tableReference)*()
+	where 	::= "where" expr 
+		expr ::= (comparison| parens| notExpr) (("and"|"or") (comparison| parens| notExpr))+  
+				
+				//comparison
+				parens ::= "("expr")"
+				notExpr ::= "not" expr
+
+	groupBy ::= "group" "by" 
+				term ("," term)
+				(withRollup)?
+				(having)?
+		having ::= "having" expr
+	orderBy ::= "order" "by" orderSpec ("," orderSpec)
+		orderSpec ::= term "collate"? ("asc" | "desc")?
+	limit ::= "limit" ("?"|NUMERIC_LIT) ("offset" ("?"|NUMERIC_LIT))?
+
+
+	//tableReference
+		tableReference ::= joinedTable | derivedTable | table 
+
+	//table
+		table ::= IDENT ("as" IDENT)?
+
+	//derivedTable ::= subselect "as" IDENT (joinType)*
+		
+
+	// joinedTable ::= table (joinType)*
+
+			joinedTable ::= crossJoin | qualifiedJoin
+			crossJoin ::= "cross" "join" 
+					( "("tableReference")"| tableReference)
+			qualifiedJoin ::= (joinDesc)? "join" 
+							  ( "("tableReference")"| tableReference)
+							  (joinSpec)?
+
+					joinDesc ::= "left" | "right" | "full" | "inner"
+					joinSpec ::= joinCond | namedColumnsJoin
+						joinCond ::= "on" expr
+						namedColumnsJoin ::= "using" "(" IDENT ("," IDENT)")"
+
+// insert
+	insertStmt ::= "insert" "into" table (colNames)? 
+					(listValues | selectValues)
+
+		table ::= IDENT ("as"? IDENT)? 
+		colNames ::= "(" IDENT ("," IDENT) ")"
+		listValues ::= "values" term ("," term)
+		selectValues ::= selectStmt | "(" selectStmt ")"
+
+// updateStmt
+	updateStmt ::= "update" table ("," table)* 
+					"set" assignment ("," assignment)
+					(where)?
+					(orderBy)?
+					(limit)?
+
+	assignment ::= column "=" term
+	
+
+
+
+// deleteStmt
+	deleteStmt ::= "delete" (IDENT ("," IDENT))? 
+					"from" table (","table) 
+					(where)?
+
+
+// named
+named ::= 'distinct'? (comparison| arith| simpleTerm) ("as"? IDENT)?
+
+
+//term
+terms ::= "(" term  ("," term)* ")"
+term 		::= arith | simpleTerm
+
+simpleTerm	::= 
+	subselect 	
+	| caseExpr  
+	| function 	
+	| boolean   
+	| nullLit   
+	| STRING_LIT 
+	| NUMERIC_LIT
+	| extraTerms 
+	| allColumns 
+	| column	
+	| "?"
+	| "(" simpleTerm ")"
+	| simpleTerm
+
+comparison ::= term ("="|"!="|"<>"|">"|"<"|">="|"<="|"like") term
+			| term "not"? "in" (term | subselect)
+			| term "not"? "between" term "and" term
+			| term "is" "not"? "null"
+			| "not"? "exists" subselect
+
+arith ::= (simpleTerm | arithParens) (("+"|"-"|"*"|"/") (simpleTerm | arithParens))+  
+arithParens ::= "(" arith ")"
+
+subselect ::= "(" selectStmt ")"
+
+caseExpr ::= "case" (caseCond)* (caseElse)? "end"
+	caseCond ::= "when" expr "then" term
+	caseElse ::= "else" term
+
+
+function ::= prefixFunction | infixFunction
+	prefixFunction ::= IDENT "(" functionArg (","functionArg) ")"
+	infixFunction ::= infixFunctionArg ("|" | "&" | "^" | "<<" | ">>") infixFunctionArg
+	functionArg ::=  "distinct"? (expr  | term)
+	infixFunctionArg ::= term
+
+boolean ::= booleanFactor | booleanTerm
+	booleanFactor ::= "true" | "false"
+	booleanTerm ::= "not" term
+
+nullLit ::= "null"
+
+allColumns ::= (IDENT ".")? "*"
+
+column ::= IDENT "." IDENT | IDENT 
+
+
+
+
+
+/*Lexical*/
+
+IDENT 		::= QUOTED_IDENT | RAW_IDENT
+
+RAW_IDENT 	::= IDENT_VALUE 
+
+QUOTED_IDENT ::= "(" IDENT_VALUE ")"
+
+IDENT_VALUE	::= [a-zA-Z][a-zA-Z0-9_-]*
+
+STRING_LIT ::= '"' [^"]* '"'
+           | "'" [^']* "'"
+NUMERIC_LIT 	::= '-'? (D+(.D*)? |D* .D+)
+INTEGER		::= D+
+D 			::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+
+
