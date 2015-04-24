@@ -1,5 +1,4 @@
-\backcite {bow79}{{iii}{(document)}{Doc-Start}}
-\backcite {box94}{{viii}{(document)}{Doc-Start}}
+\backcite {box94}{{vi}{(document)}{Doc-Start}}
 \backcite {ross}{{2}{1.1}{section.1.1}}
 \backcite {cits}{{2}{1.2}{section.1.2}}
 \backcite {cits}{{3}{1.2.1}{subsection.1.2.1}}
@@ -39,4 +38,5 @@
 \backcite {rum86}{{40}{2.3.1.2}{equation.2.3.62}}
 \backcite {rum86}{{40}{2.3.2.1}{subsubsection.2.3.2.1}}
 \backcite {Zhang05}{{46}{2.3.3.1}{figure.caption.22}}
+\backcite {bau89}{{47}{2.3.3.2}{equation.2.3.67}}
 \backcite {flo95}{{50}{3.1}{section.3.1}}

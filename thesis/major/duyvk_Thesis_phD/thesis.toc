@@ -1,6 +1,6 @@
 \select@language {english}
-\contentsline {chapter}{Danh s\IeC {\'a}ch h\IeC {\`\i }nh v\IeC {\~e}}{xi}{chapter*.2}
-\contentsline {chapter}{Danh s\IeC {\'a}ch b\IeC {\h a}ng}{xiii}{chapter*.3}
+\contentsline {chapter}{List of Figures}{ix}{chapter*.2}
+\contentsline {chapter}{List of Tables}{xi}{chapter*.3}
 \contentsline {chapter}{\numberline {1}T\IeC {\'\i }nh ch\IeC {\'\acircumflex }t c\IeC {\h u}a chu\IeC {\~\ocircumflex }i th\IeC {\`\ohorn }i gian}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}Chu\IeC {\~\ocircumflex }i th\IeC {\`\ohorn }i gian}{1}{section.1.1}
 \contentsline {section}{\numberline {1.2}T\IeC {\'\i }nh ch\IeC {\'\acircumflex }t \IeC {\dj }\IeC {\d \abreve }c tr\IeC {\uhorn }ng c\IeC {\h u}a chu\IeC {\~\ocircumflex }i th\IeC {\`\ohorn }i gian}{2}{section.1.2}
@@ -64,4 +64,4 @@
 \contentsline {section}{\numberline {4.1}K\IeC {\'\ecircumflex }t qu\IeC {\h a}}{67}{section.4.1}
 \contentsline {section}{\numberline {4.2}Kh\IeC {\'o} kh\IeC {\u a}n}{68}{section.4.2}
 \contentsline {section}{\numberline {4.3}H\IeC {\uhorn }\IeC {\'\ohorn }ng nghi\IeC {\^e}n c\IeC {\'\uhorn }u ti\IeC {\'\ecircumflex }p theo}{68}{section.4.3}
-\contentsline {chapter}{Tham kh\IeC {\h a}o}{69}{chapter*.42}
+\contentsline {chapter}{References}{69}{chapter*.42}

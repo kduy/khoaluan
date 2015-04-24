@@ -1,18 +1,59 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: thesis.aux
+This is BibTeX, Version 0.99d (TeX Live 2014)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: thesis.aux
 A level-1 auxiliary file: 0_frontmatter/acknowledgement.aux
-A level-1 auxiliary file: 0_frontmatter/abstractvn.aux
 A level-1 auxiliary file: 0_frontmatter/abstracten.aux
 A level-1 auxiliary file: 9_backmatter/declaration.aux
-A level-1 auxiliary file: 1_timeseries/timeseries.aux
-A level-1 auxiliary file: 2_ARIMA/ARIMA.aux
-A level-1 auxiliary file: 3_experiment/experiment.aux
-A level-1 auxiliary file: 4_conclusion/conclusion.aux
+A level-1 auxiliary file: 01_timeseries/timeseries.aux
+A level-1 auxiliary file: 02_ARIMA/ARIMA.aux
+A level-1 auxiliary file: 03_experiment/experiment.aux
+A level-1 auxiliary file: 04_conclusion/conclusion.aux
 The style file: Latex/Classes/PhDbiblio-url2.bst
 Database file #1: 9_backmatter/references.bib
 Warning--I didn't find a database entry for "char07"
-Warning--I didn't find a database entry for "3_tpdif"
 Warning--to sort, need author or key in efin
 Warning--empty note in ross
 Warning--empty author in efin
 Warning--empty booktitle in hec87
-(There were 6 warnings)
+You've used 23 entries,
+            2776 wiz_defined-function locations,
+            738 strings with 7678 characters,
+and the built_in function-call counts, 8598 in all, are:
+= -- 946
+> -- 161
+< -- 8
++ -- 72
+- -- 46
+* -- 407
+:= -- 1241
+add.period$ -- 68
+call.type$ -- 23
+change.case$ -- 75
+chr.to.int$ -- 0
+cite$ -- 27
+duplicate$ -- 389
+empty$ -- 838
+format.name$ -- 46
+if$ -- 2181
+int.to.chr$ -- 0
+int.to.str$ -- 23
+missing$ -- 29
+newline$ -- 117
+num.names$ -- 44
+pop$ -- 182
+preamble$ -- 1
+purify$ -- 69
+quote$ -- 0
+skip$ -- 630
+stack$ -- 0
+substring$ -- 399
+swap$ -- 150
+text.length$ -- 8
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 76
+warning$ -- 4
+while$ -- 60
+width$ -- 25
+write$ -- 253
+(There were 5 warnings)

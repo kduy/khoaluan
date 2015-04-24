@@ -59,7 +59,7 @@
 
 \usepackage[intoc]{nomencl} % load nomencl extension; include in TOC
 %\nomrefpage % to include page numbers after abbrevations
-\renewcommand{\nomname}{Thuật ngữ} % rename nomenclature
+\renewcommand{\nomname}{Glossary} % rename nomenclature
 %\renewcommand{\listoffigurename}{Danh sách hình vẽ}
 \renewcommand{\nomlabel}[1]{\textbf{#1}} % make abbreviations bold
 \makenomenclature % used to be \makeglossary
@@ -224,7 +224,7 @@
 % bug: cover i + back side ii and then numbering restarts with i; should be iii
 \renewcommand{\thepage}{\roman{page}}
 
-\newcommand{\submittedtext}{{Khóa luận chương trình cử nhân Công Nghệ Thông Tin}}
+\newcommand{\submittedtext}{{A thesis submitted for the degree of Master of Computer Science}}
 
 % DECLARATIONS
 % These macros are used to declare arguments needed for the
@@ -314,7 +314,7 @@
 \begin{alwayssingle}
 \begin{center}
 \vspace*{1.5cm}
-{\Large \bfseries Lời cảm ơn}
+{\Large \bfseries Acknowledgements}
 \end{center}
 \vspace{0.5cm}
 \begin{quote}}
@@ -329,7 +329,7 @@
 \begin{alwayssingle}
 \begin{center}
 \vspace*{1.5cm}
-{\Large \bfseries Lời cảm ơn}
+{\Large \bfseries Acknowledgements}
 \end{center}
 \vspace{0.5cm}\begin{quote}}
 {\end{quote}\end{alwayssingle}}
@@ -357,7 +357,7 @@
 \newenvironment{abstracts} {\begin{alwayssingle} \pagestyle{empty}
   \begin{center}
   \vspace*{0.5cm}
-  {\Large \bfseries  Tóm tắt nội dung}
+  {\Large \bfseries  Abstract}
   \end{center}
   \vspace{0.5cm}
    \begin{quote}}
@@ -384,7 +384,7 @@
 \newenvironment{abstractslong} {\begin{alwayssingle} \pagestyle{empty}
   \begin{center}
   \vspace*{1.5cm}
-  {\Large \bfseries  Tóm tắt nội dung}
+  {\Large \bfseries  Abstract}
   \end{center}
   \vspace{0.5cm} \begin{quote}}
 {\end{quote}\end{alwayssingle}}
@@ -413,7 +413,7 @@
 \newenvironment{declaration} {\begin{alwayssingle} \pagestyle{empty}
   \begin{center}
   \vspace*{1.5cm}
-  {\Large \bfseries  Lời cam đoan}
+  {\Large \bfseries  Declaration}
   \end{center}
   \vspace{0.5cm}
    \begin{quote}}

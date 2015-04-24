@@ -4,7 +4,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb,latexsym}
 \usepackage{graphicx}
-\newtheorem{defi}{Định Nghĩa}[chapter]
+\newtheorem{defi}{Definition}[chapter]
 \newcommand{\newln}{\\&\quad\quad{}}
 
 \include{Latex/Macros/MacroFile1}
@@ -79,11 +79,11 @@
 
 % sets line spacing
 \renewcommand\baselinestretch{1.2}
-\renewcommand*\listfigurename{Danh sách hình vẽ}
-\renewcommand*\listtablename{Danh sách bảng}
-\renewcommand*\figurename{Hình}
-\renewcommand*\contentsname{Mục lục}
-\renewcommand*\tablename{Bảng}
+\renewcommand*\listfigurename{List of Figures}
+\renewcommand*\listtablename{List of Tables}
+\renewcommand*\figurename{Figure}
+\renewcommand*\contentsname{Contents}
+\renewcommand*\tablename{Table}
 \baselineskip=18pt plus1pt
 %\newtheorem{defi}{Định Nghĩa}[chapter]
 
@@ -129,7 +129,7 @@
 %\frontmatter
 %\include{0_frontmatter/dedication}
 \include{0_frontmatter/acknowledgement}
-\include{0_frontmatter/abstractvn}
+%\include{0_frontmatter/abstractvn}
 \include{0_frontmatter/abstracten}
 \include{9_backmatter/declaration}
 
@@ -164,7 +164,7 @@
 
 % the main text starts here with the introduction, 1st chapter,...
 \mainmatter
-\renewcommand{\chaptername}{} % uncomment to print only "1" not "Chapter 1"
+%\renewcommand{\chaptername}{} % uncomment to print only "1" not "Chapter 1"
 
 
 %: ----------------------- subdocuments ------------------------
@@ -172,11 +172,11 @@
 % Parts of the thesis are included below. Rename the files as required.
 % But take care that the paths match. You can also change the order of appearance by moving the include commands.
 
-\include{1_timeseries/timeseries}	% background information
-\include{2_ARIMA/ARIMA}						% aims of the project
+\include{01_timeseries/timeseries}	% background information
+\include{02_ARIMA/ARIMA}						% aims of the project
 
-\include{3_experiment/experiment}			
-\include{4_conclusion/conclusion}	
+\include{03_experiment/experiment}			
+\include{04_conclusion/conclusion}	
 
 
 
@@ -199,7 +199,7 @@
 %\begin{tiny} % tiny(5) < scriptsize(7) < footnotesize(8) < small (9)
 
 \bibliographystyle{Latex/Classes/PhDbiblio-url2} % Title is link if provided
-\renewcommand{\bibname}{Tham khảo} % changes the header; default: Bibliography
+\renewcommand{\bibname}{References} % changes the header; default: Bibliography
 
 \bibliography{9_backmatter/references} % adjust this to fit your BibTex file
 %\bibliography{9_backmatter/referencesen}

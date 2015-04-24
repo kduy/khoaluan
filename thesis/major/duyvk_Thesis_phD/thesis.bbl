@@ -1,10 +1,5 @@
 \begin{thebibliography}{10}
 
-\bibitem{bow79}
-{\sc B.~L.;~O'Connell Bowerman}.
-\newblock {\em Time Series and Forecasting}.
-\newblock Duxbury Press, North Scituate, Massachusetts., 1st edition, 1979.
-
 \bibitem{box94}
 {\sc Box G.;Jenkins G.M.;~Reinsel G.}
 \newblock {\em Time series analysis: Forecasting and control}.
@@ -30,6 +25,11 @@
 {\sc Robert H. Shumway; David~S. Stoffer}.
 \newblock {\em Time Series Analysis and Its Applications: With R Examples}.
 \newblock Springer, Berlin, 3rd edition, 2010.
+
+\bibitem{bow79}
+{\sc B.~L.;~O'Connell Bowerman}.
+\newblock {\em Time Series and Forecasting}.
+\newblock Duxbury Press, North Scituate, Massachusetts., 1st edition, 1979.
 
 \bibitem{df79}
 {\sc D.A.; W.A.~Fuller Dickey}.
@@ -113,6 +113,11 @@
 \newblock {\bf Neural network forecasting for seasonal and trend time series}.
 \newblock {\em European Journal of Operational Research}, {\bf 160}(2):501 --
   514, 2005.
+
+\bibitem{bau89}
+{\sc Baum EB;~Haussler D}.
+\newblock {\bf What Size Net Gives Valid Generalisation?}
+\newblock {\em Neural Computation}, page 151–160, 1989.
 
 \bibitem{flo95}
 {\sc J.E. Flood}.

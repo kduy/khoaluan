@@ -1,0 +1,153 @@
+
+stat ::= selectStmt | createStmt | deleteStmt | insertStmt | splitStmt
+
+
+// createStmt
+createSchemaStmt ::= "create" "schema" IDENT (IDENT| typedColumns) 
+						("extends" IDENT ("," IDENT)*)?
+	typedColumns ::= "(" typedColumn ("," typedColumn)*")"
+	typedColumn ::= IDENT DATA_TYPE
+
+
+createStmt ::= "create" "stream" IDENT (IDENT| typedColumns)
+						(source)?
+
+	source 	  ::= ("as" selectStmt) | ("source" rawSource)
+	rawSource ::= "host" "("STRING_LIT","INTEGER")"
+					| "file" "("STRING_LIT")"
+					| "stream" IDENT
+
+/*stream_expression INTO stream_identifier;*/
+/*
+	CREATE WINDOW window_identifier (
+	  window_specification
+	);
+*/
+
+// deleteStmt
+	deleteStmt ::= "delete" "schema" IDENT 
+
+// insertStmt // merge
+	insertStmt ::= "insert" "into" IDENT (IDENT| typedColumns)? selectStmt
+
+// selectStmt
+	selectStmt ::=
+		select 
+		from 
+		(where)?
+		(groupBy)?
+		(into)?
+
+	// todo
+	select 	::=  "select" (("all")? named) (","("all")? named)*
+	from 	::=  "from" stream_reference
+		stream_reference ::= rawStream | derivedStream | joinedWindowStream
+		rawStream ::= IDENT window_specification ("as" IDENT)?
+		derivedStream ::= subselect "as" IDENT (joinType)?
+		joinedWindowStream ::= stream_reference (joinType)? 
+			joinType ::= crossJoin | qualifiedJoin
+			crossJoin ::= "cross" "join" ( "("stream_reference")"| stream_reference)
+			qualifiedJoin ::= "outer" "join" 
+							( "("stream_reference")"| stream_reference)
+							(joinSpec)?
+					joinSpec ::= joinCond | namedColumnsJoin
+						joinCond ::= "on" expr
+						namedColumnsJoin ::= "using" "(" IDENT ("," IDENT)")"
+
+
+
+
+		window_specification ::= 	"["
+
+										window 
+										every
+										(partition)?
+
+									"]"
+			window ::= "window" INTEGER (row | time)					
+			every ::=  "every" INTEGER (row | time)
+			row ::=  "rows"
+			time ::= TIME_UNIT "on" IDENT
+
+	where ::= expr
+	into ::= "into" IDENT
+
+
+// splitStmt
+	splitStmt ::= "on" IDENT
+					 insertStmt ("," insertStmt)
+
+// named
+named ::= 'distinct'? (comparison| arith| simpleTerm) ("as"? IDENT)?
+
+//term
+terms ::= "(" term  ("," term)* ")"
+term 		::= arith | simpleTerm
+
+simpleTerm	::= 
+	subselect 	
+	| caseExpr  
+	| function 	
+	| boolean   
+	| nullLit   
+	| STRING_LIT 
+	| NUMERIC_LIT
+	| extraTerms 
+	| allColumns 
+	| column	
+	| "?"
+	| "(" simpleTerm ")"
+	| simpleTerm
+
+comparison ::= term ("="|"!="|"<>"|">"|"<"|">="|"<="|"like") term
+			| term "not"? "in" terms
+			| term "not"? "between" term "and" term
+			| term "is" "not"? "null"
+
+arith ::= (simpleTerm | arithParens) (("+"|"-"|"*"|"/") (simpleTerm | arithParens))+  
+arithParens ::= "(" arith ")"
+
+subselect ::= "(" selectStmt ")"
+
+caseExpr ::= "case" (caseCond)* (caseElse)? "end"
+	caseCond ::= "when" expr "then" term
+	caseElse ::= "else" term
+
+
+function ::= prefixFunction | infixFunction
+	prefixFunction ::= IDENT "(" functionArg (","functionArg) ")"
+	infixFunction ::= infixFunctionArg ("|" | "&" | "^" | "<<" | ">>") infixFunctionArg
+	functionArg ::=  "distinct"? (expr  | term)
+	infixFunctionArg ::= term
+
+boolean ::= booleanFactor | booleanTerm
+	booleanFactor ::= "true" | "false"
+	booleanTerm ::= "not" term
+
+nullLit ::= "null"
+
+allColumns ::= (IDENT ".")? "*"
+
+column ::= IDENT "." IDENT | IDENT 
+
+
+/*Lexical*/
+
+IDENT 		::= QUOTED_IDENT | RAW_IDENT
+
+RAW_IDENT 	::= IDENT_VALUE 
+
+QUOTED_IDENT ::= "(" IDENT_VALUE ")"
+
+TIME_UNIT ::= "microsec" | "milisec" | "sec" |"min" |"h" | "d"
+
+IDENT_VALUE	::= [a-zA-Z][a-zA-Z0-9_-]*
+
+STRING_LIT ::= '"' [^"]* '"'
+           | "'" [^']* "'"
+NUMERIC_LIT 	::= '-'? (D+(.D*)? |D* .D+)
+INTEGER		::= D+
+D 			::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+
+DATA_TYPE ::= "int" | "string" | "double"  | "date" | "byte" | "short" | "long" | "float"
+					| "character" | "boolean"

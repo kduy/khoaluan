@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.10.12)  22 APR 2015 16:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.10.12)  24 APR 2015 02:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -825,13 +825,13 @@ LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
 \openout2 = `Latex/Macros/MacroFile1.aux'.
 
 (./Latex/Macros/MacroFile1.tex) (./thesis.aux
-(./0_frontmatter/acknowledgement.aux) (./0_frontmatter/abstractvn.aux)
-(./0_frontmatter/abstracten.aux) (./9_backmatter/declaration.aux)
-(./1_timeseries/timeseries.aux) (./2_ARIMA/ARIMA.aux
+(./0_frontmatter/acknowledgement.aux) (./0_frontmatter/abstracten.aux)
+(./9_backmatter/declaration.aux) (./01_timeseries/timeseries.aux)
+(./02_ARIMA/ARIMA.aux
 
 LaTeX Warning: Label `AR' multiply defined.
 
-) (./3_experiment/experiment.aux) (./4_conclusion/conclusion.aux))
+) (./03_experiment/experiment.aux) (./04_conclusion/conclusion.aux))
 \openout1 = `thesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 76.
@@ -914,20 +914,20 @@ LaTeX Info: Redefining \nameref on input line 76.
 (./0_frontmatter/acknowledgement.tex [2
 
 ])
-\openout2 = `0_frontmatter/abstractvn.aux'.
+\openout2 = `0_frontmatter/abstracten.aux'.
 
- (./0_frontmatter/abstractvn.tex
-LaTeX Font Info:    Try loading font information for U+msa on input line 3.
+ (./0_frontmatter/abstracten.tex
+LaTeX Font Info:    Try loading font information for U+msa on input line 10.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 3.
+LaTeX Font Info:    Try loading font information for U+msb on input line 10.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+lasy on input line 3.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 10.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
@@ -935,57 +935,40 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 
 
 ])
-\openout2 = `0_frontmatter/abstracten.aux'.
-
-
-(./0_frontmatter/abstracten.tex [4
-
-
-])
 \openout2 = `9_backmatter/declaration.aux'.
 
- (./9_backmatter/declaration.tex [5
+
+(./9_backmatter/declaration.tex [4
 
 
-])
-[6
+]) (./thesis.toc [5
 \FN@pp@footnotehinttrue 
 
 
-] (./thesis.toc [7] [8])
+] [6])
 \tf@toc=\write5
 \openout5 = `thesis.toc'.
 
- [9] [10
+ [7] [8
 
-]
-
-Package hyperref Warning: Composite letter `\texttilde+e'
-(hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\texttilde' on input line 145.
-
-(./thesis.lof [11])
+] (./thesis.lof [9])
 \tf@lof=\write6
 \openout6 = `thesis.lof'.
 
- [12]
-
-Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\h' on input line 146.
-
-(./thesis.lot)
+ [10] (./thesis.lot)
 \tf@lot=\write7
 \openout7 = `thesis.lot'.
 
- [13
+ [11
 
-] [14
+] [12
 
 ]
-\openout2 = `1_timeseries/timeseries.aux'.
+\openout2 = `01_timeseries/timeseries.aux'.
 
- (./1_timeseries/timeseries.tex
- 1.
+
+(./01_timeseries/timeseries.tex
+Chapter 1.
 
 Package hyperref Warning: Composite letter `\textacute+\acircumflex'
 (hyperref)                not defined in PD1 encoding,
@@ -1097,11 +1080,13 @@ Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\uhorn' on input line 23.
 
 [2]
-<1_timeseries/figures/1_Stationarycomparison2.png, id=503, 602.25pt x 602.25pt>
-File: 1_timeseries/figures/1_Stationarycomparison2.png Graphic file (type png)
-<use 1_timeseries/figures/1_Stationarycomparison2.png>
-Package pdftex.def Info: 1_timeseries/figures/1_Stationarycomparison2.png used 
-on input line 27.
+<01_timeseries/figures/1_Stationarycomparison2.png, id=492, 602.25pt x 602.25pt
+>
+File: 01_timeseries/figures/1_Stationarycomparison2.png Graphic file (type png)
+
+ <use 01_timeseries/figures/1_Stationarycomparison2.png>
+Package pdftex.def Info: 01_timeseries/figures/1_Stationarycomparison2.png used
+ on input line 27.
 (pdftex.def)             Requested size: 206.28247pt x 206.27856pt.
 
 
@@ -1113,7 +1098,7 @@ Package hyperref Warning: Composite letter `\textacute+\ecircumflex'
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\ecircumflex' on input line 29.
 
-[3 <./1_timeseries/figures/1_Stationarycomparison2.png>]
+[3 <./01_timeseries/figures/1_Stationarycomparison2.png>]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\uhorn' on input line 39.
@@ -1127,12 +1112,12 @@ Package hyperref Warning: Composite letter `\textacute+\ohorn'
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\ohorn' on input line 39.
 
-<1_timeseries/figures/1_trend.png, id=519, 335.2525pt x 214.8025pt>
-File: 1_timeseries/figures/1_trend.png Graphic file (type png)
+<01_timeseries/figures/1_trend.png, id=509, 335.2525pt x 214.8025pt>
+File: 01_timeseries/figures/1_trend.png Graphic file (type png)
 
-<use 1_timeseries/figures/1_trend.png>
-Package pdftex.def Info: 1_timeseries/figures/1_trend.png used on input line 46
-.
+<use 01_timeseries/figures/1_trend.png>
+Package pdftex.def Info: 01_timeseries/figures/1_trend.png used on input line 4
+6.
 (pdftex.def)             Requested size: 206.28247pt x 132.16666pt.
 
 
@@ -1154,11 +1139,12 @@ Package hyperref Warning: Composite letter `\textdotbelow+u'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textdotbelow' on input line 47.
 
-<1_timeseries/figures/1_sea.png, id=521, 489.83pt x 183.68625pt>
-File: 1_timeseries/figures/1_sea.png Graphic file (type png)
+<01_timeseries/figures/1_sea.png, id=511, 489.83pt x 183.68625pt>
+File: 01_timeseries/figures/1_sea.png Graphic file (type png)
 
-<use 1_timeseries/figures/1_sea.png>
-Package pdftex.def Info: 1_timeseries/figures/1_sea.png used on input line 49.
+<use 01_timeseries/figures/1_sea.png>
+Package pdftex.def Info: 01_timeseries/figures/1_sea.png used on input line 49.
+
 (pdftex.def)             Requested size: 412.56496pt x 154.71579pt.
 
 
@@ -1184,7 +1170,7 @@ Package hyperref Warning: Composite letter `\textasciigrave+\ohorn'
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\ohorn' on input line 51.
 
-[4 <./1_timeseries/figures/1_trend.png>]
+[4 <./01_timeseries/figures/1_trend.png>]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 54.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/omscmr.fd
@@ -1245,7 +1231,7 @@ Package hyperref Warning: Glyph not defined in PD1 encoding,
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\ohorn' on input line 64.
 
-[5 <./1_timeseries/figures/1_sea.png>] [6]
+[5 <./01_timeseries/figures/1_sea.png>] [6]
 
 Package hyperref Warning: Composite letter `\texttilde+\ocircumflex'
 (hyperref)                not defined in PD1 encoding,
@@ -1467,10 +1453,10 @@ Package hyperref Warning: Composite letter `\textdotbelow+o'
 (hyperref)                removing `\textdotbelow' on input line 234.
 
 [13]) [14]
-\openout2 = `2_ARIMA/ARIMA.aux'.
+\openout2 = `02_ARIMA/ARIMA.aux'.
 
- (./2_ARIMA/ARIMA.tex
- 2.
+ (./02_ARIMA/ARIMA.tex
+Chapter 2.
 
 Package hyperref Warning: Composite letter `\textdotbelow+a'
 (hyperref)                not defined in PD1 encoding,
@@ -1594,21 +1580,21 @@ Package hyperref Warning: Composite letter `\textdotbelow+i'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textdotbelow' on input line 162.
 
-[20] [21] <2_ARIMA/figures/SEACF.png, id=715, 309.155pt x 260.975pt>
-File: 2_ARIMA/figures/SEACF.png Graphic file (type png)
+[20] [21] <02_ARIMA/figures/SEACF.png, id=706, 309.155pt x 260.975pt>
+File: 02_ARIMA/figures/SEACF.png Graphic file (type png)
 
-<use 2_ARIMA/figures/SEACF.png>
-Package pdftex.def Info: 2_ARIMA/figures/SEACF.png used on input line 200.
+<use 02_ARIMA/figures/SEACF.png>
+Package pdftex.def Info: 02_ARIMA/figures/SEACF.png used on input line 200.
 (pdftex.def)             Requested size: 206.28247pt x 174.13953pt.
 
-<2_ARIMA/figures/SEACF_wedge.png, id=719, 241.90375pt x 235.88126pt>
-File: 2_ARIMA/figures/SEACF_wedge.png Graphic file (type png)
+<02_ARIMA/figures/SEACF_wedge.png, id=710, 241.90375pt x 235.88126pt>
+File: 02_ARIMA/figures/SEACF_wedge.png Graphic file (type png)
 
-<use 2_ARIMA/figures/SEACF_wedge.png>
-Package pdftex.def Info: 2_ARIMA/figures/SEACF_wedge.png used on input line 212
-.
+<use 02_ARIMA/figures/SEACF_wedge.png>
+Package pdftex.def Info: 02_ARIMA/figures/SEACF_wedge.png used on input line 21
+2.
 (pdftex.def)             Requested size: 206.28247pt x 201.15508pt.
- [22 <./2_ARIMA/figures/SEACF.png>]
+ [22 <./02_ARIMA/figures/SEACF.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\begingroup' on input line 213.
@@ -1637,11 +1623,11 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\new@ifnextchar' on input line 213.
 
-<2_ARIMA/figures/2_sarima.png, id=727, 456.70625pt x 584.1825pt>
-File: 2_ARIMA/figures/2_sarima.png Graphic file (type png)
+<02_ARIMA/figures/2_sarima.png, id=718, 456.70625pt x 584.1825pt>
+File: 02_ARIMA/figures/2_sarima.png Graphic file (type png)
 
-<use 2_ARIMA/figures/2_sarima.png>
-Package pdftex.def Info: 2_ARIMA/figures/2_sarima.png used on input line 215.
+<use 02_ARIMA/figures/2_sarima.png>
+Package pdftex.def Info: 02_ARIMA/figures/2_sarima.png used on input line 215.
 (pdftex.def)             Requested size: 412.56496pt x 527.73827pt.
 
 
@@ -1662,7 +1648,8 @@ Package hyperref Warning: Composite letter `\textasciigrave+\uhorn'
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\uhorn' on input line 217.
 
-[23 <./2_ARIMA/figures/SEACF_wedge.png>] [24 <./2_ARIMA/figures/2_sarima.png>]
+[23 <./02_ARIMA/figures/SEACF_wedge.png>] [24 <./02_ARIMA/figures/2_sarima.png>
+]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\dj' on input line 238.
@@ -1703,45 +1690,46 @@ Package hyperref Warning: Composite letter `\textdotbelow+\ecircumflex'
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\ecircumflex' on input line 246.
 
-<2_ARIMA/figures/Stationarycomparison.png, id=743, 602.25pt x 602.25pt>
-File: 2_ARIMA/figures/Stationarycomparison.png Graphic file (type png)
+<02_ARIMA/figures/Stationarycomparison.png, id=733, 602.25pt x 602.25pt>
+File: 02_ARIMA/figures/Stationarycomparison.png Graphic file (type png)
 
-<use 2_ARIMA/figures/Stationarycomparison.png>
-Package pdftex.def Info: 2_ARIMA/figures/Stationarycomparison.png used on input
- line 248.
+<use 02_ARIMA/figures/Stationarycomparison.png>
+Package pdftex.def Info: 02_ARIMA/figures/Stationarycomparison.png used on inpu
+t line 248.
 (pdftex.def)             Requested size: 206.28247pt x 206.27856pt.
 
-<2_ARIMA/figures/originElec.jpeg, id=745, 552.0625pt x 451.6875pt>
-File: 2_ARIMA/figures/originElec.jpeg Graphic file (type jpg)
+<02_ARIMA/figures/originElec.jpeg, id=735, 552.0625pt x 451.6875pt>
+File: 02_ARIMA/figures/originElec.jpeg Graphic file (type jpg)
 
-<use 2_ARIMA/figures/originElec.jpeg>
-Package pdftex.def Info: 2_ARIMA/figures/originElec.jpeg used on input line 251
-.
+<use 02_ARIMA/figures/originElec.jpeg>
+Package pdftex.def Info: 02_ARIMA/figures/originElec.jpeg used on input line 25
+1.
 (pdftex.def)             Requested size: 206.28247pt x 168.77588pt.
  [25]
-<2_ARIMA/figures/BoxCoxE.jpeg, id=754, 552.0625pt x 451.6875pt>
-File: 2_ARIMA/figures/BoxCoxE.jpeg Graphic file (type jpg)
+<02_ARIMA/figures/BoxCoxE.jpeg, id=745, 552.0625pt x 451.6875pt>
+File: 02_ARIMA/figures/BoxCoxE.jpeg Graphic file (type jpg)
 
-<use 2_ARIMA/figures/BoxCoxE.jpeg>
-Package pdftex.def Info: 2_ARIMA/figures/BoxCoxE.jpeg used on input line 285.
+<use 02_ARIMA/figures/BoxCoxE.jpeg>
+Package pdftex.def Info: 02_ARIMA/figures/BoxCoxE.jpeg used on input line 285.
 (pdftex.def)             Requested size: 288.7942pt x 236.29863pt.
- [26 <./2_ARIMA/figures/Stationarycomparison.png>] [27 <./2_ARIMA/figures/origi
-nElec.jpeg>]
-<2_ARIMA/figures/logE.jpeg, id=767, 552.0625pt x 451.6875pt>
-File: 2_ARIMA/figures/logE.jpeg Graphic file (type jpg)
+ [26 <./02_ARIMA/figures/Stationarycomparison.png>] [27 <./02_ARIMA/figures/ori
+ginElec.jpeg>]
+<02_ARIMA/figures/logE.jpeg, id=758, 552.0625pt x 451.6875pt>
+File: 02_ARIMA/figures/logE.jpeg Graphic file (type jpg)
 
-<use 2_ARIMA/figures/logE.jpeg>
-Package pdftex.def Info: 2_ARIMA/figures/logE.jpeg used on input line 287.
+<use 02_ARIMA/figures/logE.jpeg>
+Package pdftex.def Info: 02_ARIMA/figures/logE.jpeg used on input line 287.
 (pdftex.def)             Requested size: 288.7942pt x 236.29863pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [28 <./2_ARIMA/figures/BoxCoxE.jpeg>] [29 <./2_ARIMA/figures/logE.jpeg>]
-<2_ARIMA/figures/difflogE.jpeg, id=785, 552.0625pt x 451.6875pt>
-File: 2_ARIMA/figures/difflogE.jpeg Graphic file (type jpg)
+ [28 <./02_ARIMA/figures/BoxCoxE.jpeg>] [29 <./02_ARIMA/figures/logE.jpeg>]
+<02_ARIMA/figures/difflogE.jpeg, id=775, 552.0625pt x 451.6875pt>
+File: 02_ARIMA/figures/difflogE.jpeg Graphic file (type jpg)
 
-<use 2_ARIMA/figures/difflogE.jpeg>
-Package pdftex.def Info: 2_ARIMA/figures/difflogE.jpeg used on input line 301.
+<use 02_ARIMA/figures/difflogE.jpeg>
+Package pdftex.def Info: 02_ARIMA/figures/difflogE.jpeg used on input line 301.
+
 (pdftex.def)             Requested size: 288.7942pt x 236.29863pt.
 
 
@@ -1758,7 +1746,7 @@ Package hyperref Warning: Composite letter `\textdotbelow+o'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textdotbelow' on input line 303.
 
-[30 <./2_ARIMA/figures/difflogE.jpeg>] [31]
+[30 <./02_ARIMA/figures/difflogE.jpeg>] [31]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\UHORN' on input line 343.
@@ -1985,21 +1973,21 @@ Package hyperref Warning: Glyph not defined in PD1 encoding,
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\ohorn' on input line 463.
 
-<2_ARIMA/figures/2_noron_color.jpg, id=837, 452.69125pt x 474.77374pt>
-File: 2_ARIMA/figures/2_noron_color.jpg Graphic file (type jpg)
+<02_ARIMA/figures/2_noron_color.jpg, id=826, 452.69125pt x 474.77374pt>
+File: 02_ARIMA/figures/2_noron_color.jpg Graphic file (type jpg)
 
-<use 2_ARIMA/figures/2_noron_color.jpg>
-Package pdftex.def Info: 2_ARIMA/figures/2_noron_color.jpg used on input line 4
-65.
+<use 02_ARIMA/figures/2_noron_color.jpg>
+Package pdftex.def Info: 02_ARIMA/figures/2_noron_color.jpg used on input line 
+465.
 (pdftex.def)             Requested size: 206.28247pt x 216.34114pt.
 
-<2_ARIMA/figures/2_anoron.jpg, id=841, 309.40594pt x 204.01219pt>
-File: 2_ARIMA/figures/2_anoron.jpg Graphic file (type jpg)
+<02_ARIMA/figures/2_anoron.jpg, id=830, 309.40594pt x 204.01219pt>
+File: 02_ARIMA/figures/2_anoron.jpg Graphic file (type jpg)
 
-<use 2_ARIMA/figures/2_anoron.jpg>
-Package pdftex.def Info: 2_ARIMA/figures/2_anoron.jpg used on input line 469.
+<use 02_ARIMA/figures/2_anoron.jpg>
+Package pdftex.def Info: 02_ARIMA/figures/2_anoron.jpg used on input line 469.
 (pdftex.def)             Requested size: 288.7942pt x 190.43913pt.
- [36] [37 <./2_ARIMA/figures/2_noron_color.jpg>]
+ [36] [37 <./02_ARIMA/figures/2_noron_color.jpg>]
 
 Package hyperref Warning: Composite letter `\textdotbelow+a'
 (hyperref)                not defined in PD1 encoding,
@@ -2023,7 +2011,7 @@ Package hyperref Warning: Composite letter `\textdotbelow+\uhorn'
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\uhorn' on input line 501.
 
-[38 <./2_ARIMA/figures/2_anoron.jpg>]
+[38 <./02_ARIMA/figures/2_anoron.jpg>]
 
 Package natbib Warning: Citation `char07' on page 39 undefined on input line 51
 8.
@@ -2086,11 +2074,12 @@ Package hyperref Warning: Composite letter `\textdotbelow+\ohorn'
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\ohorn' on input line 532.
 
-<2_ARIMA/figures/2_backANN.png, id=881, 612.2875pt x 372.39125pt>
-File: 2_ARIMA/figures/2_backANN.png Graphic file (type png)
+<02_ARIMA/figures/2_backANN.png, id=872, 612.2875pt x 372.39125pt>
+File: 02_ARIMA/figures/2_backANN.png Graphic file (type png)
 
-<use 2_ARIMA/figures/2_backANN.png>
-Package pdftex.def Info: 2_ARIMA/figures/2_backANN.png used on input line 536.
+<use 02_ARIMA/figures/2_backANN.png>
+Package pdftex.def Info: 02_ARIMA/figures/2_backANN.png used on input line 536.
+
 (pdftex.def)             Requested size: 288.7942pt x 175.64326pt.
  [40]
 
@@ -2115,7 +2104,7 @@ Package hyperref Warning: Composite letter `\textasciigrave+\ecircumflex'
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\ecircumflex' on input line 557.
 
-[41 <./2_ARIMA/figures/2_backANN.png>] [42]
+[41 <./02_ARIMA/figures/2_backANN.png>] [42]
 
 Package hyperref Warning: Composite letter `\textdotbelow+\uhorn'
 (hyperref)                not defined in PD1 encoding,
@@ -2125,11 +2114,11 @@ Package hyperref Warning: Composite letter `\textdotbelow+\uhorn'
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\uhorn' on input line 596.
 
-<2_ARIMA/figures/2_ga.png, id=906, 912.40875pt x 559.08875pt>
-File: 2_ARIMA/figures/2_ga.png Graphic file (type png)
+<02_ARIMA/figures/2_ga.png, id=896, 912.40875pt x 559.08875pt>
+File: 02_ARIMA/figures/2_ga.png Graphic file (type png)
 
-<use 2_ARIMA/figures/2_ga.png>
-Package pdftex.def Info: 2_ARIMA/figures/2_ga.png used on input line 605.
+<use 02_ARIMA/figures/2_ga.png>
+Package pdftex.def Info: 02_ARIMA/figures/2_ga.png used on input line 605.
 (pdftex.def)             Requested size: 412.56496pt x 252.79901pt.
 
 
@@ -2163,23 +2152,21 @@ Package hyperref Warning: Composite letter `\textdotbelow+\ecircumflex'
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\ecircumflex' on input line 606.
 
-<2_ARIMA/figures/2_slidingwindow.png, id=908, 427.5975pt x 435.6275pt>
-File: 2_ARIMA/figures/2_slidingwindow.png Graphic file (type png)
+<02_ARIMA/figures/2_slidingwindow.png, id=898, 427.5975pt x 435.6275pt>
+File: 02_ARIMA/figures/2_slidingwindow.png Graphic file (type png)
 
-<use 2_ARIMA/figures/2_slidingwindow.png>
-Package pdftex.def Info: 2_ARIMA/figures/2_slidingwindow.png used on input line
- 608.
+<use 02_ARIMA/figures/2_slidingwindow.png>
+Package pdftex.def Info: 02_ARIMA/figures/2_slidingwindow.png used on input lin
+e 608.
 (pdftex.def)             Requested size: 288.7942pt x 294.21535pt.
- [43]
-Underfull \vbox (badness 1097) has occurred while \output is active []
+ [43] [44 <./02_ARIMA/figures/2_ga.png>] [45 <./02_ARIMA/figures/2_slidingwindo
+w.png>]
+<02_ARIMA/figures/2_sigmoid.png, id=913, 368.37625pt x 155.58125pt>
+File: 02_ARIMA/figures/2_sigmoid.png Graphic file (type png)
 
- [44 <./2_ARIMA/figures/2_ga.png>] [45 <./2_ARIMA/figures/2_slidingwindow.png>]
+<use 02_ARIMA/figures/2_sigmoid.png>
+Package pdftex.def Info: 02_ARIMA/figures/2_sigmoid.png used on input line 614.
 
-<2_ARIMA/figures/2_sigmoid.png, id=922, 368.37625pt x 155.58125pt>
-File: 2_ARIMA/figures/2_sigmoid.png Graphic file (type png)
-
-<use 2_ARIMA/figures/2_sigmoid.png>
-Package pdftex.def Info: 2_ARIMA/figures/2_sigmoid.png used on input line 614.
 (pdftex.def)             Requested size: 288.7942pt x 121.97011pt.
 
 
@@ -2205,20 +2192,16 @@ Package hyperref Warning: Composite letter `\textdotbelow+a'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textdotbelow' on input line 618.
 
-[46 <./2_ARIMA/figures/2_sigmoid.png>]
+[46 <./02_ARIMA/figures/2_sigmoid.png>]) [47]
+\openout2 = `03_experiment/experiment.aux'.
 
-Package natbib Warning: Citation `bau89' on page 47 undefined on input line 628
-.
-
-) [47]
-\openout2 = `3_experiment/experiment.aux'.
-
- (./3_experiment/experiment.tex [48
+ (./03_experiment/experiment.tex
+[48
 
 
 
 ]
- 3.
+Chapter 3.
 
 Package hyperref Warning: Composite letter `\textdotbelow+\uhorn'
 (hyperref)                not defined in PD1 encoding,
@@ -2290,19 +2273,20 @@ Package hyperref Warning: Composite letter `\textdotbelow+\ohorn'
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\ohorn' on input line 8.
 
-[49] <3_experiment/figures/1_h_h.jpg, id=946, 512.91624pt x 361.35pt>
-File: 3_experiment/figures/1_h_h.jpg Graphic file (type jpg)
+[49] <03_experiment/figures/1_h_h.jpg, id=939, 512.91624pt x 361.35pt>
+File: 03_experiment/figures/1_h_h.jpg Graphic file (type jpg)
 
-<use 3_experiment/figures/1_h_h.jpg>
-Package pdftex.def Info: 3_experiment/figures/1_h_h.jpg used on input line 33.
+<use 03_experiment/figures/1_h_h.jpg>
+Package pdftex.def Info: 03_experiment/figures/1_h_h.jpg used on input line 33.
+
 (pdftex.def)             Requested size: 288.7942pt x 203.45737pt.
 
-<3_experiment/figures/3_luuluong.jpeg, id=947, 552.0625pt x 451.6875pt>
-File: 3_experiment/figures/3_luuluong.jpeg Graphic file (type jpg)
+<03_experiment/figures/3_luuluong.jpeg, id=940, 552.0625pt x 451.6875pt>
+File: 03_experiment/figures/3_luuluong.jpeg Graphic file (type jpg)
 
-<use 3_experiment/figures/3_luuluong.jpeg>
-Package pdftex.def Info: 3_experiment/figures/3_luuluong.jpeg used on input lin
-e 36.
+<use 03_experiment/figures/3_luuluong.jpeg>
+Package pdftex.def Info: 03_experiment/figures/3_luuluong.jpeg used on input li
+ne 36.
 (pdftex.def)             Requested size: 288.7942pt x 236.29863pt.
 
 
@@ -2344,73 +2328,74 @@ Package hyperref Warning: Composite letter `\textdotbelow+i'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textdotbelow' on input line 39.
 
-<3_experiment/figures/3_train.png, id=949, 506.89375pt x 349.305pt>
-File: 3_experiment/figures/3_train.png Graphic file (type png)
+<03_experiment/figures/3_train.png, id=942, 506.89375pt x 349.305pt>
+File: 03_experiment/figures/3_train.png Graphic file (type png)
 
-<use 3_experiment/figures/3_train.png>
-Package pdftex.def Info: 3_experiment/figures/3_train.png used on input line 41
-.
+<use 03_experiment/figures/3_train.png>
+Package pdftex.def Info: 03_experiment/figures/3_train.png used on input line 4
+1.
 (pdftex.def)             Requested size: 288.7942pt x 199.0153pt.
- [50] [51 <./3_experiment/figures/1_h_h.jpg> <./3_experiment/figures/3_luuluong
-.jpeg>]
-<3_experiment/figures/3_boxcox_train.png, id=963, 506.89375pt x 349.305pt>
-File: 3_experiment/figures/3_boxcox_train.png Graphic file (type png)
+ [50] [51 <./03_experiment/figures/1_h_h.jpg> <./03_experiment/figures/3_luuluo
+ng.jpeg>]
+<03_experiment/figures/3_boxcox_train.png, id=956, 506.89375pt x 349.305pt>
+File: 03_experiment/figures/3_boxcox_train.png Graphic file (type png)
 
-<use 3_experiment/figures/3_boxcox_train.png>
-Package pdftex.def Info: 3_experiment/figures/3_boxcox_train.png used on input 
-line 44.
+<use 03_experiment/figures/3_boxcox_train.png>
+Package pdftex.def Info: 03_experiment/figures/3_boxcox_train.png used on input
+ line 44.
 (pdftex.def)             Requested size: 288.7942pt x 199.0153pt.
 
-<3_experiment/figures/3_acf.png, id=965, 506.89375pt x 352.31625pt>
-File: 3_experiment/figures/3_acf.png Graphic file (type png)
+<03_experiment/figures/3_acf.png, id=958, 506.89375pt x 352.31625pt>
+File: 03_experiment/figures/3_acf.png Graphic file (type png)
 
-<use 3_experiment/figures/3_acf.png>
-Package pdftex.def Info: 3_experiment/figures/3_acf.png used on input line 48.
+<use 03_experiment/figures/3_acf.png>
+Package pdftex.def Info: 03_experiment/figures/3_acf.png used on input line 48.
+
 (pdftex.def)             Requested size: 206.28247pt x 143.37541pt.
- [52 <./3_experiment/figures/3_train.png>]
-[53 <./3_experiment/figures/3_boxcox_train.png> <./3_experiment/figures/3_acf.p
-ng>] <3_experiment/figures/3_tpdif.png, id=979, 508.90125pt x 349.305pt>
-File: 3_experiment/figures/3_tpdif.png Graphic file (type png)
+ [52 <./03_experiment/figures/3_train.png>] [53 <./03_experiment/figures/3_boxc
+ox_train.png> <./03_experiment/figures/3_acf.png>] <03_experiment/figures/3_tpd
+if.png, id=971, 508.90125pt x 349.305pt>
+File: 03_experiment/figures/3_tpdif.png Graphic file (type png)
 
-<use 3_experiment/figures/3_tpdif.png>
-Package pdftex.def Info: 3_experiment/figures/3_tpdif.png used on input line 62
-.
+<use 03_experiment/figures/3_tpdif.png>
+Package pdftex.def Info: 03_experiment/figures/3_tpdif.png used on input line 6
+2.
 (pdftex.def)             Requested size: 206.28247pt x 141.59033pt.
 
-<3_experiment/figures/3_acf_dif.png, id=982, 506.89375pt x 358.33875pt>
-File: 3_experiment/figures/3_acf_dif.png Graphic file (type png)
+<03_experiment/figures/3_acf_dif.png, id=974, 506.89375pt x 358.33875pt>
+File: 03_experiment/figures/3_acf_dif.png Graphic file (type png)
 
-<use 3_experiment/figures/3_acf_dif.png>
-Package pdftex.def Info: 3_experiment/figures/3_acf_dif.png used on input line 
-65.
+<use 03_experiment/figures/3_acf_dif.png>
+Package pdftex.def Info: 03_experiment/figures/3_acf_dif.png used on input line
+ 65.
 (pdftex.def)             Requested size: 206.28247pt x 145.82628pt.
 
-<3_experiment/figures/3_pacf_dif.png, id=983, 552.0625pt x 451.6875pt>
-File: 3_experiment/figures/3_pacf_dif.png Graphic file (type png)
+<03_experiment/figures/3_pacf_dif.png, id=975, 552.0625pt x 451.6875pt>
+File: 03_experiment/figures/3_pacf_dif.png Graphic file (type png)
 
-<use 3_experiment/figures/3_pacf_dif.png>
-Package pdftex.def Info: 3_experiment/figures/3_pacf_dif.png used on input line
- 66.
+<use 03_experiment/figures/3_pacf_dif.png>
+Package pdftex.def Info: 03_experiment/figures/3_pacf_dif.png used on input lin
+e 66.
 (pdftex.def)             Requested size: 206.28247pt x 168.77588pt.
- [54 <./3_experiment/figures/3_tpdif.png>] [55 <./3_experiment/figures/3_acf_di
-f.png> <./3_experiment/figures/3_pacf_dif.png>]
-<3_experiment/figures/3_acf_difdif.png, id=995, 506.89375pt x 352.31625pt>
-File: 3_experiment/figures/3_acf_difdif.png Graphic file (type png)
+ [54 <./03_experiment/figures/3_tpdif.png>] [55 <./03_experiment/figures/3_acf_
+dif.png> <./03_experiment/figures/3_pacf_dif.png>]
+<03_experiment/figures/3_acf_difdif.png, id=988, 506.89375pt x 352.31625pt>
+File: 03_experiment/figures/3_acf_difdif.png Graphic file (type png)
 
-<use 3_experiment/figures/3_acf_difdif.png>
-Package pdftex.def Info: 3_experiment/figures/3_acf_difdif.png used on input li
-ne 75.
+<use 03_experiment/figures/3_acf_difdif.png>
+Package pdftex.def Info: 03_experiment/figures/3_acf_difdif.png used on input l
+ine 75.
 (pdftex.def)             Requested size: 206.28247pt x 143.37541pt.
 
-<3_experiment/figures/3_pacf_difdif.png, id=996, 506.89375pt x 352.31625pt>
-File: 3_experiment/figures/3_pacf_difdif.png Graphic file (type png)
+<03_experiment/figures/3_pacf_difdif.png, id=989, 506.89375pt x 352.31625pt>
+File: 03_experiment/figures/3_pacf_difdif.png Graphic file (type png)
 
-<use 3_experiment/figures/3_pacf_difdif.png>
-Package pdftex.def Info: 3_experiment/figures/3_pacf_difdif.png used on input l
-ine 76.
+<use 03_experiment/figures/3_pacf_difdif.png>
+Package pdftex.def Info: 03_experiment/figures/3_pacf_difdif.png used on input 
+line 76.
 (pdftex.def)             Requested size: 206.28247pt x 143.37541pt.
- [56 <./3_experiment/figures/3_acf_difdif.png> <./3_experiment/figures/3_pacf_d
-ifdif.png>]
+ [56 <./03_experiment/figures/3_acf_difdif.png> <./03_experiment/figures/3_pacf
+_difdif.png>]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\UHORN' on input line 99.
@@ -2473,14 +2458,14 @@ Package hyperref Warning: Composite letter `\textdotbelow+\uhorn'
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\uhorn' on input line 113.
 
-<3_experiment/figures/3_pr_arima.png, id=1013, 506.89375pt x 351.3125pt>
-File: 3_experiment/figures/3_pr_arima.png Graphic file (type png)
+<03_experiment/figures/3_pr_arima.png, id=1006, 506.89375pt x 351.3125pt>
+File: 03_experiment/figures/3_pr_arima.png Graphic file (type png)
 
-<use 3_experiment/figures/3_pr_arima.png>
-Package pdftex.def Info: 3_experiment/figures/3_pr_arima.png used on input line
- 115.
+<use 03_experiment/figures/3_pr_arima.png>
+Package pdftex.def Info: 03_experiment/figures/3_pr_arima.png used on input lin
+e 115.
 (pdftex.def)             Requested size: 412.56496pt x 285.94458pt.
- [58 <./3_experiment/figures/3_pr_arima.png>]
+ [58 <./03_experiment/figures/3_pr_arima.png>]
 
 Package hyperref Warning: Composite letter `\textdotbelow+\uhorn'
 (hyperref)                not defined in PD1 encoding,
@@ -2575,14 +2560,14 @@ Package hyperref Warning: Composite letter `\textdotbelow+\ohorn'
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\ohorn' on input line 147.
 
-<3_experiment/figures/3_pr_ann.png, id=1034, 506.89375pt x 354.32375pt>
-File: 3_experiment/figures/3_pr_ann.png Graphic file (type png)
+<03_experiment/figures/3_pr_ann.png, id=1026, 506.89375pt x 354.32375pt>
+File: 03_experiment/figures/3_pr_ann.png Graphic file (type png)
 
-<use 3_experiment/figures/3_pr_ann.png>
-Package pdftex.def Info: 3_experiment/figures/3_pr_ann.png used on input line 1
-83.
+<use 03_experiment/figures/3_pr_ann.png>
+Package pdftex.def Info: 03_experiment/figures/3_pr_ann.png used on input line 
+183.
 (pdftex.def)             Requested size: 412.56496pt x 288.39554pt.
- [60] [61 <./3_experiment/figures/3_pr_ann.png>]
+ [60] [61 <./03_experiment/figures/3_pr_ann.png>]
 
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\h' on input line 187.
@@ -2618,20 +2603,20 @@ Package hyperref Warning: Composite letter `\textasciigrave+\ecircumflex'
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\ecircumflex' on input line 187.
 
-[62] <3_experiment/figures/3_pr_ga.png, id=1052, 506.89375pt x 354.32375pt>
-File: 3_experiment/figures/3_pr_ga.png Graphic file (type png)
+[62] <03_experiment/figures/3_pr_ga.png, id=1045, 506.89375pt x 354.32375pt>
+File: 03_experiment/figures/3_pr_ga.png Graphic file (type png)
 
-<use 3_experiment/figures/3_pr_ga.png>
-Package pdftex.def Info: 3_experiment/figures/3_pr_ga.png used on input line 22
-1.
+<use 03_experiment/figures/3_pr_ga.png>
+Package pdftex.def Info: 03_experiment/figures/3_pr_ga.png used on input line 2
+21.
 (pdftex.def)             Requested size: 412.56496pt x 288.39554pt.
 
-<3_experiment/figures/3_ga_old.jpeg, id=1054, 414.04688pt x 338.76563pt>
-File: 3_experiment/figures/3_ga_old.jpeg Graphic file (type jpg)
+<03_experiment/figures/3_ga_old.jpeg, id=1047, 414.04688pt x 338.76563pt>
+File: 03_experiment/figures/3_ga_old.jpeg Graphic file (type jpg)
 
-<use 3_experiment/figures/3_ga_old.jpeg>
-Package pdftex.def Info: 3_experiment/figures/3_ga_old.jpeg used on input line 
-223.
+<use 03_experiment/figures/3_ga_old.jpeg>
+Package pdftex.def Info: 03_experiment/figures/3_ga_old.jpeg used on input line
+ 223.
 (pdftex.def)             Requested size: 412.56496pt x 337.56036pt.
 
 
@@ -2652,16 +2637,16 @@ Overfull \hbox (32.06752pt too wide) in paragraph at lines 232--239
  [][][] 
  []
 
-[63 <./3_experiment/figures/3_pr_ga.png>] [64 <./3_experiment/figures/3_ga_old.
-jpeg>]) [65]
-\openout2 = `4_conclusion/conclusion.aux'.
+[63 <./03_experiment/figures/3_pr_ga.png>] [64 <./03_experiment/figures/3_ga_ol
+d.jpeg>]) [65]
+\openout2 = `04_conclusion/conclusion.aux'.
 
- (./4_conclusion/conclusion.tex [66
+ (./04_conclusion/conclusion.tex [66
 
 
 
 ]
- 4.
+Chapter 4.
 
 Package hyperref Warning: Composite letter `\textacute+\ecircumflex'
 (hyperref)                not defined in PD1 encoding,
@@ -2755,12 +2740,7 @@ Package hyperref Warning: Glyph not defined in PD1 encoding,
 \tf@brf=\write8
 \openout8 = `thesis.brf'.
 
-
-
-Package hyperref Warning: Glyph not defined in PD1 encoding,
-(hyperref)                removing `\h' on input line 1.
-
-[69
+ [69
 
 
 ] [70])
@@ -2771,16 +2751,15 @@ Package atveryend Info: Empty hook `BeforeClearDocument' on input line 236.
 [71]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 236.
  (./thesis.aux (./0_frontmatter/acknowledgement.aux)
-(./0_frontmatter/abstractvn.aux) (./0_frontmatter/abstracten.aux)
-(./9_backmatter/declaration.aux) (./1_timeseries/timeseries.aux)
-(./2_ARIMA/ARIMA.aux) (./3_experiment/experiment.aux)
-(./4_conclusion/conclusion.aux))
+(./0_frontmatter/abstracten.aux) (./9_backmatter/declaration.aux)
+(./01_timeseries/timeseries.aux) (./02_ARIMA/ARIMA.aux)
+(./03_experiment/experiment.aux) (./04_conclusion/conclusion.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 236.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 236.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: EA720E21C04EB645B0EC196AB20A2FAD;5541.
+(rerunfilecheck)             Checksum: 07F2FF457562C4B35586794B1DA8F821;5531.
 Package rerunfilecheck Info: File `thesis.brf' has not changed.
-(rerunfilecheck)             Checksum: E4AE5CC595F066BB5FAD336B56A60CE1;1994.
+(rerunfilecheck)             Checksum: EE6D588AA7F574CDFEF8C0E375E44E71;1994.
 
 
 LaTeX Warning: There were undefined references.
@@ -2791,13 +2770,13 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 236.
  ) 
 Here is how much of TeX's memory you used:
- 10457 strings out of 493117
- 152561 string characters out of 6135432
- 246846 words of memory out of 5000000
- 13271 multiletter control sequences out of 15000+600000
+ 10452 strings out of 493117
+ 152558 string characters out of 6135432
+ 246400 words of memory out of 5000000
+ 13274 multiletter control sequences out of 15000+600000
  32531 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 43i,15n,50p,1683b,540s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 43i,15n,50p,1684b,540s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 ></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.
 pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.p
@@ -2821,10 +2800,10 @@ vntex/vnr/vncsc10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/vntex/vnr
 /texlive/2014/texmf-dist/fonts/type1/vntex/vnr/vnr7.pfb></usr/local/texlive/201
 4/texmf-dist/fonts/type1/vntex/vnr/vnr8.pfb></usr/local/texlive/2014/texmf-dist
 /fonts/type1/vntex/vnr/vnti12.pfb>
-Output written on thesis.pdf (85 pages, 1278992 bytes).
+Output written on thesis.pdf (83 pages, 1276035 bytes).
 PDF statistics:
- 1290 PDF objects out of 1440 (max. 8388607)
- 1123 compressed objects within 12 object streams
- 353 named destinations out of 1000 (max. 500000)
+ 1282 PDF objects out of 1440 (max. 8388607)
+ 1117 compressed objects within 12 object streams
+ 352 named destinations out of 1000 (max. 500000)
  684 words of extra memory for PDF output out of 10000 (max. 10000000)
 
