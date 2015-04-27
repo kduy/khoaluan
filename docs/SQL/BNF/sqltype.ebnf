@@ -1,3 +1,6 @@
+// expr should be Predicate
+// assignment should be Expression
+
 stat ::= setStmt | selectStmt | updateStmt | deleteStmt
 
 // setStmt
@@ -14,7 +17,7 @@ stat ::= setStmt | selectStmt | updateStmt | deleteStmt
 
 // selectStmt
 	
-	selectStmt ::=  //todo
+	selectStmt ::=  
 		select
 		from 
 		(where)?
@@ -23,7 +26,7 @@ stat ::= setStmt | selectStmt | updateStmt | deleteStmt
 		(limit)?
 
 	select 	::=  "select" (("all")? named) (","("all")? named)*
-	from 	::= "from" tableReference ("," tableReference)*()
+	from 	::= "from" tableReference ("," tableReference)*
 	where 	::= "where" expr 
 		expr ::= (comparison| parens| notExpr) (("and"|"or") (comparison| parens| notExpr))+  
 				
@@ -145,9 +148,6 @@ nullLit ::= "null"
 allColumns ::= (IDENT ".")? "*"
 
 column ::= IDENT "." IDENT | IDENT 
-
-
-
 
 
 /*Lexical*/

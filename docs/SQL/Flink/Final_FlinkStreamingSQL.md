@@ -64,7 +64,6 @@
 |Any |The supertype of any type; any object is of type Any|
 |AnyRef|  The supertype of any reference type|
 
-
 ### Scala basic literal
 - Integer : 0 ,035, 21 , 0xFFFFFFFF , 0777L
 - Floating poitn: 0.0  ,1e30f ,3.14159f ,1.0e100,.1
@@ -93,8 +92,6 @@ https://msdn.microsoft.com/en-us/library/azure/dn835065.aspx
 |Indexed |name[index]|
 |Mapped |name('key')|
 
-
-
 ## II. Operation
 
 ### 1. Scala-based Operators
@@ -114,7 +111,6 @@ http://www.tutorialspoint.com/scala/scala_operators.htm
 
 #### Assignment  // [NOTUSE]
 http://www.tutorialspoint.com/scala/scala_operators.htm
-
 
 ### List and Range Operators
 #### In / Not in
@@ -216,7 +212,7 @@ CREATE SCHEMA
 c. Populating new Stream with Source
 
 ```sql
-    CREATE STREAM OpenAuction( itemID int, price real) // opt: schema
+    CREATE STREAM OpenAuction (itemID int, price real) // opt: schema
         SOURCE HOST ('localhost',4445) // `socketTextStream(hostname, port)`
         | SOURCE FILE ('/temp/file.txt')  //`readTextStream(filepath)`
         | SOURCE SEQ (1,1000)             // `generateSequence(from, to)`
@@ -237,8 +233,6 @@ Managing and retrieval of data with the statements INSERT, UPDATE, MERGE, DELETE
 SELECT  - FROM - WHERE - GROUP BY - HAVING - CASE - JOIN - UNION - WITH
 
 ### Select statement
-
-
 
 
 ### Merge statement
@@ -275,11 +269,6 @@ on OrderEvent
     SELECT * >> '/temp/output.txt'   // `>>` conflict to Scala operators
     FROM OpenAuction
 ```
-
-
-
-
-
 
 
 
@@ -321,8 +310,6 @@ CREATE STREAM Input1 SymbolSchema;
 
 
 ----------
-
-
 - Clauses: Statements are subdivided into clauses. The most popular one is the WHERE clause. 
 
 - Predicates: Predicates specify conditions which can be evaluated to a boolean value. E.g.: a boolean

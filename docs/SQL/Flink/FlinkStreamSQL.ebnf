@@ -38,7 +38,6 @@ createStmt ::= "create" "stream" IDENT (IDENT| typedColumns)
 		(groupBy)?
 		(into)?
 
-	// todo
 	select 	::=  "select" (("all")? named) (","("all")? named)*
 	from 	::=  "from" stream_reference
 		stream_reference ::= rawStream | derivedStream | joinedWindowStream
@@ -143,11 +142,65 @@ TIME_UNIT ::= "microsec" | "milisec" | "sec" |"min" |"h" | "d"
 
 IDENT_VALUE	::= [a-zA-Z][a-zA-Z0-9_-]*
 
-STRING_LIT ::= '"' [^"]* '"'
-           | "'" [^']* "'"
 NUMERIC_LIT 	::= '-'? (D+(.D*)? |D* .D+)
-INTEGER		::= D+
+INTEGER		::= ["-"|"+"]D+
 D 			::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
 
 DATA_TYPE ::= "int" | "string" | "double"  | "date" | "byte" | "short" | "long" | "float"
 					| "character" | "boolean"
+
+
+STRING_LIT ::= '"' [^"]* '"'
+           | "'" [^']* "'"
+           
+
+
+/*
+
+	fragment
+	INT
+		: '0'..'9'+
+	;
+
+	NUMBER
+		: '-'? ('0' | ( '1'..'9' INT* )) ('.' INT+)? EXPONENT?
+	;
+
+	WS
+		: ( ' '
+		| '\t'
+		| '\n'
+		| '\r'
+		) -> channel(HIDDEN)
+	;
+
+	STRING
+		: '"' ( ESC_SEQ | ~('\\'|'"') )* '"'
+	;
+
+	fragment
+	EXPONENT
+		: ('e'|'E') ('+'|'-')? ('0'..'9')+
+	;
+
+	fragment
+	HEX_DIGIT
+		: ('0'..'9'|'a'..'f'|'A'..'F')
+	;
+
+	fragment
+	ESC_SEQ
+		: '\\' ('\"'|'\\'|'/'|'b'|'f'|'n'|'r'|'t')
+		| UNICODE_ESC
+	;
+
+	fragment
+	UNICODE_ESC
+		: '\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+	;
+
+
+*/
+
+
+

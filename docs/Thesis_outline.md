@@ -2,6 +2,10 @@
 # I. Introduction
 
 
+
+part II, III, : b
+part IV: 
+
 # II. Data Stream Model
 - Time
 - Tuple
@@ -11,7 +15,7 @@
 - 3 properties of Data Stream: 
     + sequences of records, ordered by arrival time or by another ordered attribute
     + produced by a variety of externam sources
-    + produced continually , unbounded  
+    + produced continually , unbounded
 - 2 kinds of stream: 
     + `base stream`: from source, append-only 
     + `derived stream`: produced by continous queries and operators, may or may not be append- only
@@ -29,10 +33,15 @@ Window may be classified accourding the following criteria:
     + Definition of contents: time-based, count-based/tuple-based, partitioned windows, predicate window
     + Frequency of movement: jumping window, mixed jumping window, tumbling window
 
+
+
+
+
+
 #II Continuous Query Semantics and Operators
+**Features of stream processing languages**(Fundamental of Stream Processing boook page 110)
 **Query** : [14] Model and issues in Data Stream System
 
-**Blocking Operators** [14]
 
 ### Semantics and algebra
 Two types of continuous query algebras have been proposed in the literature, both based on relational algebra
@@ -44,16 +53,39 @@ Two types of continuous query algebras have been proposed in the literature, bot
     + monotonicity
     + non-blocking
 incrementally produce new results over time
+**Blocking Operators** [14]
+
+
+### Trigger/Eviction policies
 
 ### Continous Queries as Views
 the DSMS itself usually does not materialize the views. Continuous queries produce streams of updates over time, but it is up to the user or application to maintain the final result.
 ### Semantics of Relations in Continous Queries
 
+
+
+
+
 # III. Continous Query Language
+**Features of stream processing languages**(Fundamental of Stream Processing boook page 110)
+
+**Query** : [14] Model and issues in Data Stream System
+
+### Semantics and algebra
+Two types of continuous query algebras have been proposed in the literature, both based on relational algebra
+- Stream-to-stream algebra:
+- Mixed algebra:s2r, r2r, r2s
 ## Data Type
 ## Streams, Relations and Windows Operators
+- 2 important concepts:
+    + monotonicity
+    + non-blocking
+incrementally produce new results over time
+**Blocking Operators** [14]
+
 ### Standard Operators [12]
 ### Window operators
+## Trigger/Eviction policies
 It contains three types of operators: 
 - relation-to-relation operators that are similar to standard relational operators
 
@@ -77,11 +109,14 @@ It contains three types of operators:
 
 ## Data Manipulation Language (DML)
 
-# IV. Random Query Generator
+#IV: Translation Rules and Implementation
+
+# V. Random Query Generator
 
 The Linear Road Benchmark
 
-# V. Conclusion
+
+# VI. Conclusion
 
 
 
