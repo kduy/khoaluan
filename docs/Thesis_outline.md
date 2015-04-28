@@ -35,9 +35,6 @@ Window may be classified accourding the following criteria:
 
 
 
-
-
-
 #II Continuous Query Semantics and Operators
 **Features of stream processing languages**(Fundamental of Stream Processing boook page 110)
 **Query** : [14] Model and issues in Data Stream System
@@ -61,8 +58,6 @@ incrementally produce new results over time
 ### Continous Queries as Views
 the DSMS itself usually does not materialize the views. Continuous queries produce streams of updates over time, but it is up to the user or application to maintain the final result.
 ### Semantics of Relations in Continous Queries
-
-
 
 
 
@@ -110,6 +105,9 @@ It contains three types of operators:
 ## Data Manipulation Language (DML)
 
 #IV: Translation Rules and Implementation
+# Architecture
+
+# Translation Rules
 
 # V. Random Query Generator
 
