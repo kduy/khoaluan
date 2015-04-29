@@ -29,5 +29,4 @@ http://www.slideshare.net/hemapani/scalable-realtime-analytics-with-declarative-
 
 
 
-
 ###

@@ -60,7 +60,6 @@ the DSMS itself usually does not materialize the views. Continuous queries produ
 ### Semantics of Relations in Continous Queries
 
 
-
 # III. Continous Query Language
 **Features of stream processing languages**(Fundamental of Stream Processing boook page 110)
 
