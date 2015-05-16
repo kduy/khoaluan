@@ -95,7 +95,7 @@ https://msdn.microsoft.com/en-us/library/azure/dn835065.aspx
 ## II. Operation
 
 ### 1. Scala-based Operators
-http://www.tutorialspoint.com/scala/scala_operators.htm
+
 #### Arithmetic
 `+, - , *, / , %`
 
@@ -112,7 +112,7 @@ http://www.tutorialspoint.com/scala/scala_operators.htm
 #### Assignment  // [NOTUSE]
 http://www.tutorialspoint.com/scala/scala_operators.htm
 
-### List and Range Operators
+
 #### In / Not in
 ```sql
 test_expression [NOT] IN (expression [,expression [,...]] )
@@ -131,7 +131,7 @@ test_expression [NOT] BETWEEN begin_expression AND end_expression
 #### Null
 - `not exist, exists, is null  , is not null` //
 
-### String Operators
+
 #### Like
 ```sql
 test_expression [NOT] LIKE pattern_expression [ESCAPE string_literal]
@@ -182,9 +182,9 @@ cast(price, double)
 #### String func
 `substring`
 
-## III. Data Definition Language (DDL)
+
 ### 1. Create stream / Source
-Managing the structure of database objects (CREATE/ALTER/DROP tables, views, columns, ...)
+
 #### a. Create a SCHEMA
 ```sql
     CREATE SCHEMA StockSchema (ID int, Symbol string, Price double);
@@ -250,11 +250,11 @@ on OrderEvent
 
 ### Join/cross statement
 
-### From clause
-### Window clause 
-### Where clase
-### GroupBy clause / Partition  ???
-### Having clause
+
+
+
+
+
 ### OrderBy clause
 
 

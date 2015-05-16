@@ -25,7 +25,7 @@ createStmt ::= "create" "stream" IDENT (IDENT| typedColumns)
 */
 
 // deleteStmt
-	deleteStmt ::= "delete" "schema" IDENT 
+	deleteStmt ::= "delete" "stream" IDENT 
 
 // insertStmt // merge
 	insertStmt ::= "insert" "into" IDENT (IDENT| typedColumns)? selectStmt
@@ -41,7 +41,7 @@ createStmt ::= "create" "stream" IDENT (IDENT| typedColumns)
 	select 	::=  "select" (("all")? named) (","("all")? named)*
 	from 	::=  "from" stream_reference
 		stream_reference ::= rawStream | derivedStream | joinedWindowStream
-		rawStream ::= IDENT window_specification ("as" IDENT)?
+		rawStream ::= IDENT (window_specification)? ("as" IDENT)?
 		derivedStream ::= subselect "as" IDENT (joinType)?
 		joinedWindowStream ::= stream_reference (joinType)? 
 			joinType ::= crossJoin | qualifiedJoin
@@ -72,6 +72,8 @@ createStmt ::= "create" "stream" IDENT (IDENT| typedColumns)
 // splitStmt
 	splitStmt ::= "on" IDENT
 					 insertStmt ("," insertStmt)
+
+// insertStmt
 
 // named
 named ::= 'distinct'? (comparison| arith| simpleTerm) ("as"? IDENT)?

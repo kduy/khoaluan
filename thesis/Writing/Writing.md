@@ -48,3 +48,6 @@ consumption of all of the above in emergin market
 - rent the use of their cloud-based storage and analytics engines and pay either for the time you use them or the amount of data crunched
 - They will **soak up** the data from the presumed millions of people 
 
+- data  now stream from daily life
+
+- it is making big data projects viable for many businesses that previously would have considered them out of reach 
