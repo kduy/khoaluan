@@ -53,7 +53,7 @@ nextRecord variable
 - `window` + `every`
     + `window`: eviction
     + `every`: trigger
-- `trigger`: when the end of window
+- `trigger`: when the start of window
     + `TriggerPolicy.java`
     + Proves and returns if a new window should be started. In case the trigger
      occurs (return value true) the UDF will be executed on the current
@@ -85,4 +85,12 @@ nextRecord variable
 
 
 --------> using T(app) and T(system) ~ position order
+
+
+
+
+
+
+----------------------------------
+
 

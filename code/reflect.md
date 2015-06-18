@@ -26,6 +26,7 @@ val fields = tpe.members.filter(!_.isMethod).toList
 val fields = tpe.members.filter(_.isConstructor).head.asMethod.paramLists
 fields: List[reflect.runtime.universe.Symbol] = List(value name, value age)
 ```
+
 ### how to get the 'type' for a field using reflection api
 ```scala
     scala> typeOf[Account].members.filter(!_.isMethod).foreach(
@@ -36,14 +37,25 @@ variable name is a String
 ```
 
 ### Type of a given instance field 
+
+```scala
 scala>       val returnType = tpe.decl(name).typeSignature // name: TermName
 returnType: reflect.runtime.universe.Type = => String
 ```
+
 
 ```scala
 val field = fields.head
 field: reflect.runtime.universe.Symbol = value name
 ```
+
+### String -> TermName
+```scala
+val name = newTermName("age")
+q"t.${name}" ---> will return t.age
+```
+
+
 ### Symbol has a Type ,converted using asTerm/asMethod/..., TermName
 ```scala
 scala> typeOf[Person].members.filter(!_.isMethod).head
@@ -56,7 +68,7 @@ scala> typeOf[Person].members.filter(!_.isMethod).head.asTerm
 res155: ru.TermSymbol = value age
 
 scala> typeOf[Person].members.filter(!_.isMethod).head.asTerm.name
-res156: ru.TermName = age
+res156: ru.TermName = age    // to use as q" t.${age}"
 ```
 ###Symbol ---> TermName
 ```scala
@@ -68,7 +80,6 @@ Scala: field.asTerm.name   // Symbol -> TermSymbol -> TermName
 ### decode Symbol to String
 scala>       val decoded = name.decodedName.toString  //"k$minusduy -> "k-duy" 
 decoded: String = name
-
 
 
 
@@ -105,6 +116,10 @@ c.Expr[Mappable[T]] { q"""
 //..$toMapParams : List[Tree]
 ```
 
+### companion
+```scala
+  weakTypeOf[Point].typeSymbol.companion
+```
 
 ### context bound and WeakTypeTag (or TypeTag)
 ```scala
@@ -207,29 +222,30 @@ def debug_impl(c: Context)(param: c.Expr[Any]): c.Expr[Unit] = {
 - Second , create a tree (by hand this time) representing a constant `String`
 - Finally, we turn that simple tree into an expression of type String, and splice it inside the println. 
 
+### get the value from Expr[]
+```scala
+param: c.Expr[Any]
+
+-> param.splice
+```
 
 ## Appendix
 #### reify 
- (reify is also a macro – a macro used when compiling macros :) ), which turns the given code into an Expr[T] (expressions wrap an AST and its type). As println has type unit, the reified expression has type Expr[Unit], and we can just return it.
+ (reify is also a macro – a macro used when compiling macros :) ), which **turns the given code into an Expr[T]** __(expressions wrap an AST and its type)__. As println has type unit, the reified expression has type Expr[Unit], and we can just return it.
 
 #### splice
- It is a special method of `Expr`, which can only be used inside a `reify` call, and does kind of the opposite of reify: it embeds the given expression into the code that is being reified. Here, we have `param` which is an `Expr` (that is, tree + type), and we want to put that tree as a child of `println`; we want the value that is represented by `param` to be passed to `println`, not the AST. 
+ It is a special method of `Expr`, which can only be used inside a `reify` call, and does kind of the **opposite of reify**: __it embeds the given expression into the code that is being reified__. Here, we have `param` which is an `Expr` (that is, tree + type), and we want to put that tree as a child of `println`; we want the value that is represented by `param` to be passed to `println`, not the AST. 
  `splice` called on an Expr[T] returns a T, so the reified code type-checks.
 
 #### c.prefix
 
-    c.literal(showRaw(c.prefix.tree)) : Expr[String]
+    c.literal(showRaw(c.prefix.tree)) : Expr[String]       ~~~ (tree -> Expr)
     c.prefix : Expr[Any]
 
 
-```scala
+#### Examples
+http://www.strongtyped.io/blog/2014/05/23/case-class-related-macros/
 
-```
-
-
-```scala
-
-```
 
 
 ```scala
@@ -315,3 +331,15 @@ def debug_impl(c: Context)(param: c.Expr[Any]): c.Expr[Unit] = {
 ```scala
 
 ```
+
+
+```scala
+
+```
+
+
+```scala
+
+```
+
+----------

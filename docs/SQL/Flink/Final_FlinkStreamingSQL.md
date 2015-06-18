@@ -11,11 +11,9 @@
         - Comparison / Relational
         - Bitwise
         - [Assignment  //][NOTUSE]
-    - List and Range Operators
         - In / Not in
         - Between
         - Null
-    - String Operators
         - Like
         - Regex
 - g
@@ -23,7 +21,6 @@
     - Coversion Func
     - Data & Time Func
     - String func
-- III. Data Definition Language (DDL)
     - 1. Create stream / Source
         - a. Create a SCHEMA
         - b. Define a new stream
@@ -32,11 +29,6 @@
     - Merge statement
     - Split statement
     - Join/cross statement
-    - From clause
-    - Window clause
-    - Where clase
-    - GroupBy clause / Partition  ???
-    - Having clause
     - OrderBy clause
     - [ Delete statement][TODO]
     - [ Sink][TODO]
@@ -322,4 +314,7 @@ comparison, BETWEEN, LIKE, IS NULL, IN, SOME/ANY, ALL, EXISTS.
 - Concatenation operator: The '||' sign specifies the concatenation of character strings.
 - Comparison operators: The equals operator, not equals operator, less than operator, greater than operator, less than or equals operator, greater than or equals operator ( =, <>, <, >, <=, >= ) compares values and expressions.
 - Boolean operators: AND, OR, NOT combines boolean values.
+
+
+
 

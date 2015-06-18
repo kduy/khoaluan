@@ -56,7 +56,7 @@ createStmt ::= "create" "stream" IDENT (IDENT| typedColumns)
 		window_specification ::= 	"["
 
 										window 
-										every
+										(every)?
 										(partition)?
 
 									"]"
