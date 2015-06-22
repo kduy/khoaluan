@@ -1,0 +1,636 @@
+\chapter{Mô hình ARIMA và Mạng nơ ron nhân tạo}
+\ifpdf
+    \graphicspath{{02_ARIMA/figures/PNG/}{02_ARIMA/figures/PDF/}{02_ARIMA/figures/}}
+\else
+    \graphicspath{{02_ARIMA/figures/EPS/}{02_ARIMA/figures/}}
+\fi
+
+Chương 2 trình bày 2 mô hình dự báo là mô hình tự hồi quy trung bình trượt và mạng nơ ron nhân tạo sử dụng phương pháp huấn luyện giám sát (lan truyền ngược và giải thuật di truyền).
+\section{Mô hình tuyến tính ARIMA}
+
+%The time domain, or regression, methods of this chapter are appropriate when we are dealing with possibly nonstationary, shorter time series; these series are the rule rather than the exception in many applications. In addition, if the emphasis is on forecasting future values, then the problem is easily treated as a regression problem. This chapter develops a number of regression techniques for time se-ries that are all related to classical ordinary and weighted or correlated least squares.
+\textbf{"ARMA"} là tên viết tắt của "Autoregressive Moving Average", có nghĩa là mô hình tự hồi quy-trung bình trượt. Mô hình này được tích hợp từ 2 thành phần: tự hồi quy (AR) và trung bình trượt(MA). Phần này trước tiên sẽ đưa ra những kiến thức cơ bản nhất cần thiết sử dụng cho việc định nghĩa và xây dựng các mô hình AR, MA và ARMA
+\subsection{Nhiễu trắng}
+Một chuỗi thời gian $x_t$ được gọi là \textbf{nhiễu trắng} nếu $x_t$ là một chuỗi các biến ngẫu nhiên phân phối độc lập với kỳ vọng và phương sai xác định hữu hạn. Trong trường hợp đặc biệt, nếu $x_t$ có giá trị trung bình bằng $0$ và phương sai $\sigma^2$ thì gọi là nhiễu trắng Gaussian. Với nhiễu trắng thì tất cả các giá trị hàm ACF đều bằng $0$. Do đó, trong thực tế, nếu tất cả các giá trị ACF tiến gần tới $0$ thì coi như chuỗi đó là nhiễu trắng. Một mô hình dự báo chấp nhận được nếu sai số giữa giá trị thực tế và dự báo là một chuỗi nhiễu trắng. 
+
+
+\subsection{Quá trình tự hồi quy AR}
+	Ý tưởng của mô hình tự hồi quy AR là tính giá trị hiện tại $x_t$ trong chuỗi dựa vào hàm hồi quy của $p$ giá trị, $x_{t-1},x_{t-2},\dots,x_{t-p},$ xảy ra ngay trước nó trong quá khứ. Giá trị $p$ xác định số bước nhảy lùi quá khứ để dự đoán giá trị hiện tại. Nó có thể được quan sát, xác định bởi đồ thị hàm tự tương quan từng phần (PACF) của chuỗi.
+	\begin{defi} Một \textbf{mô hình tự hồi quy} cấp p, viết tắt là $\textbf{AR}(p)$ được xác định bởi công thức 
+			\begin{equation}\label{AR}			
+			x_t = \phi_1x_{t-1} + \phi_2x_{t-2} + \dots + \phi_px_{t-p} + w_t
+			\end{equation}
+			với $x_t$ có tính dừng, và $\phi_1, \phi_2,\dots,\phi_p$ là các hằng số $(\phi_p)\neq 0$ mô tả mối quan hệ giữa giá trị hiện tại với các giá trị trước nó. Trong công thức này ta coi $w_t$ là chuỗi nhiễu trắng Gaussian có giá trị trung bình bằng $0$ và phương sai $\sigma^2_w$. Nếu giá trị trung bình của $x_t$ là $\mu \neq 0$ thì ta sẽ thay $x_t$ bằng $x_t - \mu$ trong công thức~\ref{AR}. Ta được công thức sau:
+			\begin{equation}\label{AR}			
+			x_t-\mu = \phi_1(x_{t-1}-\mu) + \phi_2(x_{t-2}-\mu) + \dots + \phi_p(x_{t-p}-\mu) + w_t 
+			\end {equation}
+			hoặc
+			\begin{equation}
+			x_t = \phi_1x_{t-1} + \phi_2x_{t-2} + \dots + \phi_px_{t-p} + w_t 
+			\end{equation}
+			\text {với} $ \alpha = \mu (1-\phi_1 - \phi_2-\dots- \phi_p)	$
+	\end{defi}
+
+Để dễ dàng biểu diễn mô hình thông qua công thức, ta cần sử dụng thêm khái niệm \textit{toán tử dịch chuyển $B$}.
+\begin{defi}
+	Toán tử dịch chuyển B được xác định bởi
+	\begin{equation}
+		Bx_t = x_{t-1}
+	\end{equation}
+	thực hiện quá trình đệ quy $x_{t-k}=Bx_{t-k+1}=...=B^kx_t$ hay
+	\begin{equation}
+		x_{t} = B^kx_{t-k}
+	\end{equation}
+\end{defi}
+Quay lại với mô hình AR, ta có thể biểu diễn nó dưới dạng
+\begin{equation}
+	(1-\phi_1B-\phi_2B^{2}-...-\phi_pB^{p})x_t = w_t
+\end{equation}
+hay
+\begin{equation} 
+	\phi(B)x_t=w_t
+\end{equation}
+$\phi B$ ở trên được gọi là toán tử tự hồi quy
+
+Như đã nói ở trên, hàm tự hiệp phương sai có thể đo mức độ phụ thuộc tuyến tính giữa hai thời điểm trong chuỗi thời gian. Nó là sự phụ thuộc chuỗi toàn phần, có nghĩa là $x_t$ phụ thuộc vào $x_{t-2}$ thông qua $x_{t-1}$ rồi $x_{t-1}$ phụ thuộc $x_{t-3}$ thông qua $x_{t-2}$ và cứ như vậy. Ví dụ như mô hình đơn giản $AR(1)$ được cho bởi $x_t = \phi x_{t-1}+w_t$, ta có
+\begin{align}
+	\gamma_x(2) = cov(x_t,x_{t-2}) &= cov(\phi x_{t-1}+w_t,x_{t-2})\\
+	&= cov(\phi^2x_{t-2}+\phi w_{t-1}+w_t,x_{t-2}) \\
+	&= \phi^2\gamma_x(0)
+\end{align} 
+Do giá trị $\gamma_x(2) \neq 0$, nên có thể khẳng định tồn tại tương quan giữa $x_t$ và $x_{t-2}$ thông qua $x_{t-1}$. Nhưng nếu trong trường hợp ta bỏ đi giá trị $x_{t-1}$ để bẻ gãy chuỗi liên kết liên tục này, mối quan hệ giữa $x_t$ và $x_{t-2}$ sẽ được đo bởi giá trị hàm tự hiệp phương sai giữa $(x_t-\phi x_{t-1})$ và $(x_{t-2}-\phi x_{t-1})$ do thành phần $x_{t-1}$ bị mất đi.
+\begin{equation}
+	cov((x_t-\phi x_{t-1}),(x_{t-2}-\phi x_{t-1})) = cov (w_t,x_{t-2}-\phi x_{t-1}) = 0
+\end{equation}
+Do đó, ta cần một hàm tự tương quan từng phần(PACF) có thể dùng để đánh giá mối quan hệ giữa $x_s$ và $x_t$ trong trường hợp trung gian không được tính đến.
+
+\begin{defi}
+	Hàm \textbf{tự tương quan từng phần~(PACF)} của một chuỗi dừng $x_t$, viết tắt là $\phi_{hh}$ với $h=1,2,\dots$ được xác định :
+	\begin{equation}
+		\phi_{11} = corr(x_{t+1},x_t) = \rho(1)	
+	\end{equation}
+	 và
+	 \begin{equation}
+	 	\phi_{hh} = corr(x_{t+h}-\hat{x}_{t+h},x_{t}-\hat{x}_{t}),\quad h \geq 2
+	 \end{equation}
+\end{defi}
+với 
+\begin{align}
+	\hat{x}_{t+h} &= \beta_{1}x_{t+h-1}+\beta_{3}x_{t+h-2}+\dots+\beta_{h-1}x_{t+1}\\
+	\hat{x}_{t} &= \beta_{1}x_{t+1}+\beta_{3}x_{t+2}+\dots+\beta_{h-1}x_{t+h-1}	\label{hatx}
+\end{align}
+
+Mô hình AR(p) có thể được cho bởi công thức 
+\begin{equation}
+	x_{t+h} = \sum\limits_{j=1}^{p}\phi_{j}x_{t+h-j}+w_{t+h}
+\end{equation}
+Khi $h > p$ thì \citep{tsa3} \href{theo tài liệu APP trang 160} ta tính được 
+\begin{equation}
+	\hat{x}_{t+h} = \sum\limits_{j=1}^{p}\phi_{j}x_{t+h-j}
+\end{equation} 
+Theo đó, khi $h > p$
+\begin{equation}
+\phi_{hh} = corr(x_{t+h}-\hat{x}_{t+h},x_{t}-\hat{x}_{t}) = corr (w_{t+h},x_t-\hat{x}_t) = 0
+\end{equation}
+Theo công thức~\ref{hatx} thì $x_{t}-\hat{x}_{t}$ sẽ chỉ phụ thuộc vào $w_i$ với $i=t+h-1,t+h-2,...$ nên chúng sẽ độc lập với $w_{h+t}$. Khi đó, $\phi_{hh} = 0$ như trên. Cũng theo \citep{tsa3} thì khi $h<q$ thì $\phi_{hh}\neq 0$. Do đó, trong mô hình $AR(p)$, PACF sẽ bị triệt tiêu sau khi $h$ vượt ngưỡng $q$. Dựa vào kết quả này, ta có thể dự đoán giá trị $q$ và xây dựng mô hình $AR(q)$ từ chuỗi thời gian thực.
+
+\subsection{Quá trình trung bình trượt MA}
+\begin{defi} 
+	Mô hình \textbf{trung bình trượt} cấp $q$ ,viết tắt là mô hình $\textbf{MA}(q)$ được xác định bởi công thức:
+	\begin{equation}\label{MA}
+		x_t = w_t + \theta_1w_{t-1} + \theta_2w_{t-2} +\dots+\theta_qw_{t-q}
+	\end{equation}
+	với $q$ là cấp của mô hình trung bình trượt, và $\theta_1, \theta_2,\dots,\theta_q$ là các tham số xác định mối quan hệ phụ thuộc giữa giá trị hiện tại $x_t$ và các giá trị nhiễu sai số trước đó. $w_t$ là chuỗi nhiễu trắng Gaussian có giá trị trung bình bằng $0$ và phương sai $\sigma^2_w$
+\end{defi}
+Phương trình~\ref{MA} cũng có dạng tuyến tính như phương trình~\ref{AR} nhưng $x_t$ sẽ được tính thông qua các giá trị nhiễu sai số $w_t, w_{t-1},\dots,w_{t-p}$ trong quá khứ thay vì bằng các giá trị $x_{t-1},x_{t-2},\dots,x_{t-p}$
+Tương tự, ta cũng có thể biểu diễn~\ref{MA} dưới dạng
+\begin{equation}
+	x_t = \theta(B)w_t
+\end{equation}
+với toán tử trung bình trượt $\theta(B) = 1+ \theta_1B+\theta_2B^2+...+\theta_qB^q$
+
+\subsubsection{Xác định cấp $q$ trong $MA(q)$}
+Vì $x_t$ được tính tuyến tính thông qua các nhiễu trắng với mô hình~\ref{MA}, chuỗi này hiển nhiên là chuỗi dừng với kỳ vọng và hàm tự hiệp phương sai như sau:
+\begin{equation}
+	E(x_t) = \sum\limits_{j=0}^{q}\theta_{j}E(w_{t-j})=0
+\end{equation}
+\begin{align}
+	\gamma(h)=cov(x_{t+h},x_t)&= cov(\sum\limits_{j=0}^{q}\theta_jw_{t+h-j},\sum\limits_{k=0}^{q}\theta_kw_{t-k})\\
+	&= \begin{cases}
+			\sigma_{w}^{2}\sum\limits_{j=0}^{q-h}\theta_j\theta_{j+h}, \qquad 0 \leq h \leq q \\
+			0 \qquad\qquad\qquad h > q
+		\end{cases}
+\end{align}
+Khi đó,ta cũng có 
+\begin{equation}
+	\rho(h) = \frac{\gamma(h)}{\gamma(0)}=
+	\begin{cases}
+		\frac{\sum\limits_{j=0}^{q-h}\theta_j\theta_{j+h}}{1+\theta_{1}^{2}+...+\theta_{q}^{2}} , \qquad 1 \leq h \leq q \\
+		   \\
+		0 \qquad\qquad\qquad h >q
+	\end{cases}
+\end{equation}
+Ta có thể nhận thấy với mô hình $MA(q)$ thì giá trị của $\rho(h)$ sẽ bị triệt tiêu ngay sau cấp $q$. Đây chính là điểm mấu chốt để xác định $q$ và xây dựng mô hình $MA(q)$ dựa vào việc quan sát đồ thị trực quan của hàm tự tương quan.
+
+Trong thực tế, công thức hàm tự tương quan 
+\begin{equation}
+	\rho(h) = \frac{\gamma(h)}{\gamma(0)}
+\end{equation}
+được gọi là hàm tự tương quan lý thuyết bởi vì nó phụ thuộc vào các tham số thực của $x_t$. Nhưng trong dữ liệu thực tế, không thể biết được chính xác các tham số này, do đó chúng ta sẽ không thể tính toán chính xác được $\rho(h)$. Tuy nhiên, chúng ta có thể tính toán gần đúng nó dựa vào \textbf{hàm tự tương quan mẫu} với độ trễ $h$ được cho bởi công thức
+\begin{equation}
+	\hat{p}_h = \frac{\sum\limits_{t=h+1}^{n}(x_t-\bar{x})(x_{t-h}-\bar{x})}{\sum\limits_{t=1}^{n}(x_t-\bar{x})^{2}}
+\end{equation}
+với $\bar{x}$ là giá trị trung bình mẫu của $x_i$
+Lúc này ta hoàn toàn có thể tính được ước lượng của $\rho(h)$
+
+ 
+%---------------------------------ARMA----------------------
+\subsection{Quá trình ARMA}
+\begin{defi}
+Một chuỗi thời gian thực \{$x_t; t=0,\pm1,\pm2,\dots$\} là một mô hình tự hồi quy - trung bình trượt ARMA(p,q) nếu nó là một chuỗi dừng và được cho bởi công thức
+\begin{equation}\label{equa:arma}
+	x_t = \phi_1x_{t-1}+\dots+\phi_px_{t-p}+w_t+\theta_1w_{t-1}+\dots+\theta_qw_{t-q}
+\end{equation}
+với $\phi_p \neq 0$, $\theta_q \neq 0$ và $\sigma_{w}^{2} > 0$. Tham số $p$ và $q$ lần lượt được gọi là cấp tự hồi quy và cấp trung bình trượt. Nếu $x_t$ có giá trị trung bình $\mu \neq 0$ thì có thể đặt $\alpha = \mu(1-\phi_1-\dots-\phi_p)$ và mô hình có thể được viết dưới dạng
+\begin{equation}
+  x_t = \alpha + \phi_1x_{t-1}+\dots+\phi_px_{t-p}+w_t+\theta_1w_{t-1}+\dots+\theta_qw_{t-q}
+\end{equation}
+Ta vẫn lấy $w_t$ là chuỗi nhiễu trắng Gaussian có giá trị trung bình bằng 0 và phương sai $\sigma_{w}^{2}$
+\end{defi}
+Nếu $q = 0$, ta thu được mô hình tự hồi quy cấp $p$, $AR(p)$, và khi $p = 0$ thì ta lại thu được mô hình trung bình trượt cấp $q$, $MA(q)$
+
+\subsubsection{Xác định mô hình ARMA}
+Hàm tự tương quan ACF có thể giúp xác định cấp $q$ của mô hình $MA(q)$. Ngoài ra, hàm tự tương quan từng phần PACF cũng giúp đưa ra dự đoán cấp $p$ cho mô hình $AR(p)$. Nhưng với mô hình tự hồi quy-trung bình trượt ARMA thì cả ACF và PACF đều không thể giúp xác định bộ $(p,q)$. Do đó, một hàm mở rộng mới được để xuất để khắc phục điều này. Nó có tên là \textbf{hàm tự tương quan mở rộng(EACF)}.
+Tư tưởng chính của EACF gồm 2 bước:
+\begin{enumerate}
+\item Tìm các ước lượng của các tham số tự hồi quy $\phi_i$ để chuyển $x_t$ sang quá trình trượt trung bình
+\item Dựa vào hàm ACF xác định cấp $q$ cho mô hình vừa được biến đổi.
+\end{enumerate}
+Mô tả quá trình xử lý ước lượng mô hình \label{EACFlabel}
+\begin{enumerate}
+\item Đồng nhất mô hình cần xác định với mô hình tự hồi quy
+	\begin{equation}
+		x_t = \phi_1x_{t-1}+\phi_2x_{t-2}+...+\phi_px_{t-p}+w_t
+	\end{equation}
+Ta sử dụng bình phương tối thiểu để tìm các tham số $\hat{\phi_i}^{(0)}$ với $i=1,2,..,p$.Nếu mô hình cần xác định là một mô hình $ARMA(p,q)$ thì các ước lượng tham số trên chưa chính xác nhưng ta có thể thu ước lượng cho nhiễu trắng
+\begin{equation}
+	\hat{w_t}^{(0)} = x_t - \hat{\phi_1}^{(0)}x_{t-1}-\hat{\phi_2}^{(0)}x_{t-2}-...-\hat{\phi_p}^{(0)}x_{t-p}
+	\end{equation}
+	\item Do $\hat{w_t}^{(0)}$ phụ thuộc liên quan đến $p$ theo như công thức trên, ta lại ước lượng mô hình với 
+	\begin{equation}
+		x_t = \phi_1x_{t-1}^{(1)}+\phi_2x_{t-2}^{(1)}+...+\phi_px_{t-p}+w_t^{(1)}+\theta_{1}^{(1)}{\hat{w}_{t-1}}^{(0)}
+	\end{equation}
+Trong mô hình này ta vừa thêm một nhiễu ${\hat{w}_{t-1}}^{(0)}$ để ước lượng
+	\begin{itemize}
+		\item Nếu mô hình cần xác định là mô hình $ARMA(p,q)$ có $q=1$ thì bộ tham số $\phi_i$ và $\theta_1$ kia là bộ cần tìm.
+		\item Nếu giá trị thực sự $q>1$ thì bộ tham số kia vẫn chưa chính xác. Ta chuyển xuống bước 3
+	\end{itemize}
+\item Trong trường hợp $q>1$, ta tiếp tục ước lượng với mô hình 
+	\begin{equation}
+		x_t = \phi_1x_{t-1}^{(2)}+\phi_2x_{t-2}^{(2)}+...+\phi_px_{t-p}+w_t^{(2)}+\theta_{1}^{(2)}{\hat{w}_{t-1}}^{(1)} + \theta_{2}^{(2)}{\hat{w}_{t-2}}^{(0)}
+	\end{equation}
+	Ta mới thêm nhiễu ${\hat{w}_{t-2}}^{(0)}$ để ước lượng mô hình. Nếu thực sự trong thực tế $q=2$ thì bộ tham số này là bộ cần tìm. Trường hợp ngược lại, ta tiếp tục thực hiện lặp lại thêm nhiễu và ước lượng đến khi tìm được bộ thỏa mãn.
+\end{enumerate}
+
+Đầu ra của EACF là một bảng 2 chiều với chỉ số của dòng tương ứng với cấp $p$ của AR và chỉ số của cột tương ứng với cấp $q$ của MA.Giá trị tại hàng $m$, cột $j$ là giá trị \textbf{hàm tự tương quan mở rộng mẫu(SEACF)}, viết tắt là \textbf{$\hat{p}_j^{(m)}$}. Đó cũng chính là giá trị ước lượng của hàm tự tương quan mẫu SACF cho mô hình $AR(m)$với ước lượng nhiễu
+\begin{equation}
+	\hat{w_t}^{(j)} = x_t - \hat{\phi_1}^{(j)}x_{t-1}-\hat{\phi_2}^{(j)}x_{t-2}-...-\hat{\phi_p}^{(j)}x_{t-m}
+\end{equation}
+Ở đây, $j$ là số vòng lặp trong quá trình xấp xỉ mô hình ở trong quá trình ước lượng mô hình ARMA ở Phần ~\ref{EACFlabel}
+\figuremacroW{SEACF}{Bảng giá trị Hàm tự tương quan mở rộng mẫu}{}{0.5}
+
+Theo Tiao và Tsay \citep{tiao} thì trong mô hình ARMA(p,1) thì 
+\[
+	\hat{p}_j^{(m)} \longrightarrow \begin{cases}
+										c,\qquad j = q+m-p \\
+										0,\qquad j > q+m-p
+										\end{cases}
+\]\label{SEACFequa} với $|c|<1$
+
+Công thức trên giúp xác định mô hình ARMA(p,q) trong thực tế. Bảng giá trị hàm SEACF (Hình~\ref{SEACF}) có chỉ số của hàng biểu diễn cho cấp $p$ của $AR(p)$ còn chỉ số của cột biểu diễn cho cấp $q$ của $MA(q)$. %Ta sẽ tìm trong bảng SEACF một tam giác chỉ gồm các giá trị $0$ và có tiệm cận $m=c_1 >0$ và $j-m=c_2>0$. Khi đó, mô hình dự kiến sẽ có $p=c_1$ và $q=c_2$.
+ Trong dữ liệu mẫu thực tế, khó để $\hat{p}_j^{(m)}$ đạt giá trị 0 một cách chính xác mà ta phải xấp xỉ rồi biểu diễn. Trong mô hình, "0" biểu diễn cho giới hạn 0 của $\hat{p}_j^{(m)}$, "x" biểu diễn giá trị $\hat{p}_j^{(m)} \neq 0$ hay đúng hơn là có giá trị lớn hơn 2 lần giá trị của ước lượng sai số tiêu chuẩn. Ta tìm kiếm 2 đường tiệm cận "0" trong bảng, điểm giao nhau chính là giá trị của $(p,q)$. Như trong Hình~\ref{SEACF_wedge}, ta tìm được điểm giao là $(2,2)$ , do đó, mô hình dự kiến sẽ là ARMA(2,2)
+\figuremacroW{SEACF_wedge}{Bảng giá trị SEACF ví dụ cho mô hình ARMA(2,2)}{}{0.5}
+\section{Mô hình ARIMA và quy trình Box-Jenkins \citep{box94}}
+
+\figuremacroW{2_sarima}{Quy trình Box-Jenkins xác định mô hình ARIMA}{có cả yếu tố chu kì thời vụ}{1}
+
+\subsection{Mô hình ARIMA cho chuỗi không có tính dừng}
+Mô hình ARIMA(p,a,q) là sự kết hợp của mô hình ARMA(p,d) và quá trình sai phân dữ liệu(\textbf{"I"}). Nhờ quá trình sai phân $d$ lần dữ liệu mà chuỗi không có tính chất dừng chuyển được về chuỗi mới có tính chất dừng. Sau đó ta sẽ xử lý chuỗi mới với mô hình ARMA
+\begin{defi}
+Một quá trình ngẫu nhiên $x_t$ được gọi là ARIMA(p,d,q) nếu sau quá trình sai phân cấp $d$
+ \begin{equation}
+\Delta^{d}x_t = (1-B)^{d}x_t
+\end{equation}
+ta được ARMA(p,d). $x_t$ có thể được viết dưới dạng
+\begin{equation}
+	\phi(B)(1-B)^{d}x_t = \delta + \theta(B)w_t
+\end{equation}
+với $\delta = \mu(1-\phi_1 - ... - \phi_p)$, $E(\Delta^{d}x_t)= \mu$
+\end{defi}
+
+Quy trình Box-Jenkins gồm 3 bước chính:
+\begin{itemize}
+\item \textbf{Xác định mô hình:} xác định xem mô hình đó thuộc loại nào AR, MA, ARMA hay ARIMA
+\item \textbf{Ước lượng tham số mô hình}
+\item \textbf{Kiểm định mô hình:} đánh giá độ chính xác mô hình vừa tìm được với dữ liệu quan sát được. Chủ yếu là đánh giá xem lỗi (chênh lệch giá trị dự đoán và giá trị thực tế) có phải là chuỗi có dạng nhiễu trắng không, các độ đo lỗi có trong ngưỡng mong muốn không.
+\end{itemize}
+%\figuremacroW{BJ}{Quy trình Box-Jenkins}{}{1}\label{bj}
+\subsection{Xác định mô hình}
+Xác định mô hình gồm 2 bước chính:
+\begin{itemize}
+\item \textbf{Chuẩn bị dữ liệu:} trước tiên ta cần xác định xem chuỗi dữ liệu có phải chuỗi dừng không(quan sát đồ thị hoặc qua hàm kiểm tra nghiệm đơn vị) và có tồn tại yếu tố mùa vụ nào trong mô hình không. Ta cần sử dụng sai phân và sai phân mùa vụ để khử các yếu tố này. Ngoài ra,  với từng loại dữ liệu cụ thể chúng ta cần thực hiện chuyển đổi dữ liệu (ví dụ: logarit...) nếu dữ liệu xuất hiện xu hướng, giá trị tăng theo cấp số mũ, phương sai thay đổi...Việc này cần thực hiện trước các hàm sai phân.
+
+\item \textbf{Lựa chọn mô hình} Dữ liệu sau khi được chuyển đổi và sai phân, ta dựa vào đồ thị hàm SACF, SPACF và SEACF để xác định ước lượng cấp $p$ và $q$
+\end{itemize}
+
+\subsubsection{Chuẩn bị dữ liệu}
+Tất cả các mô hình chúng ta nhắc tới $MA$, $AR$, $ARMA$ đều ngầm định rằng dữ liệu chuỗi đầu vào là chuỗi dừng. Một chuỗi dừng thì phải có tính chất cấu trúc đồ thị hàm tính giá trị trung bình, phương sai và tự tương quan khá ổn định, không thay đổi theo thời gian. Dựa vào đồ thị, chuỗi dừng nhìn phẳng, không có xu hướng, giá trị phương sai và tự tương quan ổn định, không thay đổi theo thời gian và cũng không có yếu tố chu kì, mùa vụ (Hình~\ref{Stationarycomparison})
+\figuremacroW{Stationarycomparison}{Mô hình chuỗi dừng và không có tính chất dừng}{}{0.5}
+
+Ta thường gặp một số dữ liệu mà càng về sau thì độ biến thiên của dữ liệu quanh giá trị trung bình càng lớn (hoặc càng nhỏ). Những dữ liệu như thế thì phương sai của chúng sẽ thay đổi theo thời gian. Vì vậy, nó không phải là chuỗi dừng. Ví dụ như biểu đồ lượng điện sử dụng hàng tháng của Mỹ từ tháng 1/1973 đến 12/2005 trong Hình~\ref{originElec}. Từ đồ thị chúng ta có thể thấy rằng phương sai tăng dần theo thời gian, càng về cuối thì biên độ giao động càng lớn. Trước tiên chúng ta cần phải biến đổi để chuyển dữ liệu thành dữ liệu mới có phương sai ổn định.
+\figuremacroW{originElec}{Lượng điện sử dụng hàng tháng của Mỹ}{}{0.5}
+Chúng ta có thể sử dụng \textbf{phép biến đổi mũ} được giới thiệu bởi Box và Cox \citep{bc64}. Nếu gọi $T(x_t)$ là hàm ổn định phương sai. Chuỗi sau biến đổi $T(x_t)$ có phương sai không đổi. 
+\begin{align}
+	T(x_t) = \begin{cases}
+				\frac{x_t^{\lambda}-1}{\lambda},\quad \lambda \neq 0 \\
+				\ln(x_t),\qquad \lambda = 0
+			\end{cases}
+\end{align}
+
+Tham số $\lambda$ được cho bởi bảng
+
+\begin{table}[htdp]
+\centering
+\begin{tabular}{ccc} % ccc means 3 columns, all centered; alternatives are l, r
+\hline
+{\bf $\lambda$} & {\bf $T(x_t)$}  \\ 
+% & denotes the end of a cell/column, \\ changes to next table row
+\hline % draws a line under the column headers
+
+-2.0 & ${1}/{x_t^2}$  \\
+-1.0 & ${1}/{x_t}$  \\
+-0.5 & ${1}/{\sqrt{x_t}}$  \\
+0.0  & $\ln(x_t)$  \\
+0.5 & $\sqrt{x_t}$  \\
+1.0 &  $x_t$ \\
+2.0 &  $x_t^2$ \\
+\end{tabular}
+\caption[Bảng tham số $\lambda$]{\textbf{Bảng tham số $\lambda$}}
+% You only need to write the title twice if you don't want it to appear in bold in the list of tables.
+\label{lambda} % label for cross-links with \ref{latexin_genes}
+\end{table}
+
+Tham số $\lambda$ có thể được ước lượng thông qua các giá trị loga(log-likehood) dựa vào các hàm ước lượng cực đại(MLE). Với độ tin tưởng 95$\%$, ta có đồ thị giá trị hợp lý loga như Hình~\ref{BoxCoxE}. Ta thấy có thể chọn được giá trị $\lambda = 0$ , sử dụng hàm logarit để biến đổi dữ liệu. Ta có thể quan sát thấy mô hình dữ liệu mới(Hình~\ref{logE}) đã có độ biến thiên quanh giá trị giá trị trung bình đều nhau hay nói cách khác, phương sai của chúng đã được giữ ổn đinh.
+
+\figuremacroW{BoxCoxE}{Hàm ước lượng hợp lý log dựa vào $\lambda$}{}{0.7}
+
+\figuremacroW{logE}{log(Electricity)}{}{0.7}
+
+Sau khi khử đi sự biến thiên mạnh của phương sai, chúng ta kiểm tra lần cuối tính dừng của chuỗi. Như đã mô tả trong Phần~\ref{1.2.2}, ta có thể quan sát biểu đồ hàm tự tương quan mẫu SACF để dự đoán tính dừng của chuỗi. Nếu nó đạt giá trị ban đầu lớn nhưng giảm từ từ thì chuỗi đó là chuỗi không có tính chất dừng. 
+
+Ngoài ra, một số chuỗi dữ liệu không có tính chất dừng nhưng biểu đồ SACF của chúng không có tính chất trên. Ta nên sử dụng một phương pháp thống kê khác kiểm tra một lần nữa. Cũng ở trong Phần~\ref{1.2.2}, ta chỉ ra rằng nếu một mô hình có nghiệm đơn vị thì nó không phải là chuỗi dừng. Một trong những phương pháp phổ biến kiểm tra mô hình ARIMA là phương pháp Augmented Dickey–Fuller(ADF) \citep{df79} do Dickey và Fuller tạo ra. Họ đề xuất 3 hàm hồi quy khác nhau để kiểm tra nghiệm đơn vị cho $x_t$
+\begin{align}
+\Delta{x_t} &= ax_{t-1} + \sum\limits^{J}_{j=1}\varphi_{j}\Delta{x_{t-1}}+ \beta{t} + w_t, \qquad t = 1,2,...,T \\
+\Delta{x_t} &= ax_{t-1} + \sum\limits^{J}_{j=1}\varphi_{j}\Delta{x_{t-1}}+ \mu + w_t , \qquad t = 1,2,...,T\\
+\Delta{x_t} &= ax_{t-1} + \sum\limits^{J}_{j=1}\varphi_{j}\Delta{x_{t-1}} + w_t, \qquad t = 1,2,...,T
+\end{align}
+với $\Delta{x_0}$ cố định. Biến phụ thuộc là $\Delta{x_t}$ Họ đã chứng minh rằng $x_t$ có nghiệm đơn vị nếu $a=0$. ADF sẽ kiểm tra giả thiết xuôi $H_0: a = 0$ (không có tính chất dừng) và giả thiết ngược $H_1: a < 0$(có tính chất dừng)
+Chúng ta sẽ kiểm tra bằng cách hồi quy $\Delta{x_t}$ trên $x_{t-1}$, $\Delta{x_{t-1}}$, $\Delta{x_{t-2}}$,...,$\Delta{x_{t-k}}$. Ta ước lượng $a$ bằng phương pháp bình phương tối thiểu. Nếu giá trị ước lượng $a$ nhỏ hơn $0$ đáng kể thì kết luận được đây là chuỗi dừng còn ngược lại thì nó là chuỗi không có tính chất dừng. Vậy thế nào là "đáng kể"?. Ta sẽ dựa vào giá trị xác suất \textbf{p-value} để đánh giá giả thuyết. p-value chính là ước tính xác suất tồn tại các tham số nêu giả thuyết null là đúng. Nếu giá trị này nhỏ hơn ngưỡng quy định (thường là 0.1 hoặc 0.05) thì giả thuyết null bị bác bỏ giá trị ước lượng được chấp nhận còn ngược lại thì kết quả chưa tin tưởng được. Ví dụ như với dữ liệu nhiệt độ trái đất (không khí và nước) hàng năm tính từ giữa thế kỉ 20, ta thu được kết quả kiểm tra ADF như sau: $(a= -0.245 , p-value = 0.1)$. Do $p-value > 0.1$ nên dù $a<0$ thì vẫn không tin tưởng được vào ước lượng. Nhưng nếu giả sử $p-value = 0.01 < 0.1$ thì do $a<0$ nên ta có thể kết luận chuỗi này có tính chất dừng.
+
+Sau khi đã xác định được rằng chuỗi dữ liệu không có tính chất dừng, ta cần làm thực hiện sai phân $d$ lần cho đến khi thu được chuỗi mới có tính chất dừng. Thông thường trong thực tế, chỉ cần thực hiện tối đa 2 lần là thu được chuỗi dừng. Trong ví dụ về mức tiêu thụ điện ở trên, sau khi sai phân chuỗi $log(electricity)$ ta thu được chuỗi mới có đồ thị(Hình~\ref{difflogE}) 
+\figuremacroW{difflogE}{Đồ thị giá trị chuỗi sai phân bậc 1 của $log(electricity)$ }{}{0.7}
+
+\subsubsection{Lựa chọn mô hình:}
+Sau khi xác định được tham số $d$ trong mô hình ARIMA, ta cần ước lượng 2 tham số $p$ và $d$ còn lại. Phương pháp chính để ước lượng dự đoán 2 tham số này là sử dụng đồ thị của hàm tự tương quan của mẫu(SACF), hàm tự tương quan từng phần của mẫu(SPACF) và hàm tự tương quan mở rộng của mẫu (
+(SEACF)
+Theo như Phần 2.1.3 thì giá trị hàm tự tương quan từng phần của mô hình $AR(p)$ có giá trị xấp xỉ bằng $0$ từ trễ $p+1$ trở đi.Do đó, ta sẽ quan sát đồ thị SPACF giá trị $p$ mà sau giá trị đó đồ thị tiến sát giá trị $0$. Thông thường, trong đồ thị SPACF có 2 đường giới hạn giá trị sai số là $y = \pm2/\sqrt{N}$ với $N$ là cỡ của mẫu dữ liệu. Nếu quan sát được giá trị $p$ phù hợp như vậy thì một ước lượng của mô hình ta cần tìm là $ARIMA(p,d,0)$ hay $AR(p)$(sau khi sai phân $d$ lần)
+
+Tương tự, theo Phần 2.1.4, giá trị hàm tự tương quan của mô hình $MA(q)$ sẽ giảm xuống $0$ từ giá trị $p+1$ trở đi. Mô hình SACF cũng có 2 đường giới hạn sai số $\pm2/\sqrt{N}$ với $N$ là cỡ của dữ liệu mẫu. Nếu quan sát được giá trị $q$ mà sau nó, đồ thị giao động nhẹ quanh giá trị 0 thì có thể kết luận rằng một trong những ước lượng mô hình phù hợp là $ARIMA(0,d,q)$ hày $MA(q)$(sau khi sai phân $d$ lần).
+
+Dưới đây là một số dự đoán mô hình dựa vào đồ thị SACF:
+\begin{table}[htdp]
+\centering
+\begin{tabular}{|l|l|l|} % ccc means 3 columns, all centered; alternatives are l, r
+\hline
+{\bf Hình dạng} & {\bf Mô hình ước lượng}  \\ 
+% & denotes the end of a cell/column, \\ changes to next table row
+\hline % draws a line under the column headers
+
+Giá trị lớn, triệt tiêu dần & Mô hình RA \\
+$\qquad$&(dùng thêm đồ thị SACF để xác định)  \\ \hline
+Cả giá trị âm và dương, &Mô hình RA\\ 
+triệt tiêu dần & $\qquad$  \\\hline
+Một hoặc một số đỉnh trội , & Mô hình MA,\\
+còn lại xấp xỉ 0& tìm điểm $q$ mà đồ thị bắt đầu về 0 \\ \hline
+Giảm dần, tăng sau một số  & Mô hình ARMA \\
+khoảng trễ& $\qquad$ \\ \hline
+Tất cả bằng hoặc xấp xỉ gần $0$ & dữ liệu ngẫu nhiên \\ \hline
+Cao tại một số điểm nhất định & chứa yếu tố chu kì \\ \hline
+Không giảm tới 0 & không phải chuỗi dừng \\ \hline
+\end{tabular}
+\caption[Bảng dự đoán mô hình dựa vào đồ thị SACF]{\textbf{Bảng dự đoán mô hình dựa vào đồ thị SACF}}
+% You only need to write the title twice if you don't want it to appear in bold in the list of tables.
+\label{fcpq} % label for cross-links with \ref{latexin_genes}
+\end{table}
+
+Nếu không thể dự đoán được bằng đồ thị SACF và SPACF, đó có thể là mô hình trộn ARMA. Theo phần 2.1.5, ta cần sử dụng hàm tự tương quan mở rộng để ước lượng tham số $p$ và $q$
+
+Ngoài ra, một phương pháp khác để lựa chọn mô hình phù hợp nhất là tìm mô hình có độ đo \textbf{Akaike’s Information Criterion(AIC)}\cite{aka73} nhỏ nhất. 
+\begin{equation}
+	AIC = -2.lnL + 2k
+\end{equation}
+với $ln~L$ là logarit tự nhiên của hàm hợp lý cực đại và $k$ là số tham số trong mô hình
+\subsection{Ước lượng tham số}
+Sau khi xác định $p,d,q$ ta thu được mô hình. Bước tiếp theo là xác định các tham số cho công thức mô hình.
+\subsubsection{Ước lượng bình phương tối thiểu}
+Theo công thức~\ref{equa:arma}, mô hình được cho bởi công thức:
+\begin{equation}
+x_t = \sum\limits_{j=1}^{p}\phi_jx_{t-j}+w_t+\sum\limits_{j=1}^{q}\theta_jw_{t-j}
+\end{equation}
+Ta có,\begin{equation}\label{cls_wt}
+	w_t = x_t - \sum\limits_{j=1}^{p}\phi_jx_{t-j}- \sum\limits_{j=1}^{q}\theta_jw_{t-j}
+\end{equation}
+Giả sử chỉ có $n$ mẫu $x_1,x_2,...,x_n$ được quan sát. Khi đó ta chỉ cần tính toán từ $t=2$ đến $t=n$. Gọi hàm $S_c(\phi,\theta)$ là hàm tổng bình phương có điều kiện, được cho bởi
+\begin{align}
+	S_c(\phi,\theta) &= \sum\limits_{t=2}^{n}w_t^{2} \\
+					&=	\sum\limits_{t=2}^{n}[x_t - \sum\limits_{j=1}^{p}\phi_jx_{t-j}- \sum\limits_{j=1}^{q}\theta_jw_{t-j}]^{2}
+					\end{align}
+Mục tiêu là ước lượng các giá trị $\phi$, $\theta$ sao cho giá trị hàm $S_c(\phi,\theta)$ đạt giá trị cực tiểu.
+Giá trị nhiễu trắng $w_t$ sẽ được ước lượng với sai số phương sai
+\begin{description}
+\item[AR(p):]\qquad\qquad $\hat{\sigma}_w^{2} = (1-\sum\limits^{p}_{j=1}\hat{\phi_j}\hat{\rho_j})$
+
+\item [MA(q):]\qquad\qquad $\hat{\sigma}_w^{2} =\frac{S^2}{1+\hat{\theta_1^2}+\hat{\theta_2^2}+\dots+\hat{\theta_q^2}}$
+\item[ARMA(1,1)]\qquad $\hat{\sigma}_w^{2} = S^2.\frac{1-\hat{\phi^2}}{1-2\hat{\phi}\hat{\theta}+\hat{\theta^2}}$
+\end{description}
+%Ví dụ(trang 200 f11notes)
+\subsubsection{Ước lượng hợp lý cực đại}
+Đây là phương pháp hay được sử dụng nhất để ước lượng các tham số chưa biết.
+Gọi hàm mật độ xác suất của nhiễu $w_t$ là $f(w_t)$. Hàm xác suất đồng thời của $w_2,w_3,...,w_n$ được xác định bởi:
+\begin{equation}
+	f(w_2,w_3,...,w_n) = \prod^{n}_{t=2} f(w_t)
+\end{equation}
+Giá trị $x_1$ cố định.\textbf{Hàm hợp lý} sẽ được cho bởi công thức:
+\begin{equation}
+	L= L(\phi,\theta,\sigma^{2}_{w}|x) = f(x_2,x_3,...,x_n|x_1) f(x_1)
+\end{equation}
+Khi đó, ước lượng hợp lý cực đại của $\phi,\theta,\sigma^{2}_{w}$ sẽ là những giá trị mà làm cho $L(\phi,\theta,\sigma^{2}_{w}|x)$ đạt giá trị cực đại.
+
+
+\subsection{Kiểm định mô hình}
+Bước cuối cùng để xác định hoàn toàn công thức của mô hình là kiểm định lại các giá trị đã được ước lượng trong phần trước.
+\subsubsection{Phân tích sai số thặng dư}
+\textbf{Sai số thặng dư(residuals)} là lượng chênh lệch giữa mẫu quan sát và giá trị của hàm ước lượng cho tập mẫu ấy tại một thời điểm xác định. Nó được xác định bởi công thức:
+\begin{align}
+	\text{Sai số thặng dư tại $t$ = (giá trị thực tế của mẫu $x_t$) - (giá trị của mô hình ước lượng $x_t$)}
+\end{align}
+Nếu mô hình được ước lượng tốt thì chuỗi sai số thặng dư của nó thường sẽ có một số tính chất gần giống như tính chất của nhiễu trắng Gaussian. Nó gần giống như một chuỗi các biến ngẫu nhiên chuẩn, độc lập và có cùng phân phối xác suất. Ngoài ra, nó có giá trị trung bình $\mu_w = 0$ và có độ lệch tiêu chuẩn ổn định. 
+Về cơ bản, sai số thặng dư được tính bởi công thức $\hat{e}_t = x_t - \hat{x_t}$ nhưng chúng ta thường xử lý trên \textbf{sai số thặng dư chuẩn hóa} 
+\begin{equation}
+	\hat{e_t}^* = \frac{\hat{e_t}}{\hat{\sigma_e}}
+\end{equation}
+với $\hat{\sigma^2_e}$ là ước lượng của phương sai nhiễu trắng $\sigma_w^2$
+Ta cần kiểm tra mức độ chuẩn tắc và độc lập của chuỗi sai số thặng dư chuẩn hóa. 
+Biểu đồ và đồ thị qq của sai số thặng dư có thể dùng để đánh giá trực quan về tính chuẩn tắc của nó. Đồ thị chuỗi của sai số thặng dư có thể giúp phát hiện các mẫu mà vi phạm đến tính độc lập của các sai số thặng dư. Ngoài ra chúng ta áp dụng kiểm tra giả thuyết về chuẩn tắc của Shapiro-Wilk \citep{sw65} và tính độc lập (runs test) đối với sai số thặng dư chuẩn hóa. Từ phân phối chuẩn chuẩn hóa, ta biết rằng hầu hết các giá trị $\hat{e_t^*}$ nằm trong khoảng -3 đến 3 theo tiêu chuẩn  Bon-Ferroni outlier với $\alpha = 5\%$ và $n =241$
+\begin{itemize}
+\item Phương pháp \textbf{Shapiro-Wilk} kiểm tra 2 giải thuyết:\\
+	 $H_0$: chuỗi sai số thặng dư chuẩn hóa có phân phối chuẩn.\\
+	$H_1$: chuỗi sai số thặng dư chuẩn hóa không có phân phối chuẩn
+	\item Phương pháp \textbf{runs test} kiểm tra 2 giải thuyết:\\
+	$H_0$: chuỗi sai số thặng dư chuẩn hóa có tính độc lập.\\
+	$H_1$: chuỗi sai số thặng dư chuẩn hóa không có tính độc lập.
+	\item Trong cả 2 phương pháp, nếu giá trị xác suất $p-value$ quá nhỏ thì giả thuyết $H_0$ sẽ bị loại bỏ.
+\end{itemize}
+%Ví dụ trang 217 f11notes
+
+Ngoài ra, Ljung và Box \citep{lb78} đã phát triển một hàm kiểm tra dựa vào sự tương tương quan mẫu của sai số thặng dư để kiểm tra liệu một mô hình $ARMA(p,q)$ có phù hợp hay không. 
+Thật vậy, công thức biến đổi $Ljung-Box$ được cho bởi công thực:
+\begin{equation}
+Q_* = n(n+2)\sum\limits^{K}_{k=1}\frac{\hat{r_k^2}}{n-k}
+\end{equation}
+với $\hat{r_k}$ là các giá trị tự tương quan mẫu của sai số thặng dư được tính dựa vào mô hình ARMA(p,q).
+được sử dụng để kiểm tra giả thuyết xuôi $H_0$(mô hình ARMA phù hợp) và giả thiết ngược $H_1$(mô hình ARMA không phù hợp)
+Với $K$ xác định cho trước, chọn một mức $\alpha$ để quyết định giả thuyết nào đúng. Nếu giá trị của $Q_*$ vượt quá phân phối $\chi$ với điểm sai phân $\alpha$ và độ tự do $K-p-q$ hay nói cách khác nếu \quad
+	$Q_{*} > \chi^2_{K-p-q} \quad\text{thì mô hình $ARMA(p,q)$ này không phù hợp.}$
+%\textbf{ ví dụ trang 226 f11}
+%\subsubsection{overfitting}
+
+\subsection{Dự báo}
+
+Từ dữ liệu mẫu có sẵn $x_1,x_2,...,x_t$, chúng ta cần dự đoán các kết quả tương lai $x_{t+1},x_{t+2},....$.Giá trị dự đoán tại thời điểm $t+l$, kí hiệu là $\hat{x}_t(l)$, chính là giá trị kì vọng của $x_{t+l}$ với điều kiện đã có $t$ phần tử mẫu quan sát $x_1,x_2,...,x_t$. Ta gọi nó là Hàm dự đoán $MMSE$(minimum mean squared error forecast) được cho bởi công thức sau:
+\begin{equation}
+	\hat{x}_t(l) = E(x_{t+l}|x_1,x_2,...,x_t)
+\end{equation}
+Một số tính chất của kỳ vọng có điều kiện:
+\begin{itemize}
+\item $E(c|x_1,x_2,...,x_t) = c $ với $c$ là hằng số
+\item $E(\phi_i{x_i}|x_1,x_2,...,x_t) = \phi_i x_i$ với $i = 1,2,...,t$
+\item $E(w_{t+1}|x_1,x_2,...,x_t) = E(w_{t+1}) = 0$ với ${w_t}$ là nhiễu trắng, bởi vì $w_{t+1}$ độc lập với $x_1,x_2,...,x_t$
+\end{itemize}
+
+Nếu mô hình ước lượng là ARMA(p,q) được cho bởi công thức
+\begin{equation}
+	x_t = \phi_1x_{t-1}+\dots+\phi_px_{t-p}+w_t+\theta_1w_{t-1}+\dots+\theta_qw_{t-q}
+\end{equation}
+
+Ta tính được giá trị tương lai tại $t+l$ là 
+\begin{equation}
+	 \hat{x}_t(l) = \sum\limits_{j=1}^p\phi_j\hat{x_t}(l-j) + w_t + \sum\limits_{j=1}^p\phi_jE(w_{t+l-j}|x_1,x_2,...,x_t)
+\end{equation}   
+Trong đó,
+\begin{align}
+E(w_{t+l-j}|x_1,x_2,...,x_t) &= \begin{cases}
+									0, \qquad l-j > 0\\
+									w_{t+l-j}, \quad l-k \leq 0
+								\end {cases}\\
+\hat{x_t}(l-j) &= E(x_{t+l-j}|x_1,x_2,...,x_t)\qquad j = 1,2,..,p
+\end{align}
+ Ta thực hiện đệ quy nhiều vòng để tính được công thức chung cho $\hat{x}_t(l)$
+Ví dụ với mô hình $ARMA(1,1)$ được cho bởi
+\begin{equation}
+	x_t = \phi{x_{t-1}}+w_t + \theta{w_{t-1}}
+\end{equation}
+
+Sử dụng một số tính chất kỳ vọng có điều kiện và tính toán đệ quy, ta thu được công thức
+\begin{align}
+	\hat{x}_t(1) &= \phi{x_t} - \theta{w_t} \\
+	\hat{x}_t(l) &= \phi\hat{x}_t(l-1)
+\end{align}
+
+\section{Mô hình mạng nơ ron nhân tạo}
+Mạng nơ ron nhân tạo là một cấu trúc tính toán mô phỏng theo hoạt động của bộ não người. Mạng nơ ron nhân tạo giải quyết tốt các bài toán tìm mẫu và phân lớp, xấp xỉ hàm, tối ưu hóa, lượng giá vectơ và thu gộp dữ liệu. Mạng nơ ron nhân tạo còn là một hệ thống bao gồm nhiều phần tử xử lý đơn giản hoạt động song song. Tính năng của hệ thống này tùy thuộc vào cấu trúc của hệ, các trọng số liên kết nơ ron và quá trình tính toán tại các nơ ron đơn lẻ. Mạng nơ ron có thể học từ dữ liệu mẫu và tổng quát hóa dựa trên các dữ liệu mẫu học đó. 
+\subsection{Kiến trúc mạng nơ ron}
+\subsubsection{Mô hình nơ ron}
+Nơ ron là một phần tử đơn giản nhất trong một mạng lưới  phức tạp khoảng 100 tỷ nơ ron thần kinh. 
+\figuremacroW{2_noron_color}{Nơ ron thần kinh}{}{0.5}
+Mỗi nơ-ron có 3 phần chính: thân tế bào (soma), tua gai (dendrite – nhận tín hiệu từ các tế bào não khác) và sợi trục (axon – giúp truyền tín hiệu đến các tế bào não khác)(Hình ~\ref{2_noron_color}). Khi tua gai của tế bào thần kinh nhận kích thích, một tín hiệu điện (xung điện) sẽ truyền qua nhân tế bào và dọc theo sợi trục. Ở cuối sợi trục có một khe nhỏ giữa hai nơ-ron (khe xi-náp). Tín hiệu được truyền đi từ đầu cuối sợi trục của tế bào thần kinh này đến tua gai của một tế bào khác thông qua các chất dẫn truyền thần kinh (các chất hóa học ở cuối đầu sợi trục). Chất dẫn truyền thần kinh sẽ băng qua khe xi-náp và kết dính vào các thụ thể (receptors) ở tua gai của một tế bào khác, rồi lại kích thích nó tạo ra xung điện truyền đến tế bào kế tiếp.
+	
+	Dựa vào mô hình nơ ron thần kinh, Widrow và Hoff đề xuất mô hình nơ ron nhân tạo \citep{wid60} được mô tả trong Hình~\ref{2_anoron}
+	\figuremacroW{2_anoron}{Nơ ron nhân tạo}{}{0.7}
+
+Nơ ron nhân tạo gồm 3 thành phần chính:
+\begin{itemize}
+	\item Các tín hiệu đầu vào $x_i$ với $i=1,2,...,n$ kết nối tới lõi. Mỗi tín hiệu $x_i$ sẽ có một trọng số tương ứng $w_i$
+	\item Lõi(perceptron) nhận tín hiệu đầu vào là các $x_i$ và một giá trị ngưỡng $\theta$. Hàm truyền vào lõi được tính bởi công thức \[
+				g = \sum\limits_{i=1}^{n}(w_ix_i + \theta)
+			\]
+	\item Tín hiệu đầu ra $y$ được tính bởi công thức hàm kích hoạt (tác động) 
+	\[
+		y = f(\sum\limits_{i=1}^{n}(w_ix_i + \theta))	
+	\]
+	với điều kiện \[\sum\limits_{i=1}^{n}(w_ix_i + \theta) \geq 0\]
+	\end{itemize}
+Một số hàm kích hoạt hay được sử dụng như:
+\begin{description}
+\item[Hàm bước nhảy] \begin{equation}
+						f(x)= \begin{cases}
+									1 \qquad khi f \geq 0\\
+									0 \qquad khi f < 0
+								\end {cases}
+					\end{equation}	
+\item[Hàm dấu] \begin{equation}
+						f(x)=sgn(x) \begin{cases}
+									1 \qquad khi f \geq 0\\
+									-1 \qquad khi f < 0
+								\end {cases}
+					\end{equation}	
+\item [Hàm sigmoid]  \begin{equation}
+						f(x) = \frac{1}{1+e^{-x}}
+					\end{equation}	
+\end{description}
+\subsubsection{Mạng nơ ron nhân tạo (ANN) cho bài toán dự báo}
+Mạng nơ ron nhân tạo được sử dụng trong để giải quyết rất nhiều bài toán thuộc nhiều lĩnh vực khác nhau, giải quyết hiệu quả một số bài toán như: bài toán phân lớp, bài toán điều khiển và tối ưu hóa,bài toán dự báo... Trong bài toán dự báo, mạng nơ ron nhân tạo được sử dụng để xây dựng mô hình dự báo dựa vào các dữ liệu trong quá khứ. Sau đó, ta có thể sử dụng mô hình đó để dự báo kết quả trong tương lai. Một số mô hình mạng nơ ron nhân tạo như :
+\begin{enumerate}
+\item {Mạng nơ ron nhiều lớp MLP}
+\item {Mạng RBF}(Radial Basic Function)
+\item {Mạng hồi quy}
+\item {Mạng chống lan truyền}
+\item {Mạng nơ ron xác suất}
+\end{enumerate}
+
+\textbf{Mạng nơ ron nhiều lớp} (Multiplayer Perceptron Network), viết tắt là \textbf{MLP}, hay còn gọi là mạng nơ ron truyền thẳng nhiều lớp gồm có 3 tầng chính: Tầng thứ nhất gồm một \textbf{lớp đầu vào}, tầng thứ hai trung gian gồm một hoặc một vài \textbf{lớp ẩn}, và tầng cuối cùng gồm một \textbf{lớp đầu ra}. Các lan truyền thông tin được xử lý thẳng từ đầu vào cho đến đầu ra theo một hướng. 
+Do kiến trúc phân tầng nên MLP có thể biểu diễn một quan hệ phụ thuộc phi tuyến tính giữa đầu vào và đầu ra. Ví dụ như mô hình mạng nơ ron 3 lớp (chỉ có một lớp ẩn), ta có công thức liên hệ giữa đầu ra và đầu vào
+\begin{equation}
+	y = f_o(\sum{w_h}f_h(\sum{f}_i(w_i^Tx)))
+\end{equation}
+với $f_i, f_h, f_o$ lần lượt là hàm kích hoạt của lớp đầu vào, ẩn và đầu ra. $w$ là trọng số
+
+Trong hầu hết các ứng dụng dự báo thông thường, ta chỉ cần sử dụng một lớp ẩn cho tầng trung gian. Thật vậy,theo \textbf{Định lý chồng Kolmogorov}\citep{char07}, bất kỳ hàm liên tục đa chiều $f:[0,1]^n \rightarrow R$ nào cũng có thể được viết dưới dạng:
+\begin{equation}
+	f(x_1,x_2,...,x_n) = \sum\limits_{i=1}^{2n+1} \psi_i(\sum\limits^{n}_{j=1}\varphi_{ij}(x_j))
+\end{equation} 
+với $\psi_i$ và $\varphi_{ij}$ là các hàm liên tục một biến.
+
+Mặt khác, theo Hecht-Nielsen \citep{hec87} thì công thức trong định lý của Kolmogorov có thể được biểu diễn hoàn toàn bởi một mạng nơ ron truyền thẳng 3 lớp trong đó lớp đầu vào có $n$ phần tử , lớp đầu ra có $m$ phần tử còn lớp trung gian có $2n+1$ phần tử. Do vậy, một mô hình nơ ron 3 lớp như vậy có thể biểu diễn mọi hàm liên tục nhiều chiều. Hay nói cách khác, một mô hình mạng truyền thẳng 3 lớp đủ để giải quyết các bài toán dạng xác định kiến trúc mô hình mạng nơ ron truyền thẳng \citep{lip87} và không bao giờ cần đến quá 4 lớp mạng để giải quyết các bài toán phức tạp nhất \citep{cyb88}
+
+Rumelhart và cộng sự \citep{rum86} đề xuất phương pháp học lan truyền ngược (backpropagation) cho MLP. Và ngày nay, nó trở thành một phương pháp được áp dụng rộng rãi cho mạng nơ ron nhiều lớp. Ý tưởng chính của phương pháp này là đánh giá sai số giữa dữ liệu đầu ra tính toán trong mô hình và đầu ra quan sát được. Sai số sẽ được lan truyền ngược lại lớp trước để điều chỉnh tối ưu các trọng số $w_i$ của mạng. 
+
+Ngoài ra, ta cũng có thể sử dụng giải thuật di truyền để tối ưu các trọng số của mạng. 
+
+\subsection{Phương pháp huấn luyện}
+Phần này ta tập trung vào một số phương pháp huấn luyện cho mạng nơ ron truyền thẳng nhiều lớp.
+\subsubsection{Thuật toán lan truyền ngược}
+Thuật toán lan truyền ngược(backpropagation) là phương pháp học có giám sát được Paul Werbos phát triển năm 1971 nhưng nó chỉ thực sự trở lên phổ biến và được sử dụng rộng rãi sau khi được Rumelhard \citep{rum86} chỉ ra rõ ràng năm 1986. 
+	
+	Trong quá trình huấn luyện, mạng nơ ron nhiều lớp học thông qua quá trình điều chỉnh dần các trọng số sao cho chênh lệch giữa đầu ra theo tính toán và đầu ra thực tế quan sát được là nhỏ nhất. Chênh lệch được tính toán sau đó quay ngược lại thay đổi trọng số ở lớp trước nó (Hình~\ref{2_backANN}. Việc tối ưu hóa trọng số dựa vào luật \textbf{giảm gradient},tức là lấy đạo hàm của hàm chi phí(hàm giá) theo trọng số, thay đổi các trọng số đó tiến dần tới cực trị địa phương của hàm chi phí.
+	\figuremacroW{2_backANN}{Phương pháp lan truyền ngược}{}{0.7}
+	
+	Giả sử hàm $y_j=f(u_j)$ là giá trị hàm kích hoạt tại noron thứ $j$ lớp đầu ra, $u_j$ là đầu vào của nơ ron này. 
+	\begin{equation}
+		u_j = \sum\limits_{i=1}^{n}w_ix_i + \theta_j
+	\end{equation}
+	với  $n$ là số lượng nơ ron lớp ẩn cuối cùng trực tiếp nối đến nơ ron lớp đầu ra. $x_i$,$w_i$ là đầu vào và trọng số tương ứng thứ $i$ nối tới nơ ron. Nếu $d_j$ là giá trị thực quan sát được tại nơ ron đầu ra thứ $j$ thì hàm sai số được cho bởi
+	\begin{equation}
+		S_j = 0.5(d_j-y_j)^{2} = 0.5(e_j)^2
+	\end{equation}
+	Mục tiêu của giải thuật học là đưa $S_j$ tiến về giá trị tối thiểu, bằng cách thay đổi các trọng số $w_j$. Sau mỗi vòng lặp, $\Delta{w_i}$ được tính thông qua công thức:
+	\begin{equation}
+		\Delta{w_i} = -\eta\frac{\nabla {S_j}}{\nabla{w_i}}
+	\end{equation}
+	với $\eta > 0$ là tham số xác định tốc độ hội tụ về cực tiểu. Ta tính được 
+	\begin{equation}
+		\Delta{w_i} = \eta\delta_j.x_i
+	\end{equation}
+	 với $\delta_j = e_jf'(u_j)$
+	 Cuối cùng, ta thực hiện cập nhật thay đổi lại cho từng trọng số $w_i$. Lặp lại đến khi $S_j < S_{max}$ là ngưỡng sai số lớn nhất cho phép. 
+	 
+\subsubsection{Giải thuật di truyền}
+Phương pháp lan truyền ngược trình bày ở trên điều chỉnh các trọng số để đưa về mục tiêu cuối cùng là tối thiểu hóa hàm sai số $S_j$. Nó dựa trên cơ chế giảm đạo hàm(giảm gradient) để đưa 
+hàm giá (trong trường hợp này là hàm sai số) về cực trị. Đôi khi rất khó khăn để đưa về cực trị đối với một số hàm sai số. Một trong những hướng giải quyết khác là sử dụng giải thuật di truyền dựa (vào chọn lọc tự nhiên đưa) giúp tối ưu trọng số để đưa hàm giá về cực trị toàn cục.
+
+Mỗi vector đầu vào được coi là một nhiễm sắc thể.
+
+Giải thuật di truyền đơn giản gồm có 3 toán tử:
+\begin{itemize}
+\item \textbf{Tái tạo}(reproduction) là quá trình trong đó các chuỗi nhiễm sắc thể được sao chép lại để thực hiện thao tác sinh sản. Xác suất được chọn cho quá trình sinh sản phụ thuộc với giá trị hàm mục tiêu (hàm thích nghi). Nếu nhiễm sắc thể có độ thích nghi cao thì khả năng nó được chọn để thao tác sinh sản cũng lớn hơn.
+\item \textbf{Lai ghép}(Crossover) Khi mỗi chuỗi được chọn để sinh sản thì một bản sao chính xác của nó sẽ được cho vào bể ghép. Hai nhiễm sắc thể sẽ được lai ghép ngẫu nhiên trong bể. Quá trình lai ghép có thể đơn giản là chỉ đổi các gen có cùng vị trí hay số thứ tự giống nhau. Ví dụ như trao đổi bít thứ 2 trong chuỗi cho nhau.
+\item \textbf{Đột biến}(Mutation) Việc đột biến là cần thiết bởi vì đôi khi chỉ với 2 quá trình trên có thể làm mất đi một vài gen có ích nào đó. Sự đột biến diễn ra ngẫu nhiên và xác suất nhỏ đối với một số vị trí gen trong chuỗi. Ví dụ như đơn giản chỉ tự động đổi giá trị của một vị trí gen nào đó. Nhưng đôi khi nó lại giúp bảo vệ duy trì một số gen quan trọng trong một số trường hợp.
+\end{itemize}
+
+Sơ đồ của một giải thuật di truyền đơn giản:
+\begin{enumerate}
+\item Khởi tạo quần thể ban đầu của chuỗi nhiễm sắc thể
+\item Xác định hàm giá trị mục tiêu cho mỗi chuỗi nhiễm sắc thể
+\item Tạo các chuỗi nhiễm sắc thể mới bằng sinh sản từ các chuỗi nhiễm sắc thể hiện tại, có thể dùng đến ghép chéo hoặc đột biến nếu cần
+\item Xác  định hàm mục tiêu cho các chuỗi nhiễm sắc thể  mới và đưa nó vào trong một quần thể  mới. 
+\item Nếu điều kiện dừng đã thỏa mãn thì dừng lại và trả về  chuỗi nhiễm sắc thể 
+tốt nhất cùng với giá trị hàm mục tiêu của nó, nếu không thì quay về  bước 3
+\end{enumerate}
+
+Ta cài đặt giải thuật di truyền để tối ưu giá trị trọng số trong mô hình mạng MLP. Phương pháp này được Emre Gaglar đề xuất trong dự án "CUDAANN r6" tại \href{http://code.google.com/p/cudaann/}{http://code.google.com/p/cudaann/}. Ta có một số tùy biến sau:
+\begin{itemize}
+\item \textbf{Hàm mục tiêu} sử dụng hàm trung bình của bình phương lỗi (MSE). Lỗi ở đây chính là chênh lệch giữa giá trị đầu ra tính toán được và giá trị đầu ra quan sát thực tế.
+\[
+		MSE = \frac{1}{N}\sum\limits(y_i-d_i)^2	
+	\]
+
+\item \textbf{Quần thể ban đầu} Quần thể ban đầu được chọn ngẫu nhiên.
+\item \textbf{Đột biến} Đột biến giá trị trọng số được tính theo công thức 
+		\[
+			w_{ji}^{new} = w_{ki}+ \alpha (w_{nj}-w_{mi})
+		\]
+		với $\alpha$ là tỉ lệ đột biến, $w_{ji}$ là trọng số thứ $i$ của nhiễm sắc thể thứ $j$ và bộ $\{k,j,i\}$ đôi một khác nhau, được chọn ngẫu nhiên từ quần thể.
+\item \textbf{Lai ghép} khi 2 nhiễm sắc thể lai ghép với nhau, chúng trao đổi lần lượt từng trọng số tương ứng với nhau với xác suất là \textit{tỉ lệ lai ghép} cho trước.
+\end{itemize}
+
+\subsection{Dự báo}
+Dự báo chuỗi thời gian đơn chiều(univariate) sử dụng mạng nơ ron truyền thẳng nhiều lớp, ta xử lý qua 4 bước:
+\begin{itemize}
+\item Chuẩn bị dữ liệu: sử dụng kĩ thuật cửa sổ trượt để chia thành các tập dữ liệu(bộ học, kiểm tra, đánh giá), chuẩn hóa...
+\item Xác định kiến trúc mạng nơ ron: kiểu mạng, số lớp, số nơ ron mỗi lớp, hàm kích hoạt...
+\item Huấn luyện mạng: chọn giải thuật huấn luyện, tối ưu thuật toán...
+\item Đánh giá kết quả dự báo
+\end{itemize}
+
+\figuremacroW{2_ga}{Mô hình dự báo sử dụng ANN kết hợp giải thuật di truyền}{}{1}
+\subsubsection{Chuẩn bị dữ liệu}
+Trong bài toán dự báo chuỗi thời gian, để dự đoán 1 thời điểm trong tương lai, mạng MLP nhận đầu vào $p$ giá trị trong quá khứ trước nó và đầu ra là giá trị thời điểm cần dự báo. Do tính chất của chuỗi thời gian đơn biến chỉ gồm một chuỗi đơn, trong khi đầu vào mạng là một vector nên ta sử dụng \textbf{kĩ thuật cửa sổ trượt}(sliding-window) (Hình~\ref{2_slidingwindow}). MLP nhận vector $\{x_{t-1},x_{t-2},...x_{t-p}\}$ đầu vào và giá trị $x_t$ là đầu ra. $\hat{x}_t$ là giá trị đầu ra dựa vào tính toán của mô hình.
+\figuremacroW{2_slidingwindow}{Kĩ thuật cửa sổ trượt}{}{0.7}
+
+Để tăng chất lượng cho MLP sử dụng hàm kích hoạt sigmoid, dữ liệu đầu vào nên được \textbf{chuẩn hóa} về miền $[0,1]$. Thật vậy, quan sát đồ thị hàm sigmod (Hình~\ref{2_sigmoid}), ta thấy đồ thị tiến về tiệm cận khi $x \rightarrow \infty $. Do đó, khi $|x|$  không nằm trong $[-1,1]$ thì giá trị hàm sigmoid tiến gần tới giá trị bão hòa. Ta cần phải chuẩn hóa các giá trị đầu vào lớn , nếu không thì các nơ ron ở ngay lớp ẩn đầu tiên đã đạt tới giá trị bão hòa, quá trình học không được chất lượng như mong muốn. Trong thực tế, ta sử dụng chuẩn hóa đơn giản $x_{ni} = x_i / x_{max}$ hoặc công thức chuẩn hóa tuyến tính hay được sử dụng hơn 
+\[
+	x_{ni} = \frac{x_i-x_{min}}{x_{max}-x_{min}}
+\]
+\figuremacroW{2_sigmoid}{Đồ thị hàm sigmoid}{}{0.7}
+
+Ngoài ra theo Zhang (2005)\citep{Zhang05}, đối với dữ liệu có thành phần mang tính chu kì thời vụ hay là mang tính xu hướng, ta nên thực hiện khử xu hướng và khử yếu tố chu kỳ. Nó giúp việc huấn luyện và giảm thiểu lỗi tốt hơn nhiều so với dữ liệu thô chưa khử xu hướng hay chu kỳ.
+
+\subsubsection{Xác định kiến trúc mạng}
+Để xác định kiến trúc mạng, ta quan tâm đến một số yếu tố sau đây
+\begin{itemize}
+\item Xác định số nút lớp đầu vào: số nút đầu vào phần lớn chủ yếu phụ thuộc vào số lượng biến độc lập trong tập dữ liệu. Mỗi biến độc lập nên được cho tương ứng với một nút, tuy từng nhu cầu. Trong trường hợp dữ liệu đầu vào cho dự đoán thì số lượng nút đầu vào chính bằng độ dài vector các giá trị quá khứ dùng để dự đoán tương lai.
+\item Xác định số nút lớp đầu ra: tùy vào yêu cầu bài toán.
+\item Số lớp ẩn trong tầng trung gian. Như đã trình bày ở  Mục 2.3.1.2 thì đối với các bài toán thông thường, mô hình MLP với chỉ một lớp ẩn là đủ để truyền đạt hết thông tin của dữ liệu. Trong một số trường hợp bài toán khó, ta có thể dùng đến 2 lớp ẩn. 
+\item Xác định số noron ở lớp ẩn. Không có một phương pháp chính thức nào để xác định số noron trong lớp ẩn. Dựa vào kinh nghiệm, có một số quy tắc để thử như: số nơ ron lớp sau bằng khoảng 75\% số nơ ron của lớp liền trước hoặc tỉ lệ này nằm trong khoảng 0.5-3,...Theo \textbf{luật hình tháp} thì đề xuất 
+\begin{equation}
+	N_h = \alpha \sqrt{N_i * N_o}
+\end{equation}
+trong đó {$N_o, N_h, N_i$} lần lượt là số lượng nơ ron ở lớp đầu vào, lớp ẩn và lớp đầu ra. $\alpha$ là tham số trong khoảng $[0.5,2]$. Baum and Haussler \citep{bau89}  thì đề xuất công thức
+\begin{equation}
+	N_h \leq \frac{N_{tr}*E_{tol}}{N_{dp}+N_o}
+\end{equation}
+với $N_{tr}$ là số mẫu trong bộ học, $E_{tol}$ là sai số tối đa cho phép, $N_{dp}$ là số phần tử dữ liệu trong một mẫu học.
+
+\item Chọn hàm kích hoạt(chuyển): thường sử dụng hàm sigmoid, hàm tiếp tuyến hyperbolic...
+\end{itemize}
+

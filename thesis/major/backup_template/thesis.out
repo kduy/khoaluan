@@ -1,0 +1,66 @@
+\BOOKMARK [0][]{chapter*.2}{List of Figures}{}% 1
+\BOOKMARK [0][]{chapter*.3}{List of Tables}{}% 2
+\BOOKMARK [0][]{chapter.1}{1 T\355nh cht cua chui thi gian}{}% 3
+\BOOKMARK [1][]{section.1.1}{1.1 Chui thi gian}{chapter.1}% 4
+\BOOKMARK [1][]{section.1.2}{1.2 T\355nh cht c trng cua chui thi gian}{chapter.1}% 5
+\BOOKMARK [2][]{subsection.1.2.1}{1.2.1 T\355nh dng}{section.1.2}% 6
+\BOOKMARK [2][]{subsection.1.2.2}{1.2.2 T\355nh tuyn t\355nh}{section.1.2}% 7
+\BOOKMARK [2][]{subsection.1.2.3}{1.2.3 T\355nh xu hng}{section.1.2}% 8
+\BOOKMARK [2][]{subsection.1.2.4}{1.2.4 T\355nh chu ky thi vu\(seasonality\)}{section.1.2}% 9
+\BOOKMARK [1][]{section.1.3}{1.3 Ph\342n loai chui thi gian}{chapter.1}% 10
+\BOOKMARK [1][]{section.1.4}{1.4 \320o \040phu thuc: H\340m t tng quan v\340 tng quan ch\351o}{chapter.1}% 11
+\BOOKMARK [1][]{section.1.5}{1.5 Chui dng}{chapter.1}% 12
+\BOOKMARK [2][]{subsection.1.5.1}{1.5.1 Chui dng v\340 t\355nh cht}{section.1.5}% 13
+\BOOKMARK [2][]{subsection.1.5.2}{1.5.2 Kim tra chui dng}{section.1.5}% 14
+\BOOKMARK [3][]{subsubsection.1.5.2.1}{1.5.2.1 \320 thi h\363a gi\341 tri trung b\354nh v\340 ACF}{subsection.1.5.2}% 15
+\BOOKMARK [3][]{subsubsection.1.5.2.2}{1.5.2.2 Kim tra nghim n vi \(unit-root\)}{subsection.1.5.2}% 16
+\BOOKMARK [1][]{section.1.6}{1.6 B\340i to\341n d b\341o chui thi gian}{chapter.1}% 17
+\BOOKMARK [2][]{subsection.1.6.1}{1.6.1 B\340i to\341n d b\341o}{section.1.6}% 18
+\BOOKMARK [2][]{subsection.1.6.2}{1.6.2 B\340i to\341n ph\342n t\355ch chui thi gian v\340 d b\341o}{section.1.6}% 19
+\BOOKMARK [3][]{subsubsection.1.6.2.1}{1.6.2.1 M\364 h\354nh thng k\352 truyn thng}{subsection.1.6.2}% 20
+\BOOKMARK [3][]{subsubsection.1.6.2.2}{1.6.2.2 M\364 h\354nh hoc m\341y}{subsection.1.6.2}% 21
+\BOOKMARK [0][]{chapter.2}{2 M\364 h\354nh ARIMA v\340 Mang n ron nh\342n tao}{}% 22
+\BOOKMARK [1][]{section.2.1}{2.1 M\364 h\354nh tuyn t\355nh ARIMA}{chapter.2}% 23
+\BOOKMARK [2][]{subsection.2.1.1}{2.1.1 Nhiu trng}{section.2.1}% 24
+\BOOKMARK [2][]{subsection.2.1.2}{2.1.2 Qu\341 tr\354nh t hi quy AR}{section.2.1}% 25
+\BOOKMARK [2][]{subsection.2.1.3}{2.1.3 Qu\341 tr\354nh trung b\354nh trt MA}{section.2.1}% 26
+\BOOKMARK [3][]{subsubsection.2.1.3.1}{2.1.3.1 X\341c inh cp q trong MA\(q\)}{subsection.2.1.3}% 27
+\BOOKMARK [2][]{subsection.2.1.4}{2.1.4 Qu\341 tr\354nh ARMA}{section.2.1}% 28
+\BOOKMARK [3][]{subsubsection.2.1.4.1}{2.1.4.1 X\341c inh m\364 h\354nh ARMA}{subsection.2.1.4}% 29
+\BOOKMARK [1][]{section.2.2}{2.2 M\364 h\354nh ARIMA v\340 quy tr\354nh Box-Jenkins box94}{chapter.2}% 30
+\BOOKMARK [2][]{subsection.2.2.1}{2.2.1 M\364 h\354nh ARIMA cho chui kh\364ng c\363 t\355nh dng}{section.2.2}% 31
+\BOOKMARK [2][]{subsection.2.2.2}{2.2.2 X\341c inh m\364 h\354nh}{section.2.2}% 32
+\BOOKMARK [3][]{subsubsection.2.2.2.1}{2.2.2.1 Chun bi d liu}{subsection.2.2.2}% 33
+\BOOKMARK [3][]{subsubsection.2.2.2.2}{2.2.2.2 La chon m\364 h\354nh:}{subsection.2.2.2}% 34
+\BOOKMARK [2][]{subsection.2.2.3}{2.2.3 c lng tham s}{section.2.2}% 35
+\BOOKMARK [3][]{subsubsection.2.2.3.1}{2.2.3.1 c lng b\354nh phng ti thiu}{subsection.2.2.3}% 36
+\BOOKMARK [3][]{subsubsection.2.2.3.2}{2.2.3.2 c lng hp l\375 cc ai}{subsection.2.2.3}% 37
+\BOOKMARK [2][]{subsection.2.2.4}{2.2.4 Kim inh m\364 h\354nh}{section.2.2}% 38
+\BOOKMARK [3][]{subsubsection.2.2.4.1}{2.2.4.1 Ph\342n t\355ch sai s thng d}{subsection.2.2.4}% 39
+\BOOKMARK [2][]{subsection.2.2.5}{2.2.5 D b\341o}{section.2.2}% 40
+\BOOKMARK [1][]{section.2.3}{2.3 M\364 h\354nh mang n ron nh\342n tao}{chapter.2}% 41
+\BOOKMARK [2][]{subsection.2.3.1}{2.3.1 Kin tr\372c mang n ron}{section.2.3}% 42
+\BOOKMARK [3][]{subsubsection.2.3.1.1}{2.3.1.1 M\364 h\354nh n ron}{subsection.2.3.1}% 43
+\BOOKMARK [3][]{subsubsection.2.3.1.2}{2.3.1.2 Mang n ron nh\342n tao \(ANN\) cho b\340i to\341n d b\341o}{subsection.2.3.1}% 44
+\BOOKMARK [2][]{subsection.2.3.2}{2.3.2 Phng ph\341p hun luyn}{section.2.3}% 45
+\BOOKMARK [3][]{subsubsection.2.3.2.1}{2.3.2.1 Thut to\341n lan truyn ngc}{subsection.2.3.2}% 46
+\BOOKMARK [3][]{subsubsection.2.3.2.2}{2.3.2.2 Giai thut di truyn}{subsection.2.3.2}% 47
+\BOOKMARK [2][]{subsection.2.3.3}{2.3.3 D b\341o}{section.2.3}% 48
+\BOOKMARK [3][]{subsubsection.2.3.3.1}{2.3.3.1 Chun bi d liu}{subsection.2.3.3}% 49
+\BOOKMARK [3][]{subsubsection.2.3.3.2}{2.3.3.2 X\341c inh kin tr\372c mang}{subsection.2.3.3}% 50
+\BOOKMARK [0][]{chapter.3}{3 B\340i to\341n d b\341o tr\352n d liu Telecom}{}% 51
+\BOOKMARK [1][]{section.3.1}{3.1 D liu telecom v\340 b\340i to\341n d b\341o lu lng}{chapter.3}% 52
+\BOOKMARK [1][]{section.3.2}{3.2 Thc nghim vi ARIMA}{chapter.3}% 53
+\BOOKMARK [2][]{subsection.3.2.1}{3.2.1 X\341c inh m\364 h\354nh}{section.3.2}% 54
+\BOOKMARK [2][]{subsection.3.2.2}{3.2.2 c lng tham s}{section.3.2}% 55
+\BOOKMARK [2][]{subsection.3.2.3}{3.2.3 Kim inh m\364 h\354nh}{section.3.2}% 56
+\BOOKMARK [2][]{subsection.3.2.4}{3.2.4 D b\341o}{section.3.2}% 57
+\BOOKMARK [1][]{section.3.3}{3.3 Thc nghim vi mang n ron nh\342n tao}{chapter.3}% 58
+\BOOKMARK [2][]{subsubsection.3.3.0.1}{3.3.0.1 Phng ph\341p hun luyn lan truyn ngc}{section.3.3}% 59
+\BOOKMARK [3][]{subsubsection.3.3.0.2}{3.3.0.2 S dung giai thut di truyn}{subsubsection.3.3.0.1}% 60
+\BOOKMARK [1][]{section.3.4}{3.4 So s\341nh kt qua}{chapter.3}% 61
+\BOOKMARK [0][]{chapter.4}{4 Kt lun v\340 hng nghi\352n cu}{}% 62
+\BOOKMARK [1][]{section.4.1}{4.1 Kt qua}{chapter.4}% 63
+\BOOKMARK [1][]{section.4.2}{4.2 Kh\363 khan}{chapter.4}% 64
+\BOOKMARK [1][]{section.4.3}{4.3 Hng nghi\352n cu tip theo}{chapter.4}% 65
+\BOOKMARK [0][]{chapter*.42}{References}{}% 66
