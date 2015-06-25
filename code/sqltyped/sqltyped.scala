@@ -32,6 +32,7 @@ TypedStatement(
 	),
 	Many // Number of result
 )
+
 Ok(
 	TypedStatement(
 		List(),
@@ -43,6 +44,21 @@ Ok(
 		),
 		List(
 			TypedValue(id,(Long,-5),false,Some(person),Column(id,Table(person,None))), 
+			TypedValue(age,(Int,4),false,None,Column(age,Table(person,None))), 
+			TypedValue(salary,(Int,4),false,None,Column(salary,Table(person,None)))),Many))
+
+
+//select age * 5 as hell from person where age = ?
+
+Ok(
+	TypedStatement(
+		List(
+			TypedValue(age,(Int,4),false,None,Column(age,Table(person,None)))
+		),
+		List(TypedValue(hell,(Int,4),false,None,Column(age,Table(person,None)))),
+		true,
+		Map(Table(person,None) -> List(List(Column(id,Table(person,None))))),
+		List(TypedValue(id,(Long,-5),false,Some(person),Column(id,Table(person,None))), 
 			TypedValue(age,(Int,4),false,None,Column(age,Table(person,None))), 
 			TypedValue(salary,(Int,4),false,None,Column(salary,Table(person,None)))),Many))
 

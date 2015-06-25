@@ -96,7 +96,7 @@ http://arxiv.org/pdf/1503.01143.pdf
 // TODO:
 -Done: why do we need window?
 - Done: Spark?
-- lower boundary
+-Done: lower boundary
 - partitioned in window
 - chapter 4:
     + last part

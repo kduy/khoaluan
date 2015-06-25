@@ -29,10 +29,11 @@ object DQC{
       //reify{c.Expr[String](select).splice}
       //
       c.literal(showRaw(c.prefix.tree))
+      c.Expr[String](sqlExpr)
     }
 }
 
-  object Test {
+  object Test extends App{
     import DQC._
     val name = "name"
     println(sql"select agen from person p where $name = ?")
